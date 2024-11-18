@@ -1,6 +1,8 @@
 import os
 import openpyxl
 
+#todo создание промежуточных строк вынести в функцию и вызывать при парсинге файла
+
 class Param:
     def __init__(self):
         self.class_num = 0  # Класс числовой
@@ -28,7 +30,7 @@ class Param:
         self.date_changed = ""  # Дата изменения текстовый
         self.author = ""  # Автор текстовый
 
-def create_exel_file(fiename):
+def create_exel_file():
     wb = openpyxl.Workbook()
     # Select the first sheet
     sheet = wb.active
@@ -61,9 +63,35 @@ def create_exel_file(fiename):
         "Автор"
         ]
     
-    # Write the headers to the first row
+   # Write the headers to the first row
     for i, header in enumerate(headers):
-        sheet.cell(row=1, column=i+1).value = header
+        cell = sheet.cell(row=1, column=i+1)
+        cell.value = header
+        cell.font = openpyxl.styles.Font(bold=True)
+        cell.fill = openpyxl.styles.PatternFill(start_color='0000FF', end_color='0000FF', fill_type='solid')
+        cell.alignment = openpyxl.styles.Alignment(horizontal='center')
+        
+     # Create 8 rows with data
+    data = [
+        ["0", "А Диагностика системы"],
+        ["1", "В Параметры пользователя"],
+        ["2", "С Заводские параметры"],
+        ["3", "D Команды управления"],
+        ["4", "G. Параметры теста"],
+        ["5", "H. Скрытые параметры"],
+        ["6", "R. Технологический регистр"],
+        ["7", "E Журнал событий"]
+    ]
+    
+    for i, row in enumerate(data):
+        for j, value in enumerate(row):
+            cell = sheet.cell(row=i+2, column=j+1)
+            cell.value = value
+    
+    # Set the width of each column to the width of the text
+    for i, header in enumerate(headers):
+        sheet.column_dimensions[openpyxl.utils.get_column_letter(i+1)].width = len(header) * 1.2
+    
 
     wb.save("example.xlsx")
 
