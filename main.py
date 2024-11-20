@@ -1,6 +1,8 @@
 import os
 import openpyxl
 
+from domain import check_app_version
+
 #todo создание промежуточных строк вынести в функцию и вызывать при парсинге файла
 
 class Param:
@@ -95,7 +97,6 @@ def create_exel_file():
 
     wb.save("example.xlsx")
 
-
 def create_file(filename, text):
     with open(filename, "w", encoding="utf-8") as f:
         f.write(text)
@@ -112,8 +113,10 @@ def find_files():
 
 def main():
     #create_file("test.txt", "привет мир")
-    find_files()
-    create_exel_file()
+    #find_files()
+    #create_exel_file()
+    version = check_app_version()
+    print(version)
     
     
 if __name__ == "__main__":
