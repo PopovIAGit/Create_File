@@ -4,7 +4,10 @@ import openpyxl
 from domain import check_app_version
 from enum import Enum
 
-#todo создание промежуточных строк вынести в функцию и вызывать при парсинге файла
+#todo: Версия приложения
+#todo: забрать версию проекта и на ее основе создать файл эксель
+#todo: из коллекции созданых строк создать эксель фаил
+#todo: разложить код по модулям
 
 class ParamType(Enum):
     UNION = "UNION"
