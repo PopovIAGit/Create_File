@@ -144,6 +144,7 @@ def find_file():
     return None
 
 def find_strings(file_path, number):
+    
     with open(file_path, 'r') as file:
         lines = file.readlines()
         params_start = None
@@ -172,7 +173,8 @@ def find_strings(file_path, number):
                         result.append(parts[1].strip())
             return result
 
-
+#TODO доработай parse_file что бы он игнорировал строки начинающиеся с "//!"
+#TODO доработай parse_file что бы он из каждой строки создавал экземпляр класса Param
 def parse_file(file_path):
     with open(file_path, 'r') as file:
         lines = file.readlines()
