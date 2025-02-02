@@ -1,4 +1,5 @@
 import os
+import re
 import openpyxl
 
 from domain import check_app_version
@@ -8,17 +9,6 @@ from enum import Enum
 #todo: забрать версию проекта и на ее основе создать файл эксель
 #todo: из коллекции созданых строк создать эксель фаил
 #todo: разложить код по модулям
-
-class ParamType(Enum):
-    UNION = "UNION"
-    UINT16 = "UINT16"
-    INT16 = "INT16"
-    STR = "STR"
-
-class ParamView(Enum):
-    DEC = "DEC"
-    HEX = "HEX"
-    BIN = "BIN"
 
 class Param:
     def __init__(self):
@@ -125,7 +115,7 @@ def create_file(filename: str, text: str) -> None:
     """
     with open(filename, "w", encoding="utf-8") as f:
         f.write(text)
-
+# ready
 def find_file():
     """
     Поиск файла 'params.h' или 'menu_params.h' в текущем каталоге и его
@@ -145,61 +135,111 @@ def find_file():
     # File not found in any directory
     print("Error: Neither 'params.h' nor 'menu_params.h' found")
     return None
+# ready
+def parse_strings(file_path, start_line_number):
+    with open(file_path, 'r', encoding='Windows-1251') as file:
+        content = file.read()
 
-def find_strings(file_path, number):
-    
-    with open(file_path, 'r') as file:
-        lines = file.readlines()
-        params_start = None
-        params_end = None
-        for i, line in enumerate(lines):
-            if line.strip() == "//! Строки":
-                params_start = i
-            elif line.strip() == "//! Строки конец":
-                params_end = i
-                break
-        if params_start is not None and params_end is not None:
-            lines = lines[params_start+1:params_end]
-            result = []
-            found = False
-            for line in lines:
-                if found:
-                    if line.strip() == "//!----------------":
-                        break
-                    parts = line.split('"')
-                    if len(parts) >= 3:
-                        result.append(parts[1].strip())
-                elif "//" in line and line.split("//")[1].strip() == str(number):
-                    found = True
-                    parts = line.split('"')
-                    if len(parts) >= 3:
-                        result.append(parts[1].strip())
-            return result
+    # Находим блок между //! Строки и //! Строки конец
+    start_marker = "//! Строки"
+    end_marker = "//! Строки конец"
+    start_index = content.find(start_marker)
+    end_index = content.find(end_marker)
 
-#TODO доработай parse_file что бы он игнорировал строки начинающиеся с "//!"
-#TODO доработай parse_file что бы он из каждой строки создавал экземпляр класса Param
-def parse_file(file_path):
-    with open(file_path, 'r') as file:
-        lines = file.readlines()
-        params_start = None
-        params_end = None
-        for i, line in enumerate(lines):
-            if line.strip() == "//! Параметры":
-                params_start = i
-            elif line.strip() == "//! Параметры конец":
-                params_end = i
-                break
-        if params_start is not None and params_end is not None:
-            params_lines = lines[params_start+1:params_end]
-            # Create a dictionary to map indices to lines
-            index_lines = {}
-            for line in params_lines:
-                index = line.split('.')[0]
-                if index in index_lines:
-                    index_lines[index].append(line)
-                else:
-                    index_lines[index] = [line]
-            
+    if start_index == -1 or end_index == -1:
+        print("Error: String markers not found")
+        return []
+
+    string_block = content[start_index:end_index]
+
+    # Удаляем блоки между #if BUR_M и #else
+    string_block = re.sub(r'#if BUR_M.*?#else', '', string_block, flags=re.DOTALL)
+    # Удаляем оставшиеся #if BUR_M, #else, #endif
+    string_block = re.sub(r'#if BUR_M|#else|#endif', '', string_block)
+
+    # Разделяем на участки по //!----------------
+    sections = re.split(r'//!----------------', string_block)
+
+    result = []
+    found_start = False  # Флаг, чтобы начать добавление строк после нахождения start_line_number
+
+    for section in sections:
+        # Ищем все строки в формате "   НЕТ АВАРИЙ   ", // 35
+        matches = re.findall(r'"(.*?)", // (\d+)', section)
+        current_index = 0  # Нумерация с 0 для каждого раздела
+
+        for match in matches:
+            text, line_number = match
+            line_number = int(line_number)  # Преобразуем номер строки в число
+
+            # Если нашли строку с номером start_line_number или больше, начинаем добавлять
+            if line_number >= start_line_number:
+                found_start = True
+
+            if found_start:
+                result.append(f"{current_index}-{text.strip()};")  # Добавляем точку с запятой
+                current_index += 1
+
+        # Если нашли строки, добавляем разделитель и завершаем обработку
+        if found_start:
+            break
+
+    return result
+
+def parse_groups(file_path):
+    """
+    Парсит группы между //! Группы и //! Группы конец.
+    Преобразует строки в формат "ГРУППА X НАЗВАНИЕ".
+
+    Args:
+        file_path (str): Путь к файлу.
+
+    Returns:
+        list: Список групп в формате "ГРУППА X НАЗВАНИЕ".
+    """
+    with open(file_path, 'r', encoding='Windows-1251') as file:
+        content = file.read()
+
+    # Находим блок между //! Группы и //! Группы конец
+    start_marker = "//! Группы"
+    end_marker = "//! Группы конец"
+    start_index = content.find(start_marker)
+    end_index = content.find(end_marker)
+
+    if start_index == -1 or end_index == -1:
+        print("Error: Group markers not found")
+        return []
+
+    group_block = content[start_index:end_index]
+
+    # Ищем все строки в формате "   4 ГРУППА D   ", "    КОМАНДЫ     ", GR_INIT(GroupD, 0),
+    matches = re.findall(r'\"\s*(\d+)\s*ГРУППА\s*(\w+)\s*\"\s*,\s*\"\s*([^\"]+)\s*\"', group_block)
+
+    groups = []
+    for match in matches:
+        group_number, group_name, group_description = match
+        # Формируем строку в формате "ГРУППА X НАЗВАНИЕ"
+        group_str = f"ГРУППА {group_name} {group_description.strip()}"
+        groups.append(group_str)
+
+    return groups
+
+def get_group_index(groups, group_name):
+    """
+    Возвращает индекс группы (начиная с 0) по её названию.
+
+    Args:
+        groups (list): Список групп.
+        group_name (str): Название группы (например, "ГРУППА D КОМАНДЫ").
+
+    Returns:
+        int: Индекс группы или -1, если группа не найдена.
+    """
+    for index, group in enumerate(groups):
+        if group_name in group:
+            return index
+    return -1
+
 def main():
     """
     Главная функция программы.
@@ -221,9 +261,16 @@ def main():
     # Search for specific files in the current directory and its subdirectories
     file_path = find_file()
     
-    strings = find_strings(file_path, 260)
-    
-    print(strings)
+    if file_path:
+        # Парсим группы
+        groups = parse_groups(file_path)
+        for group in groups:
+            print(group)
+
+        # Пример получения индекса группы
+        group_name = "ГРУППА E ЖУРНАЛ"
+        group_index = get_group_index(groups, group_name)
+        print(f"Индекс группы '{group_name}': {group_index}")
     
     # Create an name of the Excel file
     #excel_file = "example.xlsx"
