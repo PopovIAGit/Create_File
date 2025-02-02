@@ -240,6 +240,93 @@ def get_group_index(groups, group_name):
             return index
     return -1
 
+
+def parse_parameters(file_path):
+    """
+    Парсит параметры между //! Параметры и //! Параметры конец.
+    Группирует параметры по группам и извлекает:
+    - имя
+    - размерность
+    - минимальное значение
+    - максимальное значение
+    - значение по умолчанию
+    - кодировку (обрабатывается отдельно)
+    - адрес параметра
+
+    Args:
+        file_path (str): Путь к файлу.
+
+    Returns:
+        dict: Словарь, где ключ — название группы, а значение — список параметров.
+              Каждый параметр представлен словарем с полями:
+              - name: имя параметра
+              - unit: размерность
+              - min_value: минимальное значение
+              - max_value: максимальное значение
+              - default_value: значение по умолчанию
+              - encoding: кодировка (сырая строка, для дальнейшей обработки)
+              - address: адрес параметра
+    """
+    with open(file_path, 'r', encoding='Windows-1251') as file:
+        content = file.read()
+
+    # Находим блок между //! Параметры и //! Параметры конец
+    start_marker = "//! Параметры"
+    end_marker = "//! Параметры конец"
+    start_index = content.find(start_marker)
+    end_index = content.find(end_marker)
+
+    if start_index == -1 or end_index == -1:
+        print("Error: Parameter markers not found")
+        return {}
+
+    parameter_block = content[start_index:end_index]
+
+    # Регулярное выражение для поиска групп и параметров
+    group_pattern = re.compile(r'//! ГРУППА (\w+) ([^\n]+)')
+    param_pattern = re.compile(
+        r'\"([^\"]+)\"\s*,\s*\"([^\"]*)\"\s*,\s*([^,]+)\s*,\s*([^,]+)\s*,\s*([^,]+)\s*,\s*([^,]+)\s*(?:,\s*//\s*(\d+))?'
+    )
+
+    # Словарь для хранения параметров по группам
+    parameters = {}
+    current_group = None
+
+    # Разделяем блок на строки
+    lines = parameter_block.splitlines()
+
+    for line in lines:
+        # Проверяем, является ли строка началом новой группы
+        group_match = group_pattern.match(line.strip())
+        if group_match:
+            current_group = group_match.group(2).strip()  # Название группы
+            parameters[current_group] = []
+            continue
+
+        # Если текущая группа определена, ищем параметры
+        if current_group:
+            param_match = param_pattern.search(line)
+            if param_match:
+                param_name = param_match.group(1).strip()  # Имя параметра
+                param_unit = param_match.group(2).strip()  # Размерность (может быть пустой)
+                min_value = param_match.group(3).strip()  # Минимальное значение
+                max_value = param_match.group(4).strip()  # Максимальное значение
+                default_value = param_match.group(5).strip()  # Значение по умолчанию
+                encoding = param_match.group(6).strip()  # Кодировка
+                address = param_match.group(7).strip() if param_match.group(7) else None  # Адрес параметра
+
+                # Добавляем параметр в текущую группу
+                parameters[current_group].append({
+                    "name": param_name,
+                    "unit": param_unit,
+                    "min_value": min_value,
+                    "max_value": max_value,
+                    "default_value": default_value,
+                    "encoding": encoding,
+                    "address": address
+                })
+
+    return parameters
 def main():
     """
     Главная функция программы.
@@ -260,17 +347,19 @@ def main():
 
     # Search for specific files in the current directory and its subdirectories
     file_path = find_file()
-    
     if file_path:
-        # Парсим группы
-        groups = parse_groups(file_path)
-        for group in groups:
-            print(group)
-
-        # Пример получения индекса группы
-        group_name = "ГРУППА E ЖУРНАЛ"
-        group_index = get_group_index(groups, group_name)
-        print(f"Индекс группы '{group_name}': {group_index}")
+    # Парсим параметры
+        parameters = parse_parameters(file_path)
+        for group, params in parameters.items():
+            print(f"Группа: {group}")
+            for param in params:
+                print(f"  Параметр: {param['name']}")
+                print(f"    Размерность: {param['unit'] if param['unit'] else 'Нет'}")
+                print(f"    Минимальное значение: {param['min_value']}")
+                print(f"    Максимальное значение: {param['max_value']}")
+                print(f"    Значение по умолчанию: {param['default_value']}")
+                print(f"    Кодировка: {param['encoding']}")
+                print(f"    Адрес: {param['address'] if param['address'] else 'Нет'}")
     
     # Create an name of the Excel file
     #excel_file = "example.xlsx"
