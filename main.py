@@ -28,7 +28,6 @@ class Param:
         self.rows = ""  # Строки текстовый
         self.description = ""  # Описание текстовый
         self.hidden = 0  # скрытый числовой
-        self.code = ""  # Код текстовый
         self.method = ""  # Методика проверки текстовый
         self.comments_user = ""  # Комментарии для пользователя текстовый
         self.comments_dev = ""  # Комментарии для разработчика текстовый
@@ -334,6 +333,84 @@ def parse_parameters(file_path):
                 })
 
     return parameters
+
+def create_param_objects(file_path):
+    """
+    Создает массив объектов Param на основе данных из файла.
+
+    Args:
+        file_path (str): Путь к файлу.
+
+    Returns:
+        list: Список объектов Param.
+    """
+    # Получаем данные из парсеров
+    groups = parse_groups(file_path)
+    parameters = parse_parameters(file_path)
+
+    # Создаем массив объектов Param
+    param_objects = []
+
+    for group in groups:
+        group_number = group["group_number"]
+        group_index = group["group_index"]
+        group_description = group["group_description"]
+
+        if group_description in parameters:
+            for param in parameters[group_description]:
+                param_obj = Param()
+
+                # Заполняем поля
+                param_obj.code = f"{group_number}.{param['param_number']}"
+                param_obj.name = f"{param['group_index']}{param['param_number']}.{param['param_name']}"
+                param_obj.units = param["unit"]
+                param_obj.address = int(param["address"]) if param["address"] else 0
+                param_obj.min_value = float(param["min_value"]) if param["min_value"] else 0
+                param_obj.max_value = float(param["max_value"]) if param["max_value"] else 0
+                param_obj.factory_setting = float(param["default_value"]) if param["default_value"] else 0
+
+                # Определяем тип
+                encoding = param["encoding"]
+                if "MT_RUN" in encoding:
+                    param_obj.type = "UNION"
+                elif "MT_DEC" in encoding:
+                    if "M_SIGN" in encoding:
+                        param_obj.type = "INT16"
+                    else:
+                        param_obj.type = "UINT16"
+                elif "MT_STR" in encoding:
+                    param_obj.type = "STR"
+                elif "MT_DATE" in encoding:
+                    param_obj.type = "DATE"
+                elif "MT_TIME" in encoding:
+                    param_obj.type = "TIME"
+
+                # Определяем record
+                if "M_RONLY" in encoding:
+                    param_obj.record = ""
+
+                # Определяем coefficient
+                prec_match = re.search(r'M_PREC\((\d+)\)', encoding)
+                if prec_match:
+                    param_obj.coefficient = int(prec_match.group(1))
+
+                # Определяем rows и description
+                sadr_match = re.search(r'M_SADR\((\d+)\)', encoding)
+                if sadr_match:
+                    line_number = int(sadr_match.group(1))
+                    strings = parse_strings(file_path, line_number)
+                    param_obj.rows = "; ".join(strings)
+                    param_obj.description = "; ".join(strings)
+
+                # Определяем hidden
+                if "M_HIDE" in encoding:
+                    param_obj.hidden = 1
+
+                # Добавляем объект в массив
+                param_objects.append(param_obj)
+
+    return param_objects
+
 def main():
     """
     Главная функция программы.
@@ -354,22 +431,28 @@ def main():
 
     # Search for specific files in the current directory and its subdirectories
     file_path = find_file()
-    if file_path:
-        groups = parse_groups(file_path)
-    # Парсим параметры
-        parameters = parse_parameters(file_path)
-        for group, params in parameters.items():
-            print(f"Группа: {group}")
-            for param in params:
-                print(f"  group_index: {param['group_index']}")
-                print(f"  param_number: {param['param_number']}")
-                print(f"  param_name: {param['param_name']}")
-                print(f"      Размерность: {param['unit'] if param['unit'] else 'Нет'}")
-                print(f"      Минимальное значение: {param['min_value']}")
-                print(f"      Максимальное значение: {param['max_value']}")
-                print(f"      Значение по умолчанию: {param['default_value']}")
-                print(f"      Кодировка: {param['encoding']}")
-                print(f"      Адрес: {param['address'] if param['address'] else 'Нет'}")
+    
+    param_objects = create_param_objects(file_path)
+
+    # Вывод результатов
+    for param in param_objects:
+        print(param.__dict__)
+    # if file_path:
+    #     groups = parse_groups(file_path)
+    # # Парсим параметры
+    #     parameters = parse_parameters(file_path)
+    #     for group, params in parameters.items():
+    #         print(f"Группа: {group}")
+    #         for param in params:
+    #             print(f"  group_index: {param['group_index']}")
+    #             print(f"  param_number: {param['param_number']}")
+    #             print(f"  param_name: {param['param_name']}")
+    #             print(f"      Размерность: {param['unit'] if param['unit'] else 'Нет'}")
+    #             print(f"      Минимальное значение: {param['min_value']}")
+    #             print(f"      Максимальное значение: {param['max_value']}")
+    #             print(f"      Значение по умолчанию: {param['default_value']}")
+    #             print(f"      Кодировка: {param['encoding']}")
+    #             print(f"      Адрес: {param['address'] if param['address'] else 'Нет'}")
     
     # Create an name of the Excel file
     #excel_file = "example.xlsx"
