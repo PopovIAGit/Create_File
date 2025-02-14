@@ -16,15 +16,15 @@ class Param:
         self.name = ""  # название текстовое
         self.value = None  # значение пустое
         self.units = ""  # Единицы измерения текстовое
-        self.type = ParamType.STR  # тип строковый
-        self.view = ParamView.DEC  # Вид строковый
+        self.type = ""  # тип строковый может быть "UNION", "UINT16", "INT16", "STR", "TIME", "DATE"
+        self.view = ""   # Вид строковый может быть "DEC", "HEX", "BIN"
         self.address = 0  # адрес числовой
         self.record = 0  # Запись числовой
         self.min_value = 0  # Минимум числовой
         self.max_value = 0  # максимум числовой
         self.factory_setting = 0  # Заводская уставка числовой
         self.coefficient = 0  # коэффициент числовой
-        self.size = 0  # размер числовой
+        self.size = 0  # размер числовой всегла 2
         self.rows = ""  # Строки текстовый
         self.description = ""  # Описание текстовый
         self.hidden = 0  # скрытый числовой
@@ -219,27 +219,14 @@ def parse_groups(file_path):
     for match in matches:
         group_number, group_name, group_description = match
         # Формируем строку в формате "ГРУППА X НАЗВАНИЕ"
-        group_str = f"ГРУППА {group_name} {group_description.strip()}"
-        groups.append(group_str)
+        group_dict = {
+            "group_number": group_number,
+            "group_index": group_name,
+            "group_description": group_description.strip()
+        }
+        groups.append(group_dict)
 
     return groups
-
-def get_group_index(groups, group_name):
-    """
-    Возвращает индекс группы (начиная с 0) по её названию.
-
-    Args:
-        groups (list): Список групп.
-        group_name (str): Название группы (например, "ГРУППА D КОМАНДЫ").
-
-    Returns:
-        int: Индекс группы или -1, если группа не найдена.
-    """
-    for index, group in enumerate(groups):
-        if group_name in group:
-            return index
-    return -1
-
 
 def parse_parameters(file_path):
     """
@@ -259,7 +246,9 @@ def parse_parameters(file_path):
     Returns:
         dict: Словарь, где ключ — название группы, а значение — список параметров.
               Каждый параметр представлен словарем с полями:
-              - name: имя параметра
+              - group_index: индекс группы (например, "Т")
+              - param_number: номер параметра (например, "0")
+              - param_name: имя параметра (например, "ТЕХНОЛ. РЕГ.")
               - unit: размерность
               - min_value: минимальное значение
               - max_value: максимальное значение
@@ -288,6 +277,10 @@ def parse_parameters(file_path):
         r'\"([^\"]+)\"\s*,\s*\"([^\"]*)\"\s*,\s*([^,]+)\s*,\s*([^,]+)\s*,\s*([^,]+)\s*,\s*([^,]+)\s*(?:,\s*//\s*(\d+))?'
     )
 
+    # Регулярное выражение для разбиения param_name на части
+    # Поддерживает русские и латинские буквы для индекса группы
+    param_name_pattern = re.compile(r'([А-Яа-яA-Za-z]+)(\d+)\.(.+)')
+
     # Словарь для хранения параметров по группам
     parameters = {}
     current_group = None
@@ -315,9 +308,23 @@ def parse_parameters(file_path):
                 encoding = param_match.group(6).strip()  # Кодировка
                 address = param_match.group(7).strip() if param_match.group(7) else None  # Адрес параметра
 
+                # Разбиваем param_name на части
+                param_name_match = param_name_pattern.match(param_name)
+                if param_name_match:
+                    group_index = param_name_match.group(1)  # Индекс группы (например, "Т")
+                    param_number = param_name_match.group(2)  # Номер параметра (например, "0")
+                    param_name_cleaned = param_name_match.group(3).strip()  # Имя параметра (например, "ТЕХНОЛ. РЕГ.")
+                else:
+                    # Если формат не совпадает, оставляем исходное имя
+                    group_index = None
+                    param_number = None
+                    param_name_cleaned = param_name
+
                 # Добавляем параметр в текущую группу
                 parameters[current_group].append({
-                    "name": param_name,
+                    "group_index": group_index,
+                    "param_number": param_number,
+                    "param_name": param_name_cleaned,
                     "unit": param_unit,
                     "min_value": min_value,
                     "max_value": max_value,
@@ -348,18 +355,21 @@ def main():
     # Search for specific files in the current directory and its subdirectories
     file_path = find_file()
     if file_path:
+        groups = parse_groups(file_path)
     # Парсим параметры
         parameters = parse_parameters(file_path)
         for group, params in parameters.items():
             print(f"Группа: {group}")
             for param in params:
-                print(f"  Параметр: {param['name']}")
-                print(f"    Размерность: {param['unit'] if param['unit'] else 'Нет'}")
-                print(f"    Минимальное значение: {param['min_value']}")
-                print(f"    Максимальное значение: {param['max_value']}")
-                print(f"    Значение по умолчанию: {param['default_value']}")
-                print(f"    Кодировка: {param['encoding']}")
-                print(f"    Адрес: {param['address'] if param['address'] else 'Нет'}")
+                print(f"  group_index: {param['group_index']}")
+                print(f"  param_number: {param['param_number']}")
+                print(f"  param_name: {param['param_name']}")
+                print(f"      Размерность: {param['unit'] if param['unit'] else 'Нет'}")
+                print(f"      Минимальное значение: {param['min_value']}")
+                print(f"      Максимальное значение: {param['max_value']}")
+                print(f"      Значение по умолчанию: {param['default_value']}")
+                print(f"      Кодировка: {param['encoding']}")
+                print(f"      Адрес: {param['address'] if param['address'] else 'Нет'}")
     
     # Create an name of the Excel file
     #excel_file = "example.xlsx"
@@ -371,7 +381,6 @@ def main():
     # Get the current version of the application
     version = check_app_version()
     print(version)
-    
     
 if __name__ == "__main__":
     main()
