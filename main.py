@@ -1,14 +1,13 @@
 import os
 import re
 import openpyxl
+from openpyxl.styles import Font, PatternFill, Alignment
 
 from domain import check_app_version
 from enum import Enum
 
-#todo: Версия приложения
-#todo: забрать версию проекта и на ее основе создать файл эксель
-#todo: из коллекции созданых строк создать эксель фаил
-#todo: разложить код по модулям
+#todo: забрать версию проекта и на ее основе создать имя файла эксель
+#todo: 
 
 class Param:
     def __init__(self):
@@ -36,16 +35,21 @@ class Param:
         self.date_changed = ""  # Дата изменения текстовый
         self.author = ""  # Автор текстовый
 
-def create_exel_file(excel_file):
+def create_excel_file(excel_file, param_objects, groups):
     """
-    Создание файла Excel с 8 строками данных и указанными заголовками.
+    Создание файла Excel на основе массива объектов Param и данных о группах.
+
+    Args:
+        excel_file (str): Путь к выходному файлу Excel.
+        param_objects (list): Список объектов Param.
+        groups (list): Список групп.
     """
-    
+    # Создаем новую книгу Excel
     wb = openpyxl.Workbook()
-    # Select the first sheet
     sheet = wb.active
-    
-    # Set the header row
+    sheet.title = "Parameters"
+
+    # Заголовки столбцов
     headers = [
         "Код",
         "Название",
@@ -71,51 +75,112 @@ def create_exel_file(excel_file):
         "Дополнительно",
         "Дата изменения",
         "Автор"
-        ]
-    
-   # Write the headers to the first row
-    for i, header in enumerate(headers):
-        cell = sheet.cell(row=1, column=i+1)
-        cell.value = header
-        cell.font = openpyxl.styles.Font(bold=True)
-        cell.fill = openpyxl.styles.PatternFill(start_color='0000FF', end_color='0000FF', fill_type='solid')
-        cell.alignment = openpyxl.styles.Alignment(horizontal='center')
-        
-     # Create 8 rows with data
-    data = [
-        ["0", "А Диагностика системы"],
-        ["1", "В Параметры пользователя"],
-        ["2", "С Заводские параметры"],
-        ["3", "D Команды управления"],
-        ["4", "G. Параметры теста"],
-        ["5", "H. Скрытые параметры"],
-        ["6", "T. Технологический регистр"],
-        ["7", "E Журнал событий"]
     ]
-    
-    for i, row in enumerate(data):
-        for j, value in enumerate(row):
-            cell = sheet.cell(row=i+2, column=j+1)
-            cell.value = value
-    
-    # Set the width of each column to the width of the text
-    for i, header in enumerate(headers):
-        sheet.column_dimensions[openpyxl.utils.get_column_letter(i+1)].width = len(header) * 1.2
-    
-    wb.save(excel_file)
 
-def create_file(filename: str, text: str) -> None:
-    """
-    Создание файла с указанным именем и текстом.
-    
-    Args:
-        filename (str): Имя файла для создания.
-        text (str): Текст для записи в файл.
-    """
-    with open(filename, "w", encoding="utf-8") as f:
-        f.write(text)
+    # Записываем заголовки в первую строку
+    for i, header in enumerate(headers):
+        cell = sheet.cell(row=1, column=i + 1)
+        cell.value = header
+        cell.font = Font(bold=True)
+        cell.fill = PatternFill(start_color="0000FF", end_color="0000FF", fill_type="solid")
+        cell.alignment = Alignment(horizontal="center")
+
+    # Заполняем данные
+    row_index = 2  # Начинаем с второй строки (первая строка — заголовки)
+
+    # Группируем параметры по группам
+    grouped_params = {}
+    for param in param_objects:
+        group_code = param.code.split(".")[0]  # Извлекаем номер группы из кода
+        if group_code not in grouped_params:
+            grouped_params[group_code] = []
+        grouped_params[group_code].append(param)
+
+    # Заливка для строки с группой (салатовый цвет)
+    group_fill = PatternFill(start_color="00FF00", end_color="00FF00", fill_type="solid")
+
+    # Записываем группы и их параметры
+    for group in groups:
+        group_number = group["group_number"]
+        group_description = group["group_description"]
+
+        # Записываем номер группы и её название в столбцы 1 и 2
+        sheet.cell(row=row_index, column=1, value=group_number)
+        sheet.cell(row=row_index, column=2, value=group_description)
+
+        # Подкрашиваем строку с группой салатовым цветом
+        for col in range(1, len(headers) + 1):
+            sheet.cell(row=row_index, column=col).fill = group_fill
+
+        row_index += 1
+
+        # Записываем параметры этой группы
+        if group_number in grouped_params:
+            for param in grouped_params[group_number]:
+                sheet.cell(row=row_index, column=1, value=param.code)
+                sheet.cell(row=row_index, column=2, value=param.name)
+                sheet.cell(row=row_index, column=3, value=param.value)
+                sheet.cell(row=row_index, column=4, value=param.units)
+                sheet.cell(row=row_index, column=5, value=param.type)
+                sheet.cell(row=row_index, column=6, value=param.view)
+                sheet.cell(row=row_index, column=7, value=param.address)
+                sheet.cell(row=row_index, column=8, value=param.record)
+                sheet.cell(row=row_index, column=9, value=param.min_value)
+                sheet.cell(row=row_index, column=10, value=param.max_value)
+                sheet.cell(row=row_index, column=11, value=param.factory_setting)
+                sheet.cell(row=row_index, column=12, value=param.coefficient)
+                sheet.cell(row=row_index, column=13, value=param.size)
+                sheet.cell(row=row_index, column=14, value=param.rows)
+                sheet.cell(row=row_index, column=15, value=param.description)
+                sheet.cell(row=row_index, column=16, value=param.hidden)
+                sheet.cell(row=row_index, column=17, value=param.method)
+                sheet.cell(row=row_index, column=18, value=param.comments_user)
+                sheet.cell(row=row_index, column=19, value=param.comments_dev)
+                sheet.cell(row=row_index, column=20, value=param.recommendations)
+                sheet.cell(row=row_index, column=21, value=param.additional)
+                sheet.cell(row=row_index, column=22, value=param.date_changed)
+                sheet.cell(row=row_index, column=23, value=param.author)
+                row_index += 1
+
+    # Автоматическое выравнивание ширины столбцов
+    for col in sheet.columns:
+        max_length = 0
+        column = col[0].column_letter  # Получаем букву столбца
+        for cell in col:
+            try:
+                if len(str(cell.value)) > max_length:
+                    max_length = len(str(cell.value))
+            except:
+                pass
+        adjusted_width = (max_length + 2) * 1.2
+        sheet.column_dimensions[column].width = adjusted_width
+
+    # Сохраняем файл
+    wb.save(excel_file)
+    print(f"Файл {excel_file} успешно создан.")
+            
 # ready
-def find_file():
+def find_version_file():
+    """
+    Поиск файла 'project_version.h' или 'config.h' в текущем каталоге и его
+    подкаталогах.
+
+    Returns:
+        str: Путь найденного файла или None, если файл не найден
+    """
+    filenames = ["project_version.h", "config.h"]
+    for filename in filenames:
+        # Walk through the directory tree
+        for root, dirs, files in os.walk("."):
+            # Check if the current filename is in the list of files
+            if filename in files:
+                return os.path.join(root, filename)
+
+    # File not found in any directory
+    print("Error: Neither 'project_version.h' nor 'config.h' found")
+    return None
+    
+def find_param_file():
     """
     Поиск файла 'params.h' или 'menu_params.h' в текущем каталоге и его
     подкаталогах.
@@ -176,7 +241,7 @@ def parse_strings(file_path, start_line_number):
                 found_start = True
 
             if found_start:
-                result.append(f"{current_index}-{text.strip()};")  # Добавляем точку с запятой
+                result.append(f"{current_index}-{text.strip()}")  # Добавляем точку с запятой
                 current_index += 1
 
         # Если нашли строки, добавляем разделитель и завершаем обработку
@@ -364,16 +429,20 @@ def create_param_objects(file_path):
                 param_obj.code = f"{group_number}.{param['param_number']}"
                 param_obj.name = f"{param['group_index']}{param['param_number']}.{param['param_name']}"
                 param_obj.units = param["unit"]
-                param_obj.address = int(param["address"]) if param["address"] else 0
-                param_obj.min_value = float(param["min_value"]) if param["min_value"] else 0
-                param_obj.max_value = float(param["max_value"]) if param["max_value"] else 0
-                param_obj.factory_setting = float(param["default_value"]) if param["default_value"] else 0
+                param_obj.address = str(param["address"]) if param["address"] else ""
+                param_obj.view = "DEC"  
+                
+                # Очищаем и преобразуем числовые значения
+                param_obj.min_value = clean_number(param["min_value"])
+                param_obj.max_value = clean_number(param["max_value"])
+                param_obj.factory_setting = clean_number(param["default_value"])
+                param_obj.size = "2"
 
                 # Определяем тип
                 encoding = param["encoding"]
                 if "MT_RUN" in encoding:
                     param_obj.type = "UNION"
-                elif "MT_DEC" in encoding:
+                elif "MT_DEC" or "MT_BIN" in encoding:
                     if "M_SIGN" in encoding:
                         param_obj.type = "INT16"
                     else:
@@ -388,11 +457,15 @@ def create_param_objects(file_path):
                 # Определяем record
                 if "M_RONLY" in encoding:
                     param_obj.record = ""
+                else:
+                    param_obj.record = "1"
 
                 # Определяем coefficient
                 prec_match = re.search(r'M_PREC\((\d+)\)', encoding)
                 if prec_match:
-                    param_obj.coefficient = int(prec_match.group(1))
+                    param_obj.coefficient = str(prec_match.group(1))
+                else:
+                    param_obj.coefficient = ""
 
                 # Определяем rows и description
                 sadr_match = re.search(r'M_SADR\((\d+)\)', encoding)
@@ -404,13 +477,70 @@ def create_param_objects(file_path):
 
                 # Определяем hidden
                 if "M_HIDE" in encoding:
-                    param_obj.hidden = 1
+                    param_obj.hidden = "1"
+                else:
+                    param_obj.hidden = ""
 
                 # Добавляем объект в массив
                 param_objects.append(param_obj)
 
     return param_objects
 
+def parse_version(file_path):
+    """
+    Парсит файл и извлекает значения для ключей:
+    - DEVICE_NAME
+    - DEVICE_GROUP
+    - VERSION
+    - MODULE_VERSION
+    - SUBVERSION
+
+    Args:
+        file_path (str): Путь к файлу.
+
+    Returns:
+        dict: Словарь с ключами и их значениями (все значения в виде строк).
+    """
+    with open(file_path, 'r', encoding='Windows-1251') as file:
+        content = file.read()
+
+    # Словарь для хранения результатов
+    result = {
+        "DEVICE_NAME": "",
+        "DEVICE_GROUP": "",
+        "VERSION": "",
+        "MODULE_VERSION": "",
+        "SUBVERSION": ""
+    }
+
+    # Регулярное выражение для поиска строк вида #define KEY "VALUE" или #define KEY VALUE
+    pattern = re.compile(r'#define\s+({})\s+(?:"([^"]+)"|(\S+))'.format("|".join(result.keys())))
+
+    # Ищем все совпадения
+    matches = pattern.findall(content)
+
+    # Заполняем словарь найденными значениями
+    for key, value_quoted, value_unquoted in matches:
+        # Если значение в кавычках, используем его, иначе используем значение без кавычек
+        value = value_quoted if value_quoted else value_unquoted
+        result[key] = str(value)  # Преобразуем значение в строку
+
+    return result
+        
+def clean_number(value):
+    """
+    Очищает строку от нечисловых символов (кроме минуса и точки) и преобразует в число.
+    Если значение пустое или некорректное, возвращает 0.
+    """
+    if not value:
+        return 0
+    # Удаляем все символы, кроме цифр, минуса и точки
+    cleaned_value = re.sub(r"[^0-9\-.]", "", value)
+    try:
+        return str(cleaned_value)
+    except ValueError:
+        return ""
+    
 def main():
     """
     Главная функция программы.
@@ -426,40 +556,23 @@ def main():
     Returns:
         None
     """
-    # Create a text file with the specified text
-    #create_file("test.txt", " ")
+    file_param_path = find_version_file()
+    
+    version_info = parse_version(file_param_path)
+    
+    print(version_info)
+    
+    excel_file = "Viewer_"+".".join(value for value in version_info.values() if value) + ".xlsx"  # Укажите имя выходного файла Excel
 
     # Search for specific files in the current directory and its subdirectories
-    file_path = find_file()
-    
-    param_objects = create_param_objects(file_path)
+    file_param_path = find_param_file()
 
-    # Вывод результатов
-    for param in param_objects:
-        print(param.__dict__)
-    # if file_path:
-    #     groups = parse_groups(file_path)
-    # # Парсим параметры
-    #     parameters = parse_parameters(file_path)
-    #     for group, params in parameters.items():
-    #         print(f"Группа: {group}")
-    #         for param in params:
-    #             print(f"  group_index: {param['group_index']}")
-    #             print(f"  param_number: {param['param_number']}")
-    #             print(f"  param_name: {param['param_name']}")
-    #             print(f"      Размерность: {param['unit'] if param['unit'] else 'Нет'}")
-    #             print(f"      Минимальное значение: {param['min_value']}")
-    #             print(f"      Максимальное значение: {param['max_value']}")
-    #             print(f"      Значение по умолчанию: {param['default_value']}")
-    #             print(f"      Кодировка: {param['encoding']}")
-    #             print(f"      Адрес: {param['address'] if param['address'] else 'Нет'}")
-    
-    # Create an name of the Excel file
-    #excel_file = "example.xlsx"
-    # Create an Excel file
-    #create_exel_file(excel_file)
-    # Parse the file
-    #parse_file(file_path, excel_file)
+    # Получаем данные
+    groups = parse_groups(file_param_path)
+    param_objects = create_param_objects(file_param_path)
+
+    # Создаем Excel-файл
+    create_excel_file(excel_file, param_objects, groups)
 
     # Get the current version of the application
     version = check_app_version()
