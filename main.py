@@ -1,5 +1,6 @@
 import os
 import re
+from tkinter import NO
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment
 
@@ -413,6 +414,8 @@ def create_param_objects(file_path):
     groups = parse_groups(file_path)
     parameters = parse_parameters(file_path)
 
+    
+
     # Создаем массив объектов Param
     param_objects = []
 
@@ -421,13 +424,24 @@ def create_param_objects(file_path):
         group_index = group["group_index"]
         group_description = group["group_description"]
 
+        param_counter = 0  # Инициализируем счетчик 
+
         if group_description in parameters:
             for param in parameters[group_description]:
                 param_obj = Param()
 
-                # Заполняем поля
-                param_obj.code = f"{group_number}.{param['param_number']}"
-                param_obj.name = f"{param['group_index']}{param['param_number']}.{param['param_name']}"
+                # Заполняем поля                                
+                
+                param_obj.code = f"{group_number}.{param_counter}"
+                param_counter += 1  # Увеличиваем счетчик
+
+                if param["param_number"] is None:
+                    param_obj.name = f"{param['param_name']}"
+                else:
+                    param_obj.name = f"{param['group_index']}{param['param_number']}.{param['param_name']}"
+
+                
+                    
                 param_obj.units = param["unit"]
                 param_obj.address = str(param["address"]) if param["address"] else ""
                 param_obj.view = "DEC"  
@@ -562,7 +576,7 @@ def main():
     
     print(version_info)
     
-    excel_file = "Viewer_"+".".join(value for value in version_info.values() if value) + ".xlsx"  # Укажите имя выходного файла Excel
+    excel_file = "Viewer_"+".".join(value for value in version_info.values() if value) + ".xls"  # Укажите имя выходного файла Excel
 
     # Search for specific files in the current directory and its subdirectories
     file_param_path = find_param_file()
