@@ -562,17 +562,33 @@ def clean_number(value):
         return ""
     
 def folder_path(value):
-
+    """
+    Создаю папку с версией Viewer для записии туда файлов 
+    """
     # Создаем объект Path для родительской папки
     parent_folder = Path("Description")
 
     # Указываем путь к вложенной папке
-    subfolder = parent_folder / f"Viewer_{value['DEVICE_NAME']}_v{value['DEVICE_GROUP']}.{value['VERSION']}.{value['MODULE_VERSION']}.{value['SUBVERSION']}"
+    subfolder = parent_folder / value
 
     if not os.path.exists(subfolder):
         os.makedirs(subfolder)  # Создает папку и все промежуточные папки
 
     return  subfolder
+
+def create_param_Description(Description_file,version_info):
+
+    with open(Description_file, 'w', encoding='Windows-1251') as file:
+        file.write("[Creator]\n")
+        file.write("Version=1\n")
+        file.write("[General]\n")
+        file.write(f"DeviceName={version_info['DEVICE_GROUP']}\n")
+        file.write(f"SoftVersion={version_info['VERSION']}.{version_info['SUBVERSION']}\n")
+        file.write("Description=Блок контроля электропривода. Производство АО \"Томзэл\"\n")
+        file.write("Photo=0\n")
+        file.write("Manual=0\n")
+
+    
 
 def main():
     """
@@ -601,12 +617,15 @@ def main():
     # Получаем данные
     groups = parse_groups(file_param_path)
     param_objects = create_param_objects(file_param_path)
-
-
+    name_file = f"Viewer_{version_info['DEVICE_NAME']}_v{version_info['DEVICE_GROUP']}.{version_info['VERSION']}.{version_info['MODULE_VERSION']}.{version_info['SUBVERSION']}"
 
     # Создаем Excel-файл
     
-    excel_file = folder_path(version_info) / f"Viewer_{version_info['DEVICE_NAME']}_v{version_info['DEVICE_GROUP']}.{version_info['VERSION']}.{version_info['MODULE_VERSION']}.{version_info['SUBVERSION']}.xls"
+    excel_file = folder_path(name_file) / f"{name_file}.xlsx"
+    Description_file = folder_path(name_file) / f"{name_file}.dfi"
+    create_param_Description(Description_file, version_info)
+
+
 
     try:
         create_excel_file(excel_file, param_objects, groups)
