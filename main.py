@@ -3,6 +3,7 @@ import re
 from tkinter import NO
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment
+from pathlib import Path
 
 from domain import check_app_version
 from enum import Enum
@@ -83,7 +84,7 @@ def create_excel_file(excel_file, param_objects, groups):
         cell = sheet.cell(row=1, column=i + 1)
         cell.value = header
         cell.font = Font(bold=True)
-        cell.fill = PatternFill(start_color="0000FF", end_color="0000FF", fill_type="solid")
+        cell.fill = PatternFill(start_color="67a0ef", end_color="67a0ef", fill_type="solid")
         cell.alignment = Alignment(horizontal="center")
 
     # Заполняем данные
@@ -98,16 +99,17 @@ def create_excel_file(excel_file, param_objects, groups):
         grouped_params[group_code].append(param)
 
     # Заливка для строки с группой (салатовый цвет)
-    group_fill = PatternFill(start_color="00FF00", end_color="00FF00", fill_type="solid")
+    group_fill = PatternFill(start_color="09c850", end_color="09c850", fill_type="solid")
 
     # Записываем группы и их параметры
     for group in groups:
         group_number = group["group_number"]
+        group_index = group["group_index"]
         group_description = group["group_description"]
 
         # Записываем номер группы и её название в столбцы 1 и 2
         sheet.cell(row=row_index, column=1, value=group_number)
-        sheet.cell(row=row_index, column=2, value=group_description)
+        sheet.cell(row=row_index, column=2, value= group_index + ". " + group_description)
 
         # Подкрашиваем строку с группой салатовым цветом
         for col in range(1, len(headers) + 1):
@@ -229,8 +231,10 @@ def parse_strings(file_path, start_line_number):
     found_start = False  # Флаг, чтобы начать добавление строк после нахождения start_line_number
 
     for section in sections:
+
         # Ищем все строки в формате "   НЕТ АВАРИЙ   ", // 35
-        matches = re.findall(r'"(.*?)", // (\d+)', section)
+        matches = re.findall(r'"(.*?)",\s*//\s*(\d+)', section)
+        print(matches)
         current_index = 0  # Нумерация с 0 для каждого раздела
 
         for match in matches:
@@ -439,9 +443,7 @@ def create_param_objects(file_path):
                     param_obj.name = f"{param['param_name']}"
                 else:
                     param_obj.name = f"{param['group_index']}{param['param_number']}.{param['param_name']}"
-
-                
-                    
+                                  
                 param_obj.units = param["unit"]
                 param_obj.address = str(param["address"]) if param["address"] else ""
                 param_obj.view = "DEC"  
@@ -454,22 +456,24 @@ def create_param_objects(file_path):
 
                 # Определяем тип
                 encoding = param["encoding"]
-                if "MT_RUN" in encoding:
+                if "MT_RUN" in encoding or "M_RUNS" in encoding:
                     param_obj.type = "UNION"
-                elif "MT_DEC" or "MT_BIN" in encoding:
+                elif "MT_DEC" in encoding or "MT_BIN" in encoding or "M_RMAX" in encoding:
                     if "M_SIGN" in encoding:
                         param_obj.type = "INT16"
                     else:
                         param_obj.type = "UINT16"
-                elif "MT_STR" in encoding:
+                elif "MT_STR" in encoding or "M_STAT" in encoding or "M_CODE" in encoding or "M_COMM" in encoding:
                     param_obj.type = "STR"
-                elif "MT_DATE" in encoding:
+                elif "MT_DATE" in encoding or "M_DATE" in encoding:
+                    param_obj.units = "ЧЧ:ММ:ГГГГ"  # Применяем формат
                     param_obj.type = "DATE"
-                elif "MT_TIME" in encoding:
+                elif "MT_TIME" in encoding or "M_TIME" in encoding:
+                    param_obj.units = "ЧЧ:ММ"  # Применяем формат
                     param_obj.type = "TIME"
 
                 # Определяем record
-                if "M_RONLY" in encoding:
+                if "M_RONLY" in encoding or "M_NVM" not in encoding:
                     param_obj.record = ""
                 else:
                     param_obj.record = "1"
@@ -478,6 +482,8 @@ def create_param_objects(file_path):
                 prec_match = re.search(r'M_PREC\((\d+)\)', encoding)
                 if prec_match:
                     param_obj.coefficient = str(prec_match.group(1))
+                    param_obj.max_value =str(int(param_obj.max_value)/(10**int(param_obj.coefficient)))
+                    param_obj.min_value =str(int(param_obj.min_value)/(10**int(param_obj.coefficient)))
                 else:
                     param_obj.coefficient = ""
 
@@ -490,7 +496,7 @@ def create_param_objects(file_path):
                     param_obj.description = "; ".join(strings)
 
                 # Определяем hidden
-                if "M_HIDE" in encoding:
+                if "M_HIDE" in encoding or "M_SHOW" in encoding:
                     param_obj.hidden = "1"
                 else:
                     param_obj.hidden = ""
@@ -555,6 +561,19 @@ def clean_number(value):
     except ValueError:
         return ""
     
+def folder_path(value):
+
+    # Создаем объект Path для родительской папки
+    parent_folder = Path("Description")
+
+    # Указываем путь к вложенной папке
+    subfolder = parent_folder / f"Viewer_{value['DEVICE_NAME']}_v{value['DEVICE_GROUP']}.{value['VERSION']}.{value['MODULE_VERSION']}.{value['SUBVERSION']}"
+
+    if not os.path.exists(subfolder):
+        os.makedirs(subfolder)  # Создает папку и все промежуточные папки
+
+    return  subfolder
+
 def main():
     """
     Главная функция программы.
@@ -576,8 +595,6 @@ def main():
     
     print(version_info)
     
-    excel_file = "Viewer_"+".".join(value for value in version_info.values() if value) + ".xls"  # Укажите имя выходного файла Excel
-
     # Search for specific files in the current directory and its subdirectories
     file_param_path = find_param_file()
 
@@ -585,8 +602,18 @@ def main():
     groups = parse_groups(file_param_path)
     param_objects = create_param_objects(file_param_path)
 
+
+
     # Создаем Excel-файл
-    create_excel_file(excel_file, param_objects, groups)
+    
+    excel_file = folder_path(version_info) / f"Viewer_{version_info['DEVICE_NAME']}_v{version_info['DEVICE_GROUP']}.{version_info['VERSION']}.{version_info['MODULE_VERSION']}.{version_info['SUBVERSION']}.xls"
+
+    try:
+        create_excel_file(excel_file, param_objects, groups)
+
+    except Exception as e:
+        print(f"Ошибка при создании файла: {e}")
+
 
     # Get the current version of the application
     version = check_app_version()
