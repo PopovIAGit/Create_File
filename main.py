@@ -197,7 +197,10 @@ def find_param_file():
         for root, dirs, files in os.walk("."):
             # Check if the current filename is in the list of files
             if filename in files:
-                return os.path.join(root, filename)
+                file_path = os.path.join(root, filename)
+                if not os.path.isfile(file_path):
+                    raise ValueError(f"File {file_path} does not exist")
+                return file_path
 
     # File not found in any directory
     print("Error: Neither 'params.h' nor 'menu_params.h' found")
@@ -521,8 +524,17 @@ def parse_version(file_path):
     Returns:
         dict: Словарь с ключами и их значениями (все значения в виде строк).
     """
-    with open(file_path, 'r', encoding='Windows-1251') as file:
-        content = file.read()
+    if not file_path:
+        raise ValueError("file_path is null or empty")
+
+    if not os.path.isfile(file_path):
+        raise FileNotFoundError(f"File {file_path} does not exist")
+
+    try:
+        with open(file_path, 'r', encoding='Windows-1251') as file:
+            content = file.read()
+    except IOError as e:
+        raise IOError(f"Error reading file {file_path}: {e}")
 
     # Словарь для хранения результатов
     result = {
@@ -543,6 +555,8 @@ def parse_version(file_path):
     for key, value_quoted, value_unquoted in matches:
         # Если значение в кавычках, используем его, иначе используем значение без кавычек
         value = value_quoted if value_quoted else value_unquoted
+        if not value:
+            raise ValueError(f"Value for key {key} is null or empty")
         result[key] = str(value)  # Преобразуем значение в строку
 
     return result
@@ -608,7 +622,7 @@ def main():
     file_param_path = find_version_file()
     
     version_info = parse_version(file_param_path)
-    
+
     print(version_info)
     
     # Search for specific files in the current directory and its subdirectories
