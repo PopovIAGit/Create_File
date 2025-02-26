@@ -1,12 +1,25 @@
 import os
 import re
-from tkinter import NO
-import openpyxl
-from openpyxl.styles import Font, PatternFill, Alignment
+from tkinter import NO, SE
+#import openpyxl
+#from openpyxl.styles import Font, PatternFill, Alignment
+
+import xlwt
+
+import xml.etree.ElementTree as ET
+from xml.dom import minidom
+import re
+
 from pathlib import Path
+
+from Crypto.Cipher import DES3
+from Crypto.Util.Padding import pad, unpad
+from Crypto.Random import get_random_bytes
 
 from domain import check_app_version
 from enum import Enum
+
+from pathlib import Path
 
 #todo: забрать версию проекта и на ее основе создать имя файла эксель
 #todo: 
@@ -36,7 +49,9 @@ class Param:
         self.additional = ""  # Дополнительно текстовый
         self.date_changed = ""  # Дата изменения текстовый
         self.author = ""  # Автор текстовый
-
+        self.appointment = "" #
+        self.chosen = "" #
+'''
 def create_excel_file(excel_file, param_objects, groups):
     """
     Создание файла Excel на основе массива объектов Param и данных о группах.
@@ -161,7 +176,99 @@ def create_excel_file(excel_file, param_objects, groups):
     # Сохраняем файл
     wb.save(excel_file)
     print(f"Файл {excel_file} успешно создан.")
-            
+'''
+
+def create_excel_file(excel_file, param_objects, groups):
+    """
+    Создание файла Excel на основе массива объектов Param и данных о группах.
+
+    Args:
+        excel_file (str): Путь к выходному файлу Excel.
+        param_objects (list): Список объектов Param.
+        groups (list): Список групп.
+    """
+    # Создаем новую книгу Excel
+    wb = xlwt.Workbook()
+    sheet = wb.add_sheet("Parameters")
+
+    # Заголовки столбцов
+    headers = [
+        "Код", "Название", "Значение", "Ед. изм.", "Тип", "Вид", "Адрес", "Запись", "Мин.", "Макс.",
+        "Завод. установ.", "Коэф-т", "Размер", "Строки", "Описание стр. значений/битов", "Скрытый",
+        "Описание", "Комментарии для пользователя", "Методика проверки", "Комментарии для разработчика",
+        "Рекомендации (что делать, если не работает)", "Дополнительно", "Дата изменения", "Автор"
+    ]
+
+    # Стили для заголовков и групп
+    header_style = xlwt.easyxf('font: bold on; align: horiz center; pattern: pattern solid, fore_colour light_blue;')
+    group_style = xlwt.easyxf('pattern: pattern solid, fore_colour light_green;')
+
+    # Записываем заголовки в первую строку
+    for i, header in enumerate(headers):
+        sheet.write(0, i, header, header_style)
+
+    # Заполняем данные
+    row_index = 1  # Начинаем с второй строки (первая строка — заголовки)
+
+    # Группируем параметры по группам
+    grouped_params = {}
+    for param in param_objects:
+        group_code = param.code.split(".")[0]  # Извлекаем номер группы из кода
+        if group_code not in grouped_params:
+            grouped_params[group_code] = []
+        grouped_params[group_code].append(param)
+
+    # Записываем группы и их параметры
+    for group in groups:
+        group_number = group["group_number"]
+        group_index = group["group_index"]
+        group_description = group["group_description"]
+
+        # Записываем номер группы и её название в столбцы 1 и 2
+        sheet.write(row_index, 0, group_number, group_style)
+        sheet.write(row_index, 1, f"{group_index}. {group_description}", group_style)
+
+        # Применяем стиль группы ко всей строке
+        for col in range(2, len(headers)):  # Начинаем с третьего столбца, так как первые два уже заполнены
+            sheet.write(row_index, col, "", group_style)
+
+        row_index += 1  # Переходим на следующую строку для параметров
+
+        # Записываем параметры этой группы
+        if group_number in grouped_params:
+            for param in grouped_params[group_number]:
+                sheet.write(row_index, 0, param.code)
+                sheet.write(row_index, 1, param.name)
+                sheet.write(row_index, 2, param.value)
+                sheet.write(row_index, 3, param.units)
+                sheet.write(row_index, 4, param.type)
+                sheet.write(row_index, 5, param.view)
+                sheet.write(row_index, 6, param.address)
+                sheet.write(row_index, 7, param.record)
+                sheet.write(row_index, 8, param.min_value)
+                sheet.write(row_index, 9, param.max_value)
+                sheet.write(row_index, 10, param.factory_setting)
+                sheet.write(row_index, 11, param.coefficient)
+                sheet.write(row_index, 12, param.size)
+                sheet.write(row_index, 13, param.rows)
+                sheet.write(row_index, 14, param.description)
+                sheet.write(row_index, 15, param.hidden)
+                sheet.write(row_index, 16, param.method)
+                sheet.write(row_index, 17, param.comments_user)
+                sheet.write(row_index, 18, param.comments_dev)
+                sheet.write(row_index, 19, param.recommendations)
+                sheet.write(row_index, 20, param.additional)
+                sheet.write(row_index, 21, param.date_changed)
+                sheet.write(row_index, 22, param.author)
+                sheet.write(row_index, 23, param.appointment)
+                sheet.write(row_index, 24, param.chosen)
+                row_index += 1  # Переходим на следующую строку для следующего параметра
+
+    # Сохраняем файл
+    wb.save(excel_file)
+    print(f"Файл {excel_file} успешно создан.")
+          
+
 # ready
 def find_version_file():
     """
@@ -324,6 +431,7 @@ def parse_parameters(file_path):
               - default_value: значение по умолчанию
               - encoding: кодировка (сырая строка, для дальнейшей обработки)
               - address: адрес параметра
+              - appointment: назначение параметра
     """
     with open(file_path, 'r', encoding='Windows-1251') as file:
         content = file.read()
@@ -341,9 +449,9 @@ def parse_parameters(file_path):
     parameter_block = content[start_index:end_index]
 
     # Регулярное выражение для поиска групп и параметров
-    group_pattern = re.compile(r'//! ГРУППА (\w+) ([^\n]+)')
+    group_pattern = re.compile(r'//! ГРУППА (\w+) ([^{]+)')
     param_pattern = re.compile(
-        r'\"([^\"]+)\"\s*,\s*\"([^\"]*)\"\s*,\s*([^,]+)\s*,\s*([^,]+)\s*,\s*([^,]+)\s*,\s*([^,]+)\s*(?:,\s*//\s*(\d+))?'
+        r'\"([^\"]+)\"\s*,\s*\"([^\"]*)\"\s*,\s*([^,]+)\s*,\s*([^,]+)\s*,\s*([^,]+)\s*,\s*([^,]+)\s*(?:,\s*//\s*{\s*(\d+)\s*,\s*([^,}]+)\s*,\s*([^,}]+)\s*}\s*)?'
     )
 
     # Регулярное выражение для разбиения param_name на части
@@ -376,6 +484,8 @@ def parse_parameters(file_path):
                 default_value = param_match.group(5).strip()  # Значение по умолчанию
                 encoding = param_match.group(6).strip()  # Кодировка
                 address = param_match.group(7).strip() if param_match.group(7) else None  # Адрес параметра
+                appointment = param_match.group(8).strip() if param_match.group(8) else None  # Назначение параметра
+                chosen = param_match.group(9).strip() if param_match.group(9) else None  # Назначение параметра
 
                 # Разбиваем param_name на части
                 param_name_match = param_name_pattern.match(param_name)
@@ -399,7 +509,9 @@ def parse_parameters(file_path):
                     "max_value": max_value,
                     "default_value": default_value,
                     "encoding": encoding,
-                    "address": address
+                    "address": address,
+                    "appointment": appointment,
+                    "chosen": chosen
                 })
 
     return parameters
@@ -496,7 +608,7 @@ def create_param_objects(file_path):
                     param_obj.description = "; ".join(strings)
 
                 # Определяем hidden
-                if "M_HIDE" in encoding or "M_SHOW" in encoding:
+                if "M_HIDE" in encoding:
                     param_obj.hidden = "1"
                 else:
                     param_obj.hidden = ""
@@ -582,13 +694,202 @@ def create_param_Description(Description_file,version_info):
         file.write("[Creator]\n")
         file.write("Version=1\n")
         file.write("[General]\n")
-        file.write(f"DeviceName={version_info['DEVICE_GROUP']}\n")
+        file.write(f"DeviceName={version_info['DEVICE_NAME']}_Tomzel\n")
         file.write(f"SoftVersion={version_info['VERSION']}.{version_info['SUBVERSION']}\n")
         file.write("Description=Блок контроля электропривода. Производство АО \"Томзэл\"\n")
         file.write("Photo=0\n")
         file.write("Manual=0\n")
 
-    
+
+
+import xml.etree.ElementTree as ET
+from xml.dom import minidom
+import re
+
+def create_xml(file_path, version_info):
+    """
+    Создает XML-файл на основе данных о группах и параметрах.
+
+    Args:
+        file_path (str): Путь к файлу с данными.
+        version_info (dict): Словарь с информацией о версии (например, DEVICE_NAME).
+
+    Returns:
+        xml.etree.ElementTree.Element: Корневой элемент XML-документа.
+    """
+    try:
+        # Парсим группы
+        groups = parse_groups(file_path)
+        if groups is None:
+            print("Ошибка: parse_groups вернул None")
+            return None
+
+        # Создаем корневой элемент
+        root = ET.Element("Table")
+        root.set("DeviceId", "4003")
+        root.set("DeviceName", version_info['DEVICE_NAME'])
+        root.set("FirmwareVersion", "1150")
+
+        # Парсим параметры
+        parameters = parse_parameters(file_path)
+        if parameters is None:
+            print("Ошибка: parse_parameters вернул None")
+            return None
+
+        # Добавляем группы в XML
+        for group in groups:
+            group_element = ET.SubElement(root, "Group")
+            group_element.set("Name", f"ГРУППА {group['group_number']} {group['group_index']}")
+            group_element.set("Type", "Show")
+            group_element.set("Description", group["group_description"])
+
+            # Добавляем параметры, если они есть для этой группы
+            group_description = group["group_description"]
+            if group_description in parameters:
+                group_params = parameters[group_description]
+                if group_params is None:
+                    print(f"Ошибка: параметры для группы {group_description} отсутствуют")
+                    continue
+
+                for param in group_params:
+                    # Создаем элемент Parameter
+                    parameter = ET.SubElement(group_element, "Parameter")
+                    parameter.set("Index", f"{param['group_index']}{param['param_number']}")
+                    parameter.set("Name", param["param_name"])
+
+                    # Добавляем Address
+                    address = ET.SubElement(parameter, "Address")
+                    address.text = str(param.get("address", "None"))  # Используем значение по умолчанию, если адрес не указан
+
+                    # Добавляем Configuration
+                    config = ET.SubElement(parameter, "Configuration")
+                    ET.SubElement(config, "Type").text = param.get("config_type", "None")
+                    ET.SubElement(config, "Appointment").text = param.get("appointment", "Status")
+                    
+                    chosen = param.get("chosen")
+                    if chosen != "":
+                        ET.SubElement(config, "Chosen").text = param.get("chosen", "")
+                    
+                    # Определяем record
+                    encoding = param["encoding"]
+                    if "M_RONLY" in encoding or "M_NVM" in encoding:           
+                        ET.SubElement(config, "CanEdit").text = param.get("canEdit", "True")
+
+                    # Добавляем ValueDescription
+                    value_desc = ET.SubElement(parameter, "ValueDescription")
+                    ET.SubElement(value_desc, "Minimum").text = str(param.get("min_value", "None"))
+                    ET.SubElement(value_desc, "Maximum").text = str(param.get("max_value", "None"))
+                    ET.SubElement(value_desc, "Default").text = str(param.get("default_value", "None"))
+
+                    unit = param["unit"]
+                    if unit != "":
+                        ET.SubElement(value_desc, "Unit").text = unit
+
+                    encoding = param["encoding"]
+                    if "MT_RUN" in encoding or "M_RUNS" in encoding:
+                        ET.SubElement(value_desc, "Type").text = param.get("value_type", "Union")
+                    elif "MT_DEC" in encoding or "M_RMAX" in encoding:
+                        if "M_SIGN" in encoding:
+                            ET.SubElement(value_desc, "Type").text = param.get("value_type", "Int")
+                        else:
+                            ET.SubElement(value_desc, "Type").text = param.get("value_type", "Uns")
+                    elif "MT_BIN" in encoding or "M_BIN" in encoding:
+                        ET.SubElement(value_desc, "Type").text = param.get("value_type", "Bin")
+
+
+                    elif "MT_STR" in encoding or "M_STAT" in encoding or "M_CODE" in encoding or "M_COMM" in encoding:
+                        ET.SubElement(value_desc, "Type").text ="Enum"
+                    elif "MT_DATE" in encoding or "M_DATE" in encoding:
+                        ET.SubElement(value_desc, "Type").text = "Date"
+                    elif "MT_TIME" in encoding or "M_TIME" in encoding:
+                        ET.SubElement(value_desc, "Type").text = "Time"
+
+                    # Обработка M_SADR (если требуется)
+                    if "encoding" in param:
+                        encoding = param["encoding"]
+                        sadr_match = re.search(r'M_SADR\((\d+)\)', encoding)
+                        if sadr_match:
+                            line_number = int(sadr_match.group(1))
+                            strings = parse_strings(file_path, line_number)
+                            if strings is None:
+                                print(f"Ошибка: parse_strings вернул None для строки {line_number}")
+                                continue
+
+                            # Создаем элемент <Fields>, если он еще не существует
+                            if "Fields" not in value_desc:
+                                fields_elem = ET.SubElement(value_desc, "Fields")
+                            else:
+                                fields_elem = value_desc.find("Fields")
+
+                            # Обрабатываем каждую строку
+                            for string in strings:
+                                if "-" in string:
+                                    bit_value, description = string.split("-", 1)
+                                    field_elem = ET.SubElement(fields_elem, "Field")
+                                    field_elem.set("BitValue", bit_value.strip())
+                                    field_elem.set("Description", description.strip())
+
+                    # Добавляем Info
+                    info = ET.SubElement(parameter, "Info")
+                    ET.SubElement(info, "Description")
+
+        # Преобразуем ElementTree в строку
+        xml_str = ET.tostring(root, encoding="utf-8")
+        if xml_str is None:
+            print("Ошибка: ET.tostring вернул None")
+            return None
+
+        # Используем minidom для форматирования
+        parsed = minidom.parseString(xml_str)
+        pretty_xml = parsed.toprettyxml(indent="\t")
+
+        # Записываем XML в файл
+        with open("catalog.xml", "w", encoding="utf-8") as file:
+            file.write(pretty_xml)
+
+        print("Файл catalog.xml успешно создан.")
+        return root
+
+    except Exception as e:
+        print(f"Ошибка при создании XML: {e}")
+        return None
+
+class TpeCryptor:
+    def __init__(self, key, iv):
+        self.key = key
+        self.iv = iv
+
+    def decrypt_tpe_from_tpe_file(self, file_path):
+        try:
+            with open(file_path, 'rb') as file:
+                encrypted_data = file.read()
+
+            cipher = DES3.new(self.key, DES3.MODE_CBC, self.iv)
+            decrypted_data = unpad(cipher.decrypt(encrypted_data), DES3.block_size)
+
+            xml_doc = ET.fromstring(decrypted_data.decode('utf-8'))
+            return xml_doc
+        except Exception as ex:
+            print(f"Ошибка при дешифровании: {ex}")
+            return None
+
+    def encrypt_xml_document_to_stream(self, xml_doc, output_path):
+        try:
+            xml_str = ET.tostring(xml_doc, encoding='utf-8')
+            cipher = DES3.new(self.key, DES3.MODE_CBC, self.iv)
+            encrypted_data = cipher.encrypt(pad(xml_str, DES3.block_size))
+
+            with open(output_path, 'wb') as file:
+                file.write(encrypted_data)
+        except Exception as ex:
+            print(f"Ошибка при шифровании: {ex}")
+
+def folder_path(name_file):
+    """
+    Возвращает путь к папке для сохранения файлов.
+    """
+    # Пример: сохраняем файлы в текущую директорию
+    return Path.cwd()
 
 def main():
     """
@@ -605,13 +906,15 @@ def main():
     Returns:
         None
     """
+    # Поиск файла с информацией о версии
     file_param_path = find_version_file()
     
+    # Парсинг информации о версии
     version_info = parse_version(file_param_path)
     
     print(version_info)
     
-    # Search for specific files in the current directory and its subdirectories
+    # Поиск файла с параметрами
     file_param_path = find_param_file()
 
     # Получаем данные
@@ -620,24 +923,38 @@ def main():
     name_file = f"Viewer_{version_info['DEVICE_NAME']}_v{version_info['DEVICE_GROUP']}.{version_info['VERSION']}.{version_info['MODULE_VERSION']}.{version_info['SUBVERSION']}"
 
     # Создаем Excel-файл
-    
-    excel_file = folder_path(name_file) / f"{name_file}.xlsx"
+    excel_file = folder_path(name_file) / f"{name_file}.xls"
     Description_file = folder_path(name_file) / f"{name_file}.dfi"
     create_param_Description(Description_file, version_info)
 
+    # Ключ и вектор инициализации для шифрования
+    key = bytes([0x54, 0x1F, 0x10, 0x65, 0x20, 0x6B, 0x65, 0x79, 0x78, 0x01, 0x6C, 0x54, 0x75, 0x2A, 0x69, 0x64])  # 16 байт
+    iv = bytes([0x20, 0x6B, 0x15, 0x79, 0x7C, 0x61, 0x5C, 0x45])  # 8 байт
 
+    # Создаем экземпляр криптора
+    cryptor = TpeCryptor(key, iv)
 
+    # Создаем XML-документ
+    xml_doc = create_xml(file_param_path, version_info)
+    if xml_doc is None:
+        print("Ошибка: функция create_xml вернула None")
+        return
+
+    # Шифруем XML-документ и сохраняем в файл
+    try:
+        cryptor.encrypt_xml_document_to_stream(xml_doc, "encrypted_file.tpe")
+    except Exception as e:
+        print(f"Ошибка при шифровании XML: {e}")
+
+    # Создаем Excel-файл
     try:
         create_excel_file(excel_file, param_objects, groups)
-
     except Exception as e:
-        print(f"Ошибка при создании файла: {e}")
+        print(f"Ошибка при создании Excel-файла: {e}")
 
-
-    # Get the current version of the application
+    # Получаем текущую версию приложения
     version = check_app_version()
-    print(version)
+    print(f"Текущая версия приложения: {version}")
     
 if __name__ == "__main__":
     main()
-
