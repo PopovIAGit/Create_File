@@ -272,47 +272,100 @@ def create_excel_file(excel_file, param_objects, groups):
 # ready
 def find_version_file():
     """
-    Поиск файла 'project_version.h' или 'config.h' в текущем каталоге и его
-    подкаталогах.
+    Поиск файла 'project_version.h' или 'config.h' в текущем каталоге и его подкаталогах.
 
     Returns:
-        str: Путь найденного файла или None, если файл не найден
+        str: Путь к найденному файлу или None, если файл не найден.
     """
+    # Имена файлов, которые мы ищем
     filenames = ["project_version.h", "config.h"]
-    for filename in filenames:
-        # Walk through the directory tree
-        for root, dirs, files in os.walk("."):
-            # Check if the current filename is in the list of files
-            if filename in files:
-                return os.path.join(root, filename)
 
-    # File not found in any directory
-    print("Error: Neither 'project_version.h' nor 'config.h' found")
+    # Используем Path для работы с путями
+    current_directory = Path(".")
+
+    # Рекурсивно ищем файлы в текущем каталоге и его подкаталогах
+    for filename in filenames:
+        for file_path in current_directory.rglob(filename):
+            if file_path.is_file():
+                return str(file_path)  # Возвращаем путь как строку
+
+    # Если ни один файл не найден
+    print("Ошибка: Ни один из файлов 'project_version.h' или 'config.h' не найден.")
     return None
-    
+
+def find_modefication_file():
+    """
+    Поиск файла 'device_modification.h' в текущем каталоге и его подкаталогах.
+
+    Returns:
+        str: Путь к найденному файлу или None, если файл не найден.
+    """
+    # Имя файла, который мы ищем
+    filename = "device_modification.h"
+
+    # Используем Path для работы с путями
+    current_directory = Path(".")
+
+    # Рекурсивно ищем файл в текущем каталоге и его подкаталогах
+    for file_path in current_directory.rglob(filename):
+        if file_path.is_file():
+            return str(file_path)  # Возвращаем путь как строку
+
+    # Если файл не найден
+    print(f"Ошибка: Файл '{filename}' не найден.")
+    return None
+
+def find_device_id(file_path):
+    """
+    Ищет значение DEVICE_ID в файле.
+
+    Args:
+        file_path (str): Путь к файлу.
+
+    Returns:
+        int: Значение DEVICE_ID или None, если значение не найдено.
+    """
+    try:
+        with open(file_path, "r", encoding='Windows-1251') as file:
+            lines = file.readlines()  # Читаем все строки сразу
+            for line in lines:
+                match = re.search(r'#define\s+DEVICE_ID\s+([\d]+)[\s\t]*//.*$', line)  # Регулярное выражение
+                if match:
+                    return str(match.group(1))
+        print("Значение DEVICE_ID не найдено.")
+        return None
+    except FileNotFoundError:
+        print(f"Ошибка: файл {file_path} не найден.")
+        return None
+    except Exception as e:
+        print(f"Ошибка при чтении файла: {e}")
+        return None
+
+
+
 def find_param_file():
     """
-    Поиск файла 'params.h' или 'menu_params.h' в текущем каталоге и его
-    подкаталогах.
+    Поиск файла 'params.h' или 'menu_params.h' в текущем каталоге и его подкаталогах.
 
     Returns:
-        str: Путь найденного файла или None, если файл не найден
+        str: Путь к найденному файлу или None, если файл не найден.
     """
+    # Имена файлов, которые мы ищем
     filenames = ["params.h", "menu_params.h"]
-    for filename in filenames:
-        # Walk through the directory tree
-        for root, dirs, files in os.walk("."):
-            # Check if the current filename is in the list of files
-            if filename in files:
-                file_path = os.path.join(root, filename)
-                if not os.path.isfile(file_path):
-                    raise ValueError(f"File {file_path} does not exist")
-                return file_path
 
-    # File not found in any directory
-    print("Error: Neither 'params.h' nor 'menu_params.h' found")
+    # Используем Path для работы с путями
+    current_directory = Path(".")
+
+    # Рекурсивно ищем файлы в текущем каталоге и его подкаталогах
+    for filename in filenames:
+        for file_path in current_directory.rglob(filename):
+            if file_path.is_file():
+                return str(file_path)  # Возвращаем путь как строку
+
+    # Если ни один файл не найден
+    print("Ошибка: Ни один из файлов 'params.h' или 'menu_params.h' не найден.")
     return None
-# ready
+
 def parse_strings(file_path, start_line_number):
     with open(file_path, 'r', encoding='Windows-1251') as file:
         content = file.read()
@@ -692,7 +745,7 @@ def folder_path(value):
     Создаю папку с версией Viewer для записии туда файлов 
     """
     # Создаем объект Path для родительской папки
-    parent_folder = Path("Description")
+    parent_folder = Path("Templates")
 
     # Указываем путь к вложенной папке
     subfolder = parent_folder / value
@@ -714,19 +767,14 @@ def create_param_Description(Description_file,version_info):
         file.write("Photo=0\n")
         file.write("Manual=0\n")
 
-
-
-import xml.etree.ElementTree as ET
-from xml.dom import minidom
-import re
-
-def create_xml(file_path, version_info):
+def create_xml(file_path, version_info, output_folder, device_id):
     """
     Создает XML-файл на основе данных о группах и параметрах.
 
     Args:
         file_path (str): Путь к файлу с данными.
         version_info (dict): Словарь с информацией о версии (например, DEVICE_NAME).
+        output_folder (str или Path): Путь к папке, в которую будет сохранен XML-файл.
 
     Returns:
         xml.etree.ElementTree.Element: Корневой элемент XML-документа.
@@ -740,9 +788,9 @@ def create_xml(file_path, version_info):
 
         # Создаем корневой элемент
         root = ET.Element("Table")
-        root.set("DeviceId", "4003")
+        root.set("DeviceId", device_id)
         root.set("DeviceName", version_info['DEVICE_NAME'])
-        root.set("FirmwareVersion", "1150")
+        root.set("FirmwareVersion", version_info['VERSION'] + version_info['SUBVERSION'])
 
         # Парсим параметры
         parameters = parse_parameters(file_path)
@@ -809,10 +857,8 @@ def create_xml(file_path, version_info):
                             ET.SubElement(value_desc, "Type").text = param.get("value_type", "Uns")
                     elif "MT_BIN" in encoding or "M_BIN" in encoding:
                         ET.SubElement(value_desc, "Type").text = param.get("value_type", "Bin")
-
-
                     elif "MT_STR" in encoding or "M_STAT" in encoding or "M_CODE" in encoding or "M_COMM" in encoding:
-                        ET.SubElement(value_desc, "Type").text ="Enum"
+                        ET.SubElement(value_desc, "Type").text = "Enum"
                     elif "MT_DATE" in encoding or "M_DATE" in encoding:
                         ET.SubElement(value_desc, "Type").text = "Date"
                     elif "MT_TIME" in encoding or "M_TIME" in encoding:
@@ -857,11 +903,16 @@ def create_xml(file_path, version_info):
         parsed = minidom.parseString(xml_str)
         pretty_xml = parsed.toprettyxml(indent="\t")
 
+        # Создаем папку, если она не существует
+        output_folder = Path(output_folder)
+        output_folder.mkdir(parents=True, exist_ok=True)
+
         # Записываем XML в файл
-        with open("catalog.xml", "w", encoding="utf-8") as file:
+        xml_file_path = output_folder / f"{version_info['DEVICE_NAME']}_v{version_info['DEVICE_GROUP']}.{version_info['VERSION']}.{version_info['MODULE_VERSION']}.{version_info['SUBVERSION']}.xml"
+        with open(xml_file_path, "w", encoding="utf-8") as file:
             file.write(pretty_xml)
 
-        print("Файл catalog.xml успешно создан.")
+        print(f"Файл {xml_file_path} успешно создан.")
         return root
 
     except Exception as e:
@@ -872,6 +923,7 @@ class TpeCryptor:
     def __init__(self, key, iv):
         self.key = key
         self.iv = iv
+
 
     def decrypt_tpe_from_tpe_file(self, file_path):
         try:
@@ -898,12 +950,6 @@ class TpeCryptor:
         except Exception as ex:
             print(f"Ошибка при шифровании: {ex}")
 
-def folder_path(name_file):
-    """
-    Возвращает путь к папке для сохранения файлов.
-    """
-    # Пример: сохраняем файлы в текущую директорию
-    return Path.cwd()
 
 def main():
     """
@@ -920,6 +966,13 @@ def main():
     Returns:
         None
     """
+
+    # Пример использования
+    file_modefication_path = find_modefication_file()  # Укажите путь к вашему файлу
+    device_id = find_device_id(file_modefication_path)
+    if device_id is not None:
+        print(f"Значение DEVICE_ID: {device_id}")
+
     # Поиск файла с информацией о версии
     file_param_path = find_version_file()
     
@@ -936,9 +989,12 @@ def main():
     param_objects = create_param_objects(file_param_path)
     name_file = f"Viewer_{version_info['DEVICE_NAME']}_v{version_info['DEVICE_GROUP']}.{version_info['VERSION']}.{version_info['MODULE_VERSION']}.{version_info['SUBVERSION']}"
 
-    # Создаем Excel-файл
+    # Создаем файлов
     excel_file = folder_path(name_file) / f"{name_file}.xls"
     Description_file = folder_path(name_file) / f"{name_file}.dfi"
+    xml_file = folder_path(name_file)
+    tpe_file = folder_path(name_file) / f"{name_file}.tpe"
+
     create_param_Description(Description_file, version_info)
 
     # Ключ и вектор инициализации для шифрования
@@ -948,15 +1004,15 @@ def main():
     # Создаем экземпляр криптора
     cryptor = TpeCryptor(key, iv)
 
-    # Создаем XML-документ
-    xml_doc = create_xml(file_param_path, version_info)
-    if xml_doc is None:
-        print("Ошибка: функция create_xml вернула None")
-        return
-
     # Шифруем XML-документ и сохраняем в файл
     try:
-        cryptor.encrypt_xml_document_to_stream(xml_doc, "encrypted_file.tpe")
+       xml_doc = create_xml(file_param_path, version_info, xml_file, device_id)
+    except Exception as e:
+        print(f"Ошибка при шифровании XML: {e}")
+
+    # Шифруем TPE-документ и сохраняем в файл
+    try:
+        cryptor.encrypt_xml_document_to_stream(xml_doc, tpe_file)
     except Exception as e:
         print(f"Ошибка при шифровании XML: {e}")
 
