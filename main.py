@@ -16,8 +16,10 @@ from Crypto.Cipher import DES3
 from Crypto.Util.Padding import pad, unpad
 from Crypto.Random import get_random_bytes
 
-from domain import check_app_version
+from domain.base import check_app_version
 from enum import Enum
+
+from typing import List, Dict, Optional
 
 from pathlib import Path
 
@@ -418,7 +420,13 @@ def parse_strings(file_path, start_line_number):
 
     return result
 
-def parse_groups(file_path):
+
+GROUP_PATTERN = re.compile(
+    r'\"\s*(\d+)\s*ГРУППА\s*(\w+)\s*\"\s*,\s*\"\s*([^\"]+)\s*\"\s*,\s*GR_INIT\(([^,]+),\s*(\d+)\)\s*,\s*//\s*{([^}]+)}'
+)
+
+
+def parse_groups(file_path: str) -> List[Dict[str, Optional[str]]]:
     """
     Парсит группы между //! Группы и //! Группы конец.
     Преобразует строки в формат "ГРУППА X НАЗВАНИЕ".
@@ -427,10 +435,23 @@ def parse_groups(file_path):
         file_path (str): Путь к файлу.
 
     Returns:
-        list: Список групп в формате "ГРУППА X НАЗВАНИЕ".
+        list: Список групп, где каждая группа представлена словарем с полями:
+              - group_number: номер группы (например, "1")
+              - group_index: индекс группы (например, "A")
+              - group_description: описание группы (например, "ИНДИКАЦИЯ")
+              - gr_init_arg1: первый аргумент GR_INIT (например, "GroupA")
+              - gr_init_arg2: второй аргумент GR_INIT (например, "0")
+              - group_type: тип группы (например, "Show")
     """
-    with open(file_path, 'r', encoding='Windows-1251') as file:
-        content = file.read()
+    try:
+        with open(file_path, 'r', encoding='Windows-1251') as file:
+            content = file.read()
+    except FileNotFoundError:
+        logging.error(f"Файл не найден: {file_path}")
+        return []
+    except Exception as e:
+        logging.error(f"Ошибка при чтении файла: {e}")
+        return []
 
     # Находим блок между //! Группы и //! Группы конец
     start_marker = "//! Группы"
@@ -439,26 +460,52 @@ def parse_groups(file_path):
     end_index = content.find(end_marker)
 
     if start_index == -1 or end_index == -1:
-        print("Error: Group markers not found")
+        logging.error("Маркеры начала или конца блока групп не найдены.")
         return []
 
     group_block = content[start_index:end_index]
 
     # Ищем все строки в формате "   4 ГРУППА D   ", "    КОМАНДЫ     ", GR_INIT(GroupD, 0),
-    matches = re.findall(r'\"\s*(\d+)\s*ГРУППА\s*(\w+)\s*\"\s*,\s*\"\s*([^\"]+)\s*\"', group_block)
+    matches = GROUP_PATTERN.findall(group_block)
 
     groups = []
     for match in matches:
-        group_number, group_name, group_description = match
-        # Формируем строку в формате "ГРУППА X НАЗВАНИЕ"
-        group_dict = {
-            "group_number": group_number,
-            "group_index": group_name,
-            "group_description": group_description.strip()
-        }
-        groups.append(group_dict)
+        group_data = extract_group_data(match)
+        if group_data:
+            groups.append(group_data)
 
     return groups
+
+
+def extract_group_data(match: tuple) -> Optional[Dict[str, Optional[str]]]:
+    """
+    Извлекает данные группы из совпадения регулярного выражения.
+
+    Args:
+        match (tuple): Кортеж с данными группы.
+
+    Returns:
+        dict: Словарь с данными группы или None, если данные некорректны.
+    """
+    try:
+        group_number = match[0].strip()  # Номер группы (например, "1")
+        group_index = match[1].strip()   # Индекс группы (например, "A")
+        group_description = match[2].strip()  # Описание группы (например, "ИНДИКАЦИЯ")
+        gr_init_arg1 = match[3].strip()  # Первый аргумент GR_INIT (например, "GroupA")
+        gr_init_arg2 = match[4].strip()  # Второй аргумент GR_INIT (например, "0")
+        group_type = match[5].strip()    # Тип группы (например, "Show")
+
+        return {
+            "group_number": group_number,
+            "group_index": group_index,
+            "group_description": group_description,
+            "gr_init_arg1": gr_init_arg1,
+            "gr_init_arg2": gr_init_arg2,
+            "group_type": group_type
+        }
+    except Exception as e:
+        logging.error(f"Ошибка при извлечении данных группы: {e}")
+        return None
 
 def parse_parameters(file_path):
     """
@@ -802,7 +849,7 @@ def create_xml(file_path, version_info, output_folder, device_id):
         for group in groups:
             group_element = ET.SubElement(root, "Group")
             group_element.set("Name", f"ГРУППА {group['group_number']} {group['group_index']}")
-            group_element.set("Type", "Show")
+            group_element.set("Type", group['group_type'])
             group_element.set("Description", group["group_description"])
 
             # Добавляем параметры, если они есть для этой группы
@@ -912,7 +959,7 @@ def create_xml(file_path, version_info, output_folder, device_id):
         with open(xml_file_path, "w", encoding="utf-8") as file:
             file.write(pretty_xml)
 
-        print(f"Файл {xml_file_path} успешно создан.")
+        print(f"Файл  {xml_file_path} успешно создан.")
         return root
 
     except Exception as e:
@@ -987,17 +1034,17 @@ def main():
     # Получаем данные
     groups = parse_groups(file_param_path)
     param_objects = create_param_objects(file_param_path)
-    name_file = f"Viewer_{version_info['DEVICE_NAME']}_v{version_info['DEVICE_GROUP']}.{version_info['VERSION']}.{version_info['MODULE_VERSION']}.{version_info['SUBVERSION']}"
+    name_file = f"{version_info['DEVICE_NAME']}_v{version_info['DEVICE_GROUP']}.{version_info['VERSION']}.{version_info['MODULE_VERSION']}.{version_info['SUBVERSION']}"
 
     # Создаем файлов
-    excel_file = folder_path(name_file) / f"{name_file}.xls"
-    Description_file = folder_path(name_file) / f"{name_file}.dfi"
+    excel_file = folder_path(name_file) / f"Viewer_{name_file}.xls"
+    Description_file = folder_path(name_file) / f"Viewer_{name_file}.dfi"
     xml_file = folder_path(name_file)
     tpe_file = folder_path(name_file) / f"{name_file}.tpe"
 
     create_param_Description(Description_file, version_info)
 
-    # Ключ и вектор инициализации для шифрования
+    # Ключ и вектор инициализации для шифрования для создания TPE
     key = bytes([0x54, 0x1F, 0x10, 0x65, 0x20, 0x6B, 0x65, 0x79, 0x78, 0x01, 0x6C, 0x54, 0x75, 0x2A, 0x69, 0x64])  # 16 байт
     iv = bytes([0x20, 0x6B, 0x15, 0x79, 0x7C, 0x61, 0x5C, 0x45])  # 8 байт
 

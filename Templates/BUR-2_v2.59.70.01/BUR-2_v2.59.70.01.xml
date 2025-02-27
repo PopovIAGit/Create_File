@@ -1,0 +1,4377 @@
+<?xml version="1.0" ?>
+<Table DeviceId="5000" DeviceName="BUR-2" FirmwareVersion="5901">
+	<Group Name="ГРУППА 1 A" Type="Show" Description="ИНДИКАЦИЯ">
+		<Parameter Index="А0" Name="СТАТУС РАБОТЫ">
+			<Address>400</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Status</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65530</Maximum>
+				<Default>0</Default>
+				<Type>Union</Type>
+				<Fields>
+					<Field BitValue="0" Description="НЕ ОПРЕДЕЛЕН"/>
+					<Field BitValue="1" Description="СТОП"/>
+					<Field BitValue="2" Description="АВАРИЯ"/>
+					<Field BitValue="3" Description="ИДЕТ ЗАКРЫТИЕ"/>
+					<Field BitValue="4" Description="ИДЕТ ОТКРЫТИЕ"/>
+					<Field BitValue="5" Description="НЕИСПР НА БЛОКЕ"/>
+					<Field BitValue="6" Description="ЗАКРЫТО"/>
+					<Field BitValue="7" Description="ОТКРЫТО"/>
+					<Field BitValue="8" Description="МУФТА"/>
+					<Field BitValue="9" Description="МЕСТНОЕ УПРАВЛ"/>
+					<Field BitValue="10" Description="ВКЛЮЧЕН ТЕН"/>
+					<Field BitValue="11" Description="РЕЗЕРВ ПИТАНИЕ"/>
+					<Field BitValue="12" Description="АВАРИЯ НА БЛОКЕ"/>
+					<Field BitValue="13" Description="АВАРИЯ НА ТС"/>
+					<Field BitValue="14" Description="НЕИСПРАВНОСТЬ"/>
+					<Field BitValue="15" Description="ДИСТАНЦ. УПРАВЛ."/>
+					<Field BitValue="16" Description="НЕИСПРАВН НА ТС"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А1" Name="ДИАГ ПРОЦЕССА">
+			<Address>401</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Fault</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65530</Maximum>
+				<Default>0</Default>
+				<Type>Union</Type>
+				<Fields>
+					<Field BitValue="0" Description="НЕТ АВАРИЙ"/>
+					<Field BitValue="1" Description="НЕТ ДВИЖЕНИЯ"/>
+					<Field BitValue="2" Description="ЧЕР ФАЗ ДВИГ"/>
+					<Field BitValue="3" Description="НЕ ЗАДАНО ЗАКР"/>
+					<Field BitValue="4" Description="НЕ ЗАДАНО ОТКР"/>
+					<Field BitValue="5" Description="НЕТ КАЛИБРОВКИ"/>
+					<Field BitValue="6" Description="УПЛОТН НЕ ДОСТИГ"/>
+					<Field BitValue="7" Description="ПЕРЕГРЕВ ДВИГ"/>
+					<Field BitValue="8" Description="НЕВЕРНОЕ МУ/ДУ"/>
+					<Field BitValue="9" Description="ПОНИЖ СОПР ДВИГ"/>
+					<Field BitValue="10" Description="РЕЖИМ ПРОГОНА"/>
+					<Field BitValue="11" Description="РЕЗЕРВ"/>
+					<Field BitValue="12" Description="РЕЗЕРВ"/>
+					<Field BitValue="13" Description="РЕЗЕРВ"/>
+					<Field BitValue="14" Description="РЕЗЕРВ"/>
+					<Field BitValue="15" Description="РЕЗЕРВ"/>
+					<Field BitValue="16" Description="РЕЗЕРВ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А2" Name="ДИАГНОСТ СЕТИ">
+			<Address>402</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Fault</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65530</Maximum>
+				<Default>0</Default>
+				<Type>Union</Type>
+				<Fields>
+					<Field BitValue="0" Description="НЕТ АВАРИЙ"/>
+					<Field BitValue="1" Description="МИН НАПР ФАЗЫ R"/>
+					<Field BitValue="2" Description="МИН НАПР ФАЗЫ S"/>
+					<Field BitValue="3" Description="МИН НАПР ФАЗЫ T"/>
+					<Field BitValue="4" Description="МАКС НАПР ФАЗЫ R"/>
+					<Field BitValue="5" Description="МАКС НАПР ФАЗЫ S"/>
+					<Field BitValue="6" Description="МАКС НАПР ФАЗЫ T"/>
+					<Field BitValue="7" Description="РЕЗЕРВ"/>
+					<Field BitValue="8" Description="РЕЗЕРВ"/>
+					<Field BitValue="9" Description="УМЕН НАПР ФАЗЫ R"/>
+					<Field BitValue="10" Description="УМЕН НАПР ФАЗЫ S"/>
+					<Field BitValue="11" Description="УМЕН НАПР ФАЗЫ T"/>
+					<Field BitValue="12" Description="НАПР ФАЗЫ R 47%"/>
+					<Field BitValue="13" Description="НАПР ФАЗЫ S 47%"/>
+					<Field BitValue="14" Description="НАПР ФАЗЫ T 47%"/>
+					<Field BitValue="15" Description="РЕЗЕРВ"/>
+					<Field BitValue="16" Description="РЕЗЕРВ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А3" Name="ДИАГ НАГРУЗКИ">
+			<Address>403</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Fault</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65530</Maximum>
+				<Default>0</Default>
+				<Type>Union</Type>
+				<Fields>
+					<Field BitValue="0" Description="НЕТ АВАРИЙ"/>
+					<Field BitValue="1" Description="ОБРЫВ ФАЗЫ U"/>
+					<Field BitValue="2" Description="ОБРЫВ ФАЗЫ V"/>
+					<Field BitValue="3" Description="ОБРЫВ ФАЗЫ W"/>
+					<Field BitValue="4" Description="ВР-ТОК ПЕРЕГРУЗК"/>
+					<Field BitValue="5" Description="ОТСУТСВИЕ ДВИГ"/>
+					<Field BitValue="6" Description="КЗ ФАЗЫ U"/>
+					<Field BitValue="7" Description="КЗ ФАЗЫ V"/>
+					<Field BitValue="8" Description="КЗ ФАЗЫ W"/>
+					<Field BitValue="9" Description="КЗ НА НЕЙТРАЛЬ"/>
+					<Field BitValue="10" Description="РЕЗЕРВ"/>
+					<Field BitValue="11" Description="РЕЗЕРВ"/>
+					<Field BitValue="12" Description="РЕЗЕРВ"/>
+					<Field BitValue="13" Description="РЕЗЕРВ"/>
+					<Field BitValue="14" Description="РЕЗЕРВ"/>
+					<Field BitValue="15" Description="РЕЗЕРВ"/>
+					<Field BitValue="16" Description="РЕЗЕРВ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А4" Name="ДИАГН УСТР-ВА">
+			<Address>404</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Fault</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65530</Maximum>
+				<Default>0</Default>
+				<Type>Union</Type>
+				<Fields>
+					<Field BitValue="0" Description="НЕТ АВАРИЙ"/>
+					<Field BitValue="1" Description="СБОЙ ДАТЧ ПОЛОЖ"/>
+					<Field BitValue="2" Description="СБОЙ ПАМЯТИ 1"/>
+					<Field BitValue="3" Description="СБОЙ ПАМЯТИ 2"/>
+					<Field BitValue="4" Description="СБОЙ ЧАСОВ"/>
+					<Field BitValue="5" Description="СБОЙ ДАТЧ ТЕМПЕР"/>
+					<Field BitValue="6" Description="ПЕРЕГРЕВ БЛОКА"/>
+					<Field BitValue="7" Description="ПЕРЕОХЛАЖД БЛОКА"/>
+					<Field BitValue="8" Description="СБОЙ ТС/ТУ"/>
+					<Field BitValue="9" Description="ВЫКЛЮЧЕНИЕ БЛОКА"/>
+					<Field BitValue="10" Description="РЕЗЕРВ"/>
+					<Field BitValue="11" Description="РЕЗЕРВ"/>
+					<Field BitValue="12" Description="КРИТ ПЕРЕГР БЛОК"/>
+					<Field BitValue="13" Description="НЕ ЗАДАНО ВРЕМЯ"/>
+					<Field BitValue="14" Description="РЕЗЕРВ"/>
+					<Field BitValue="15" Description="РЕЗЕРВ"/>
+					<Field BitValue="16" Description="БЛОК ВКЛЮЧЕН"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А5" Name="СОСТ ВХОДОВ">
+			<Address>405</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<Chosen>True</Chosen>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65530</Maximum>
+				<Default>0</Default>
+				<Type>Union</Type>
+				<Fields>
+					<Field BitValue="0" Description="НЕТ СИГНАЛОВ"/>
+					<Field BitValue="1" Description="ВХОД ОТКРЫТЬ"/>
+					<Field BitValue="2" Description="ВХОД ЗАКРЫТЬ"/>
+					<Field BitValue="3" Description="ВХОД СТОП"/>
+					<Field BitValue="4" Description="ВХОД МУ"/>
+					<Field BitValue="5" Description="ВХОД ДУ"/>
+					<Field BitValue="6" Description="РЕЗЕРВ"/>
+					<Field BitValue="7" Description="РЕЗЕРВ"/>
+					<Field BitValue="8" Description="РЕЗЕРВ"/>
+					<Field BitValue="9" Description="РЕЗЕРВ"/>
+					<Field BitValue="10" Description="РЕЗЕРВ"/>
+					<Field BitValue="11" Description="РЕЗЕРВ"/>
+					<Field BitValue="12" Description="РЕЗЕРВ"/>
+					<Field BitValue="13" Description="РЕЗЕРВ"/>
+					<Field BitValue="14" Description="РЕЗЕРВ"/>
+					<Field BitValue="15" Description="РЕЗЕРВ"/>
+					<Field BitValue="16" Description="РЕЗЕРВ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А6" Name="СОСТ ВЫХОДОВ">
+			<Address>406</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>StatusDigOut</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65530</Maximum>
+				<Default>0</Default>
+				<Type>Union</Type>
+				<Fields>
+					<Field BitValue="0" Description="НЕТ СИГНАЛОВ"/>
+					<Field BitValue="1" Description="ЗАКРЫВАЕТСЯ"/>
+					<Field BitValue="2" Description="МУ/ДУ"/>
+					<Field BitValue="3" Description="МУФТА"/>
+					<Field BitValue="4" Description="ОТКРЫТО"/>
+					<Field BitValue="5" Description="АВАРИЯ"/>
+					<Field BitValue="6" Description="ЗАКРЫТО"/>
+					<Field BitValue="7" Description="НЕИСПРАВНОСТЬ"/>
+					<Field BitValue="8" Description="ОТКРЫВАЕТСЯ"/>
+					<Field BitValue="9" Description="РЕЗЕРВ"/>
+					<Field BitValue="10" Description="РЕЗЕРВ"/>
+					<Field BitValue="11" Description="РЕЗЕРВ"/>
+					<Field BitValue="12" Description="РЕЗЕРВ"/>
+					<Field BitValue="13" Description="РЕЗЕРВ"/>
+					<Field BitValue="14" Description="РЕЗЕРВ"/>
+					<Field BitValue="15" Description="РЕЗЕРВ"/>
+					<Field BitValue="16" Description="РЕЗЕРВ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А7" Name="ПОЛОЖЕНИЕ">
+			<Address>407</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А8" Name="МОМЕНТ">
+			<Address>408</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<Chosen>True</Chosen>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>11000</Maximum>
+				<Default>0</Default>
+				<Unit>Н*М</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А9" Name="СКОРОСТЬ">
+			<Address>409</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-3600U</Minimum>
+				<Maximum>3600</Maximum>
+				<Default>0</Default>
+				<Unit>ОБ/М</Unit>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А10" Name="НАПР ФАЗЫ R">
+			<Address>410</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<Chosen>True</Chosen>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>500</Maximum>
+				<Default>0</Default>
+				<Unit>В</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А11" Name="НАПР ФАЗЫ S">
+			<Address>411</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<Chosen>True</Chosen>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>500</Maximum>
+				<Default>0</Default>
+				<Unit>В</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А12" Name="НАПР ФАЗЫ T">
+			<Address>412</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<Chosen>True</Chosen>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>500</Maximum>
+				<Default>0</Default>
+				<Unit>В</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А13" Name="ТОК ФАЗЫ U">
+			<Address>413</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>8000</Maximum>
+				<Default>0</Default>
+				<Unit>А/%</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А14" Name="ТОК ФАЗЫ V">
+			<Address>414</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>8000</Maximum>
+				<Default>0</Default>
+				<Unit>А/%</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А15" Name="ТОК ФАЗЫ W">
+			<Address>415</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>8000</Maximum>
+				<Default>0</Default>
+				<Unit>А/%</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А16" Name="УГОЛ НАГРУЗ">
+			<Address>416</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-180U</Minimum>
+				<Maximum>180</Maximum>
+				<Default>0</Default>
+				<Unit>ГРАД</Unit>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А17" Name="СТАТУС КАЛИБ">
+			<Address>417</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>3</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="НЕТ КАЛИБРОВКИ"/>
+					<Field BitValue="1" Description="ЗАДАНО ЗАКРЫТО"/>
+					<Field BitValue="2" Description="ЗАДАНО ОТКРЫТО"/>
+					<Field BitValue="3" Description="КАЛИБР ВЫПОЛНЕНА"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="A18" Name="ПОЛОЖЕНИЕ %">
+			<Address>418</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<Chosen>True</Chosen>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-1000U</Minimum>
+				<Maximum>2000</Maximum>
+				<Default>0</Default>
+				<Unit>%</Unit>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А19" Name="ПОЛНЫЙ ХОД">
+			<Address>419</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>3000</Maximum>
+				<Default>0</Default>
+				<Unit>ОБ</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А20" Name="ТЕКУЩИЙ ХОД">
+			<Address>420</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-3000U</Minimum>
+				<Maximum>3000</Maximum>
+				<Default>0</Default>
+				<Unit>ОБ</Unit>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А21" Name="СЧЕТ ЦИКЛОВ">
+			<Address>421</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65530</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А22" Name="ТЕМПЕРАТУРА">
+			<Address>422</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-100U</Minimum>
+				<Maximum>100</Maximum>
+				<Default>0</Default>
+				<Unit>ГРАД</Unit>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А23" Name="ВЕРСИЯ ПО">
+			<Address>423</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65530</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А24" Name="ПОЛОЖ.ЭНКОД.">
+			<Address>424</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А25" Name="ТЕМПР ДВИГАТ">
+			<Address>252</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="НОРМ ТЕМПЕР ДВИГ"/>
+					<Field BitValue="1" Description="ПОВЫШ ТЕМПР ДВИГ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А26" Name="ЧЕР ФАЗ СЕТИ">
+			<Address>426</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>2</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="НЕ ОПРЕДЕЛЕНО"/>
+					<Field BitValue="1" Description="ПРЯМОЕ RST"/>
+					<Field BitValue="2" Description="ОБРАТНОЕ SRT"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А27" Name="КОНТР. СУММА">
+			<Address>427</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А28" Name="РЕЗ.ДИАГН.ДП">
+			<Address>428</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ДП исправен"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А29" Name="РЕЗЕРВ">
+			<Address>429</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А30" Name="РЕЗЕРВ">
+			<Address>430</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А31" Name="РЕЗЕРВ">
+			<Address>431</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А32" Name="РЕЗЕРВ">
+			<Address>432</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А33" Name="РЕЗЕРВ">
+			<Address>433</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А34" Name="РЕЗЕРВ">
+			<Address>434</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А35" Name="РЕЗЕРВ">
+			<Address>435</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А36" Name="РЕЗЕРВ">
+			<Address>436</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А37" Name="РЕЗЕРВ">
+			<Address>437</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А38" Name="РЕЗЕРВ">
+			<Address>438</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="А39" Name="РЕЗЕРВ">
+			<Address>439</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Position</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+	</Group>
+	<Group Name="ГРУППА 2 B" Type="User" Description="ПОЛЬЗ НАСТРОЙКИ">
+		<Parameter Index="B0" Name="МОМЕНТ ЗАКР">
+			<Address>40</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>10</Maximum>
+				<Default>2</Default>
+				<Unit>Н*М</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B1" Name="МОМЕНТ ОТКР">
+			<Address>41</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>10</Maximum>
+				<Default>2</Default>
+				<Unit>Н*М</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B2" Name="МОМ УПЛ ЗАКР">
+			<Address>42</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>10</Maximum>
+				<Default>2</Default>
+				<Unit>Н*М</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B3" Name="МОМ ТРОГ ЗАКР">
+			<Address>43</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>10</Maximum>
+				<Default>4</Default>
+				<Unit>Н*М</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B4" Name="МОМ УПЛ ОТКР">
+			<Address>44</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>10</Maximum>
+				<Default>2</Default>
+				<Unit>Н*М</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B5" Name="МОМ ТРОГ ОТКР">
+			<Address>45</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>10</Maximum>
+				<Default>4</Default>
+				<Unit>Н*М</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B6" Name="ТИП ЗАДВИЖКИ">
+			<Address>46</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>1</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="КЛИНОВАЯ"/>
+					<Field BitValue="1" Description="ШИБЕРНАЯ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B7" Name="ТИП УПЛОТНЕН">
+			<Address>47</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>4</Maximum>
+				<Default>1</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="НЕ ОПРЕДЕЛЕН"/>
+					<Field BitValue="1" Description="БЕЗ УПЛОТНЕНИЯ"/>
+					<Field BitValue="2" Description="УПЛОТНЕНИЕ ЗАКР"/>
+					<Field BitValue="3" Description="УПЛОТНЕНИЕ ОТКР"/>
+					<Field BitValue="4" Description="УПЛ ЗАКР И ОТКР"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B8" Name="ТИП ШТОКА">
+			<Address>48</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>1</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ПРЯМОЙ"/>
+					<Field BitValue="1" Description="ОБРАТНЫЙ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B9" Name="ЗОНА ЗАКРЫТО">
+			<Address>49</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>3000</Maximum>
+				<Default>10</Default>
+				<Unit>ОБЗВ</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B10" Name="ЗОНА ОТКРЫТО">
+			<Address>50</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>3000</Maximum>
+				<Default>10</Default>
+				<Unit>ОБЗВ</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B11" Name="ЗОНА СМЕЩЕН">
+			<Address>51</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>100</Maximum>
+				<Default>0</Default>
+				<Unit>ОБЗВ</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B12" Name="КОД ДОСТУПА">
+			<Address>52</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65530</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B13" Name="ВРЕМЯ">
+			<Address>53</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Time</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65530</Maximum>
+				<Default>0</Default>
+				<Type>Time</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B14" Name="ДАТА">
+			<Address>54</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Date</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65530</Maximum>
+				<Default>0</Default>
+				<Type>Date</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B15" Name="КОРР ЧАСОВ">
+			<Address>55</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-300U</Minimum>
+				<Maximum>300</Maximum>
+				<Default>0</Default>
+				<Unit>С</Unit>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B16" Name="ИНДИКАЦ ТОКА">
+			<Address>56</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ДЕЙСТВ ЗНАЧЕНИЯ"/>
+					<Field BitValue="1" Description="ПРОЦЕНТЫ ОТ НОМ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B17" Name="РЕЖИМ МУ/ДУ">
+			<Address>57</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>3</Maximum>
+				<Default>1</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ВЫКЛЮЧЕН"/>
+					<Field BitValue="1" Description="ВЫБОР РЕЖИМА"/>
+					<Field BitValue="2" Description="ТОЛЬКО РЕЖИМ МУ"/>
+					<Field BitValue="3" Description="ТОЛЬКО РЕЖИМ ДУ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B18" Name="ИСТОЧ КОМ ДУ">
+			<Address>58</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>2</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ВСЕ ИНТЕРФЕЙСЫ"/>
+					<Field BitValue="1" Description="ТОЛЬКО ДИСКРЕТН"/>
+					<Field BitValue="2" Description="ТОЛЬКО ПОСЛЕДОВ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B19" Name="БЛОК ЗАЛИП">
+			<Address>59</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ВЫКЛЮЧЕНА"/>
+					<Field BitValue="1" Description="ВКЛЮЧЕНА"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B20" Name="ВРЕМЯ КОМАНД">
+			<Address>60</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>100</Maximum>
+				<Default>2</Default>
+				<Unit>С</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B21" Name="ТИП ВХ СИГН">
+			<Address>61</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="24В"/>
+					<Field BitValue="1" Description="220В"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B22" Name="МАСК ВХ СИГН">
+			<Address>62</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>31</Maximum>
+				<Default>4</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B23" Name="МАСК ВЫХ СИГ">
+			<Address>63</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65530</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B24" Name="СКОР СВЯЗИ">
+			<Address>64</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>6</Maximum>
+				<Default>3</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="2400 БОД"/>
+					<Field BitValue="1" Description="4800 БОД"/>
+					<Field BitValue="2" Description="9600 БОД"/>
+					<Field BitValue="3" Description="19200 БОД"/>
+					<Field BitValue="4" Description="38400 БОД"/>
+					<Field BitValue="5" Description="57600 БОД"/>
+					<Field BitValue="6" Description="115200 БОД"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B25" Name="АДРЕС СТАНЦ">
+			<Address>65</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>247</Maximum>
+				<Default>1</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B26" Name="РЕЖИМ СВЯЗИ">
+			<Address>66</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>2</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="БЕЗ ПРОВЕРКИ"/>
+					<Field BitValue="1" Description="НА НЕЧЕТНОСТЬ"/>
+					<Field BitValue="2" Description="НА ЧЕТНОСТЬ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B27" Name="ПЕРЕГР ДВИГ">
+			<Address>67</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>3</Maximum>
+				<Default>3</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ВЫКЛЮЧЕНА"/>
+					<Field BitValue="1" Description="ИНДИК НА БЛОКЕ"/>
+					<Field BitValue="2" Description="ИНД НА БЛОКЕ/ТС"/>
+					<Field BitValue="3" Description="ИНДИК И ОСТАНОВ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B28" Name="РЕВЕРС ХОДА">
+			<Address>68</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ВЫКЛЮЧЕН"/>
+					<Field BitValue="1" Description="ВКЛЮЧЕН"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B29" Name="УПРАВЛ.С ПДУ">
+			<Address>69</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>2</Maximum>
+				<Default>2</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="С ПОДТВЕРЖДЕНИЕМ"/>
+					<Field BitValue="1" Description="РАЗРЕШЕНО"/>
+					<Field BitValue="2" Description="ЗАПРЕЩЕНО"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B30" Name="РЕАК НА СТОП">
+			<Address>70</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>2</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="БЕЗ ИЗМЕНЕНИЙ"/>
+					<Field BitValue="1" Description="РАЗМЫК КВО И КВЗ"/>
+					<Field BitValue="2" Description="РАЗМ КРАТКОВРЕМ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B31" Name="МОМ ПЕР УПОР">
+			<Address>71</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>2000</Minimum>
+				<Maximum>20000</Maximum>
+				<Default>5000</Default>
+				<Unit>Н*М</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B33" Name="ПУТЬ УПЛОТН">
+			<Address>73</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>1000</Maximum>
+				<Default>100</Default>
+				<Unit>ОБ</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B34" Name="ТИП ПРИВОДА">
+			<Address>74</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>5</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="НЕ ОПРЕДЕЛЕН"/>
+					<Field BitValue="1" Description="ЭПЦ-10000 Д.10"/>
+					<Field BitValue="2" Description="ЭПЦ-15000 Д.10"/>
+					<Field BitValue="3" Description="ЭПЦ-20000 F.40"/>
+					<Field BitValue="4" Description="ЭПЦ-15000 Д.10 Т"/>
+					<Field BitValue="5" Description="ЭПЦ-20000 F.40 T"/>
+					<Field BitValue="6" Description="РЕЗЕРВ"/>
+					<Field BitValue="7" Description="РЕЗЕРВ"/>
+					<Field BitValue="8" Description="РЕЗЕРВ"/>
+					<Field BitValue="9" Description="РЕЗЕРВ"/>
+					<Field BitValue="10" Description="РЕЗЕРВ"/>
+					<Field BitValue="11" Description="РЕЗЕРВ"/>
+					<Field BitValue="12" Description="РЕЗЕРВ"/>
+					<Field BitValue="13" Description="РЕЗЕРВ"/>
+					<Field BitValue="14" Description="РЕЗЕРВ"/>
+					<Field BitValue="15" Description="РЕЗЕРВ"/>
+					<Field BitValue="16" Description="РЕЗЕРВ"/>
+					<Field BitValue="17" Description="РЕЗЕРВ"/>
+					<Field BitValue="18" Description="РЕЗЕРВ"/>
+					<Field BitValue="19" Description="РЕЗЕРВ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B35" Name="ДЕЖУРН РЕЖИМ">
+			<Address>75</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>6000</Maximum>
+				<Default>0</Default>
+				<Unit>C</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B36" Name="ТД ВКЛ/ВЫКЛ">
+			<Address>76</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>7</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B37" Name="ВР.МУФТ.РАЗГ">
+			<Address>77</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>3</Minimum>
+				<Maximum>100</Maximum>
+				<Default>50</Default>
+				<Unit>С</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B38" Name="КВОКВЗ В ДВИ">
+			<Address>78</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ВЫСТАВЛ ПО ФАКТУ"/>
+					<Field BitValue="1" Description="ВСЕГДА УСТ. В 1"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B39" Name="BLUETOOTH">
+			<Address>79</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ВЫКЛЮЧЕН"/>
+					<Field BitValue="1" Description="ВКЛЮЧЕН"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B40" Name="РЕЗЕРВ">
+			<Address>80</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B41" Name="РЕЗЕРВ">
+			<Address>81</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B42" Name="РЕЗЕРВ">
+			<Address>82</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B43" Name="РЕЗЕРВ">
+			<Address>83</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B44" Name="РЕЗЕРВ">
+			<Address>84</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B45" Name="РЕЗЕРВ">
+			<Address>85</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B46" Name="РЕЗЕРВ">
+			<Address>86</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B47" Name="РЕЗЕРВ">
+			<Address>87</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B48" Name="РЕЗЕРВ">
+			<Address>88</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="B49" Name="РЕЗЕРВ">
+			<Address>89</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+	</Group>
+	<Group Name="ГРУППА 3 C" Type="Factory" Description="ЗАВОД НАСТРОЙКИ">
+		<Parameter Index="С0" Name="КОД ДОСТУПА">
+			<Address>90</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65530</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C1" Name="РЕЗЕРВ">
+			<Address>91</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С2" Name="ГОД ИЗГОТОВЛ.">
+			<Address>92</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>ProductYear</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>99</Maximum>
+				<Default>15</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С3" Name="ЗАВОД НОМЕР">
+			<Address>93</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>FactoryNumber</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>9999</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С4" Name="МАКС МОМЕНТ">
+			<Address>94</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>10</Minimum>
+				<Maximum>2000</Maximum>
+				<Default>100</Default>
+				<Unit>КН*М</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С5" Name="НОМИНАЛЬН ТОК">
+			<Address>95</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>500</Maximum>
+				<Default>50</Default>
+				<Unit>A</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С6" Name="КП РЕДУКТОРА">
+			<Address>96</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>65530</Maximum>
+				<Default>20000</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C7" Name="КОЛ.СБОЕВ ДП">
+			<Address>97</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>100</Maximum>
+				<Default>0</Default>
+				<Unit>%</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C8" Name="УРОВ СБОЯ ДП">
+			<Address>98</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>100</Maximum>
+				<Default>50</Default>
+				<Unit>%</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C9" Name="ДАТЧ ХОЛЛА">
+			<Address>99</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>15</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C10" Name="ПОДВЕРСИЯ ПО">
+			<Address>100</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C11" Name="ДАТЧ.ТЕМПЕР.">
+			<Address>101</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>3</Maximum>
+				<Default>1</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С12" Name="ЦИКЛЫ ПРОГОН">
+			<Address>102</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>50</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С13" Name="РАССТ МУФТЫ">
+			<Address>103</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>100</Maximum>
+				<Default>2</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С14" Name="ВРЕ ПАУЗ ПРО">
+			<Address>104</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>900</Maximum>
+				<Default>30</Default>
+				<Unit>C</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C15" Name="ВР СБР ИНДИК">
+			<Address>105</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>30</Maximum>
+				<Default>30</Default>
+				<Unit>C</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C16" Name="ПО УМОЛЧАНИЮ">
+			<Address>106</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="НЕТ КОМАНДЫ"/>
+					<Field BitValue="1" Description="ЗАДАТЬ"/>
+					<Field BitValue="2" Description="СБРОСИТЬ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С17" Name="ИНТЕНС. РАЗГ">
+			<Address>107</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1000</Maximum>
+				<Default>200</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С18" Name="СПБ.ИЗМ.ИЗОЛ">
+			<Address>108</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>1</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ПЕРЕМЕННЫЙ ТОК"/>
+					<Field BitValue="1" Description="ПОСТОЯННЫЙ ТОК"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С19" Name="УГОЛ ТОРМОЖ.">
+			<Address>109</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>60</Minimum>
+				<Maximum>165</Maximum>
+				<Default>95</Default>
+				<Unit>ГРАД</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С20" Name="ВРЕМЯ ТОРМОЖ">
+			<Address>110</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>50</Maximum>
+				<Default>10</Default>
+				<Unit>C</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С21" Name="ПРЕВ ТОРМОЖ.">
+			<Address>111</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>100</Maximum>
+				<Default>10</Default>
+				<Unit>ОБДВ</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C22" Name="МИН СКОР РЕВ">
+			<Address>112</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>700</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С23" Name="УГОЛ ТОР РЕВ">
+			<Address>113</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>60</Minimum>
+				<Maximum>165</Maximum>
+				<Default>108</Default>
+				<Unit>ГРАД</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С24" Name="ВРЕМ ТОР РЕВ">
+			<Address>114</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>50</Maximum>
+				<Default>3</Default>
+				<Unit>C</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С25" Name="РАЗРЕШ.ТОРМ.">
+			<Address>115</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>2</Maximum>
+				<Default>1</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="БЕЗ ТОРМОЖЕНИЯ"/>
+					<Field BitValue="1" Description="ТОРМ В КРАЙН ПОЛ"/>
+					<Field BitValue="2" Description="ТОРМОЖЕН ВСЕГДА"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С26" Name="ПЕРИОД ТЕСТВ">
+			<Address>116</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>5</Minimum>
+				<Maximum>3600</Maximum>
+				<Default>600</Default>
+				<Unit>С</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С27" Name="АЦП СОПР ИЗЛ">
+			<Address>117</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65530</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C28" Name="УРОВ СОПР ИЗ">
+			<Address>118</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>15000</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С29" Name="ТД КЗ-N ТОК">
+			<Address>119</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С30" Name="ТД ОБРЫВ ТОК">
+			<Address>120</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С31" Name="ТД УР ОБРЫВ">
+			<Address>121</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>20000</Maximum>
+				<Default>3</Default>
+				<Unit>А</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С32" Name="ТД УРОВЕН КЗ">
+			<Address>122</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>10</Minimum>
+				<Maximum>20000</Maximum>
+				<Default>80</Default>
+				<Unit>А</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С33" Name="УРОВ НАПР ТД">
+			<Address>123</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>100</Maximum>
+				<Default>47</Default>
+				<Unit>%</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С34" Name="ВРЕМ НАПР ТД">
+			<Address>124</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>1000</Maximum>
+				<Default>80</Default>
+				<Unit>мС</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С35" Name="КОРР ТЕМП БЛ">
+			<Address>125</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-100U</Minimum>
+				<Maximum>100</Maximum>
+				<Default>0</Default>
+				<Unit>ГРАД</Unit>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С36" Name="КОРР ТЕМП ДВ">
+			<Address>126</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-100U</Minimum>
+				<Maximum>100</Maximum>
+				<Default>0</Default>
+				<Unit>ГРАД</Unit>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С37" Name="TSENS 1:">
+			<Address>127</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С38" Name="К ФЛТР НАПР">
+			<Address>128</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65530</Maximum>
+				<Default>5000</Default>
+				<Unit>MКC</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С39" Name="К ФЛТР ТОКА">
+			<Address>129</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65530</Maximum>
+				<Default>5000</Default>
+				<Unit>MКC</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С40" Name="СДВ ДАТЧ.Т.1">
+			<Address>130</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-100U</Minimum>
+				<Maximum>100</Maximum>
+				<Default>0</Default>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С41" Name="СДВ ДАТЧ.Т.2">
+			<Address>131</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-100U</Minimum>
+				<Maximum>100</Maximum>
+				<Default>0</Default>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С42" Name="СДВ ДАТЧ.Т.3">
+			<Address>132</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-100U</Minimum>
+				<Maximum>100</Maximum>
+				<Default>0</Default>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С43" Name="ТИП BLUET-TH">
+			<Address>133</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="BLUEGIGA WT41-A"/>
+					<Field BitValue="1" Description="AMP'ED RF BT-31"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С44" Name="СХЕМ.ТЕСТ.ИЗ">
+			<Address>134</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>1</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ПО ВЕРХНЕМУ УРОВ"/>
+					<Field BitValue="1" Description="ПО НИЖНЕМУ УРОВН"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С45" Name="ВР ЗАДЕР МОМ">
+			<Address>134</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Unit>С</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С46" Name="РЕГИС.MODBUS">
+			<Address>136</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="БУР-15-20 ТОМЗЭЛ"/>
+					<Field BitValue="1" Description="БУ-50 ТЭК"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C47" Name="КОРРЕКТ ЦАП">
+			<Address>137</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65530</Maximum>
+				<Default>4100</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C48" Name="СМЕЩ ЦАП">
+			<Address>138</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-10000U</Minimum>
+				<Maximum>10000</Maximum>
+				<Default>0</Default>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C49" Name="ТИП ИНДИКАТ.">
+			<Address>139</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="OLED WINSTAR"/>
+					<Field BitValue="1" Description="VAC FUTABA"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С50" Name="ЗАДЕР.RS-485">
+			<Address>140</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>10</Minimum>
+				<Maximum>50</Maximum>
+				<Default>15</Default>
+				<Unit>С</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С51" Name="ТИП ЭНКОДЕРА">
+			<Address>141</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>1</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="AVAGO"/>
+					<Field BitValue="1" Description="СКБ ИС"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С52" Name="ВЕРС. ПО ПУЭ">
+			<Address>142</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ПУЭ v 0.013"/>
+					<Field BitValue="1" Description="ПУЭ v 0.014"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С53" Name="МОМ МИН ПРОЦ">
+			<Address>117</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>10</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C54" Name="ЗАЩ МАКС U">
+			<Address>144</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>3</Maximum>
+				<Default>3</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ВЫКЛЮЧЕНА"/>
+					<Field BitValue="1" Description="ИНДИК НА БЛОКЕ"/>
+					<Field BitValue="2" Description="ИНД НА БЛОКЕ/ТС"/>
+					<Field BitValue="3" Description="ИНДИК И ОСТАНОВ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C55" Name="У МАКС U 47%">
+			<Address>145</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>220</Minimum>
+				<Maximum>600</Maximum>
+				<Default>324</Default>
+				<Unit>B</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C56" Name="T МАКС U 47%">
+			<Address>146</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>200</Maximum>
+				<Default>20</Default>
+				<Unit>C</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С57" Name="УРОВ ПОВЫШ U">
+			<Address>147</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>220</Minimum>
+				<Maximum>335</Maximum>
+				<Default>265</Default>
+				<Unit>B</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С58" Name="ВР ПОВ. U НС">
+			<Address>148</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>200</Maximum>
+				<Default>10</Default>
+				<Unit>C</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С59" Name="ВР ПОВ. U АВ">
+			<Address>149</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>250</Maximum>
+				<Default>210</Default>
+				<Unit>C</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C60" Name="ЗАЩ МИН U">
+			<Address>150</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>3</Maximum>
+				<Default>3</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ВЫКЛЮЧЕНА"/>
+					<Field BitValue="1" Description="ИНДИК НА БЛОКЕ"/>
+					<Field BitValue="2" Description="ИНД НА БЛОКЕ/ТС"/>
+					<Field BitValue="3" Description="ИНДИК И ОСТАНОВ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С61" Name="УРОВ ПОНИЖ U">
+			<Address>151</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>90</Minimum>
+				<Maximum>220</Maximum>
+				<Default>130</Default>
+				<Unit>B</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С62" Name="ВР МИН U НС">
+			<Address>152</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>200</Maximum>
+				<Default>10</Default>
+				<Unit>C</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С63" Name="ВР МИН U АВ">
+			<Address>153</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>250</Maximum>
+				<Default>210</Default>
+				<Unit>C</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С64" Name="ТД ПЕРЕД ПУС">
+			<Address>154</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>1</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ВЫКЛЮЧЕН"/>
+					<Field BitValue="1" Description="ВКЛЮЧЕН"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С65" Name="РЕЗЕРВ">
+			<Address>155</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С66" Name="РЕЗЕРВ">
+			<Address>156</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C67" Name="ЗАЩ ОБРЫВ U">
+			<Address>157</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>3</Maximum>
+				<Default>3</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ВЫКЛЮЧЕНА"/>
+					<Field BitValue="1" Description="ИНДИК НА БЛОКЕ"/>
+					<Field BitValue="2" Description="ИНД НА БЛОКЕ/ТС"/>
+					<Field BitValue="3" Description="ИНДИК И ОСТАНОВ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С68" Name="УРОВ ОБРЫВ U">
+			<Address>158</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>110</Maximum>
+				<Default>70</Default>
+				<Unit>В</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С69" Name="УР ОБР U ДВ.">
+			<Address>159</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>10</Minimum>
+				<Maximum>500</Maximum>
+				<Default>195</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С70" Name="ВРЕМ ОБРЫВ U">
+			<Address>160</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>200</Maximum>
+				<Default>50</Default>
+				<Unit>C</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С71" Name="РЕЗЕРВ">
+			<Address>161</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C72" Name="ЗАЩ ОБРЫВ I">
+			<Address>162</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>3</Maximum>
+				<Default>2</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ВЫКЛЮЧЕНА"/>
+					<Field BitValue="1" Description="ИНДИК НА БЛОКЕ"/>
+					<Field BitValue="2" Description="ИНД НА БЛОКЕ/ТС"/>
+					<Field BitValue="3" Description="ИНДИК И ОСТАНОВ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C73" Name="УРОВ ОБРЫВ I">
+			<Address>163</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>20</Minimum>
+				<Maximum>500</Maximum>
+				<Default>200</Default>
+				<Unit>%</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C74" Name="ВРЕМ ОБРЫВ I">
+			<Address>164</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>100</Maximum>
+				<Default>20</Default>
+				<Unit>C</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C75" Name="ВР-ТОК ЗАЩ">
+			<Address>165</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>3</Maximum>
+				<Default>3</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ВЫКЛЮЧЕНА"/>
+					<Field BitValue="1" Description="ИНДИК НА БЛОКЕ"/>
+					<Field BitValue="2" Description="ИНД НА БЛОКЕ/ТС"/>
+					<Field BitValue="3" Description="ИНДИК И ОСТАНОВ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С76" Name="РЕЗЕРВ">
+			<Address>166</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С77" Name="РЕЗЕРВ">
+			<Address>167</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С78" Name="РЕЗЕРВ">
+			<Address>168</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С79" Name="РЕЗЕРВ">
+			<Address>169</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С80" Name="РЕЗЕРВ">
+			<Address>170</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С81" Name="РЕЗЕРВ">
+			<Address>171</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C82" Name="КОЭФ.З 25%">
+			<Address>172</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-10U</Minimum>
+				<Maximum>10</Maximum>
+				<Default>0</Default>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С83" Name="КОЭФ.З 35%">
+			<Address>173</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-10U</Minimum>
+				<Maximum>10</Maximum>
+				<Default>0</Default>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С84" Name="КОЭФ.З 50%">
+			<Address>174</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-10U</Minimum>
+				<Maximum>10</Maximum>
+				<Default>0</Default>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С85" Name="КОЭФ.З 75%">
+			<Address>175</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-10U</Minimum>
+				<Maximum>10</Maximum>
+				<Default>0</Default>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С86" Name="КОЭФ.З 100%">
+			<Address>175</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-10U</Minimum>
+				<Maximum>15</Maximum>
+				<Default>0</Default>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С87" Name="УРОВ КЗ НА N">
+			<Address>177</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>100</Minimum>
+				<Maximum>20000</Maximum>
+				<Default>3000</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C88" Name="ЗАЩИТА ОТ КЗ">
+			<Address>178</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>3</Maximum>
+				<Default>3</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ВЫКЛЮЧЕНА"/>
+					<Field BitValue="1" Description="ИНДИК НА БЛОКЕ"/>
+					<Field BitValue="2" Description="ИНД НА БЛОКЕ/ТС"/>
+					<Field BitValue="3" Description="ИНДИК И ОСТАНОВ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С89" Name="УРОВЕНЬ КЗ">
+			<Address>179</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>32767</Maximum>
+				<Default>24000</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С90" Name="МЕТ ЗАЩ ЭНКР">
+			<Address>180</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="НОВЫЙ МЕТОД"/>
+					<Field BitValue="1" Description="СТАРЫЙ МЕТОД"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С91" Name="ИНДИК КАЛИБР">
+			<Address>181</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>3</Maximum>
+				<Default>2</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ВЫКЛЮЧЕНА"/>
+					<Field BitValue="1" Description="ИНДИК НА БЛОКЕ"/>
+					<Field BitValue="2" Description="ИНД НА БЛОКЕ/ТС"/>
+					<Field BitValue="3" Description="ИНДИК И ОСТАНОВ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C92" Name="ИНД АВА УСТР">
+			<Address>182</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>3</Maximum>
+				<Default>2</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ВЫКЛЮЧЕНА"/>
+					<Field BitValue="1" Description="ИНДИК НА БЛОКЕ"/>
+					<Field BitValue="2" Description="ИНД НА БЛОКЕ/ТС"/>
+					<Field BitValue="3" Description="ИНДИК И ОСТАНОВ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C93" Name="ПЕРЕГ/ПЕРЕОХ">
+			<Address>183</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>3</Maximum>
+				<Default>2</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ВЫКЛЮЧЕНА"/>
+					<Field BitValue="1" Description="ИНДИК НА БЛОКЕ"/>
+					<Field BitValue="2" Description="ИНД НА БЛОКЕ/ТС"/>
+					<Field BitValue="3" Description="ИНДИК И ОСТАНОВ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С94" Name="УР ПЕР БЛ НС">
+			<Address>184</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>120</Maximum>
+				<Default>90</Default>
+				<Unit>ГРАД</Unit>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С95" Name="УР ПЕР БЛ АВ">
+			<Address>185</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>120</Maximum>
+				<Default>100</Default>
+				<Unit>ГРАД</Unit>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С96" Name="УР ПЕРЕОХ БЛ">
+			<Address>186</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-50U</Minimum>
+				<Maximum>0</Maximum>
+				<Default>-35U</Default>
+				<Unit>ГРАД</Unit>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С97" Name="УР ВКЛ ТЕНА">
+			<Address>187</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-40U</Minimum>
+				<Maximum>10</Maximum>
+				<Default>10</Default>
+				<Unit>ГРАД</Unit>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С98" Name="УР ВЫКЛ ТЕНА">
+			<Address>188</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-20U</Minimum>
+				<Maximum>50</Maximum>
+				<Default>30</Default>
+				<Unit>ГРАД</Unit>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С99" Name="ВР ПЕР УП ДВ">
+			<Address>189</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>10</Maximum>
+				<Default>0</Default>
+				<Unit>СЕК</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C100" Name="УР ПЕРЕГ ДВ">
+			<Address>190</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>170</Maximum>
+				<Default>110</Default>
+				<Unit>ГРАД</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С101" Name="ТЕСТ СВЕТОД">
+			<Address>191</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C102" Name="ВРЕМЯ ПЕРЕГ">
+			<Address>192</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>200</Maximum>
+				<Default>25</Default>
+				<Unit>C</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="C103" Name="ЧЕР ФАЗ ДВИ">
+			<Address>193</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>3</Maximum>
+				<Default>3</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ВЫКЛЮЧЕНА"/>
+					<Field BitValue="1" Description="ИНДИК НА БЛОКЕ"/>
+					<Field BitValue="2" Description="ИНД НА БЛОКЕ/ТС"/>
+					<Field BitValue="3" Description="ИНДИК И ОСТАНОВ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С104" Name="ВР ЧЕР ФАЗ">
+			<Address>194</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>600</Maximum>
+				<Default>20</Default>
+				<Unit>С</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С105" Name="НЕИСП МУ/ДУ">
+			<Address>195</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>3</Maximum>
+				<Default>2</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ВЫКЛЮЧЕНА"/>
+					<Field BitValue="1" Description="ИНДИК НА БЛОКЕ"/>
+					<Field BitValue="2" Description="ИНД НА БЛОКЕ/ТС"/>
+					<Field BitValue="3" Description="ИНДИК И ОСТАНОВ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С106" Name="ЗЩ СБОЙ RTC">
+			<Address>196</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>1</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ВЫКЛЮЧЕНА"/>
+					<Field BitValue="1" Description="ВКЛЮЧЕНА"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С107" Name="СБОЙ ДАТЧ П">
+			<Address>197</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ПУСК ЗАПРЕЩЕН"/>
+					<Field BitValue="1" Description="ПУСК РАЗРЕШЕН"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С108" Name="СПС ИЗМ МОМ">
+			<Address>198</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ИНТЕРПОЛЯЦИЯ ПОВ"/>
+					<Field BitValue="1" Description="ФУНКЦИЯ МОМЕНТА"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С110" Name="КОЭФ. 35%">
+			<Address>200</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-10U</Minimum>
+				<Maximum>10</Maximum>
+				<Default>0</Default>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С111" Name="КОЭФ. 50%">
+			<Address>201</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-10U</Minimum>
+				<Maximum>10</Maximum>
+				<Default>0</Default>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С112" Name="КОЭФ. 75%">
+			<Address>202</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-10U</Minimum>
+				<Maximum>10</Maximum>
+				<Default>0</Default>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С113" Name="КОЭФ. 100%">
+			<Address>203</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-10U</Minimum>
+				<Maximum>15</Maximum>
+				<Default>0</Default>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С114" Name="КОР МАЛЫХ М">
+			<Address>204</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-30U</Minimum>
+				<Maximum>30</Maximum>
+				<Default>0</Default>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С115" Name="КОР БОЛЬШ М">
+			<Address>205</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-30U</Minimum>
+				<Maximum>30</Maximum>
+				<Default>0</Default>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С116" Name="УПОР В ДВИЖ">
+			<Address>206</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>1</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="ВЫКЛЮЧЕН"/>
+					<Field BitValue="1" Description="ВКЛЮЧЕН"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С117" Name="МНОЖИТЕЛ Mb">
+			<Address>207</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>5</Maximum>
+				<Default>2</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="0 x Таймаут"/>
+					<Field BitValue="1" Description="Без множителя"/>
+					<Field BitValue="2" Description="2 x Таймаут"/>
+					<Field BitValue="3" Description="3 x Таймаут"/>
+					<Field BitValue="4" Description="4 x Таймаут"/>
+					<Field BitValue="5" Description="5 x Таймаут"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С118" Name="БАЛАН УПОРА">
+			<Address>208</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>-3U</Minimum>
+				<Maximum>3</Maximum>
+				<Default>0</Default>
+				<Type>Int</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="С119" Name="ВРЕМ ПЕР УП">
+			<Address>209</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>1</Minimum>
+				<Maximum>50</Maximum>
+				<Default>14</Default>
+				<Unit>СЕК</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+	</Group>
+	<Group Name="ГРУППА 4 D" Type="Command" Description="КОМАНДЫ">
+		<Parameter Index="D0" Name="ЗАДАНИЕ ЗАКР">
+			<Address>210</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>2</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="НЕТ КОМАНДЫ"/>
+					<Field BitValue="1" Description="ЗАДАТЬ"/>
+					<Field BitValue="2" Description="СБРОСИТЬ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="D1" Name="ЗАДАНИЕ ОТКР">
+			<Address>211</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>2</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="НЕТ КОМАНДЫ"/>
+					<Field BitValue="1" Description="ЗАДАТЬ"/>
+					<Field BitValue="2" Description="СБРОСИТЬ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="D2" Name="ОБОР НА ОТКР">
+			<Address>212</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>3000</Maximum>
+				<Default>0</Default>
+				<Unit>ОБ</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="D3" Name="ОБОР НА ЗАКР">
+			<Address>213</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>3000</Maximum>
+				<Default>0</Default>
+				<Unit>ОБ</Unit>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="D4" Name="РЕЗЕРВ">
+			<Address>214</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="D5" Name="СБРОС КАЛИБР">
+			<Address>215</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="НЕТ КОМАНДЫ"/>
+					<Field BitValue="1" Description="СБРОСИТЬ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="D6" Name="КОМАНД УПРАВЛ">
+			<Address>216</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>5</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="НЕТ КОМАНДЫ"/>
+					<Field BitValue="1" Description="СТОП"/>
+					<Field BitValue="2" Description="ЗАКРЫТЬ"/>
+					<Field BitValue="3" Description="ОТКРЫТЬ"/>
+					<Field BitValue="4" Description="ЗАКРЫТЬ ТЕСТ"/>
+					<Field BitValue="5" Description="ОТКРЫТЬ ТЕСТ"/>
+					<Field BitValue="6" Description="РЕЗЕРВ"/>
+					<Field BitValue="7" Description="РЕЗЕРВ"/>
+					<Field BitValue="8" Description="РЕЗЕРВ"/>
+					<Field BitValue="9" Description="РЕЗЕРВ"/>
+					<Field BitValue="10" Description="РЕЗЕРВ"/>
+					<Field BitValue="11" Description="РЕЗЕРВ"/>
+					<Field BitValue="12" Description="РЕЗЕРВ"/>
+					<Field BitValue="13" Description="РЕЗЕРВ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="D7" Name="СБРОС ЗАЩИТ">
+			<Address>217</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="НЕТ КОМАНДЫ"/>
+					<Field BitValue="1" Description="СБРОСИТЬ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="D8" Name="ПО УМОЛЧАНИЮ">
+			<Address>218</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="НЕТ КОМАНДЫ"/>
+					<Field BitValue="1" Description="ЗАДАТЬ"/>
+					<Field BitValue="2" Description="СБРОСИТЬ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="D9" Name="ТЕСТ ЭНКОДЕРА">
+			<Address>219</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>2</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="Нет команды"/>
+					<Field BitValue="1" Description="ВКЛЮЧИТЬ"/>
+					<Field BitValue="2" Description="ВЫКЛЮЧИТЬ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="D10" Name="СБРОС ЦИКЛОВ">
+			<Address>220</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="НЕТ КОМАНДЫ"/>
+					<Field BitValue="1" Description="СБРОСИТЬ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="D11" Name="СБРОС СВЯЗИ">
+			<Address>221</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="НЕТ КОМАНДЫ"/>
+					<Field BitValue="1" Description="СБРОСИТЬ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="D12" Name="ТЕСТЫ ДВИГАТ">
+			<Address>222</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>1</Maximum>
+				<Default>0</Default>
+				<Type>Enum</Type>
+				<Fields>
+					<Field BitValue="0" Description="НЕТ КОМАНДЫ"/>
+					<Field BitValue="1" Description="ПУСК ТЕСТ ДВИГАТ"/>
+				</Fields>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="D13" Name="РЕЗЕРВ">
+			<Address>223</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="D14" Name="РЕЗЕРВ">
+			<Address>224</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="D15" Name="РЕЗЕРВ">
+			<Address>225</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="D16" Name="РЕЗЕРВ">
+			<Address>226</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="D17" Name="РЕЗЕРВ">
+			<Address>227</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="D18" Name="РЕЗЕРВ">
+			<Address>228</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+		<Parameter Index="D19" Name="РЕЗЕРВ">
+			<Address>229</Address>
+			<Configuration>
+				<Type>None</Type>
+				<Appointment>Regular</Appointment>
+				<CanEdit>True</CanEdit>
+			</Configuration>
+			<ValueDescription>
+				<Minimum>0</Minimum>
+				<Maximum>65535</Maximum>
+				<Default>0</Default>
+				<Type>Uns</Type>
+			</ValueDescription>
+			<Info>
+				<Description/>
+			</Info>
+		</Parameter>
+	</Group>
+</Table>
