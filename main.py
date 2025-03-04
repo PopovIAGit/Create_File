@@ -420,13 +420,7 @@ def parse_strings(file_path, start_line_number):
 
     return result
 
-
-GROUP_PATTERN = re.compile(
-    r'\"\s*(\d+)\s*ГРУППА\s*(\w+)\s*\"\s*,\s*\"\s*([^\"]+)\s*\"\s*,\s*GR_INIT\(([^,]+),\s*(\d+)\)\s*,\s*//\s*{([^}]+)}'
-)
-
-
-def parse_groups(file_path: str) -> List[Dict[str, Optional[str]]]:
+def parse_groups(file_path):
     """
     Парсит группы между //! Группы и //! Группы конец.
     Преобразует строки в формат "ГРУППА X НАЗВАНИЕ".
@@ -435,23 +429,10 @@ def parse_groups(file_path: str) -> List[Dict[str, Optional[str]]]:
         file_path (str): Путь к файлу.
 
     Returns:
-        list: Список групп, где каждая группа представлена словарем с полями:
-              - group_number: номер группы (например, "1")
-              - group_index: индекс группы (например, "A")
-              - group_description: описание группы (например, "ИНДИКАЦИЯ")
-              - gr_init_arg1: первый аргумент GR_INIT (например, "GroupA")
-              - gr_init_arg2: второй аргумент GR_INIT (например, "0")
-              - group_type: тип группы (например, "Show")
+        list: Список групп в формате "ГРУППА X НАЗВАНИЕ".
     """
-    try:
-        with open(file_path, 'r', encoding='Windows-1251') as file:
-            content = file.read()
-    except FileNotFoundError:
-        logging.error(f"Файл не найден: {file_path}")
-        return []
-    except Exception as e:
-        logging.error(f"Ошибка при чтении файла: {e}")
-        return []
+    with open(file_path, 'r', encoding='Windows-1251') as file:
+        content = file.read()
 
     # Находим блок между //! Группы и //! Группы конец
     start_marker = "//! Группы"
@@ -460,19 +441,35 @@ def parse_groups(file_path: str) -> List[Dict[str, Optional[str]]]:
     end_index = content.find(end_marker)
 
     if start_index == -1 or end_index == -1:
-        logging.error("Маркеры начала или конца блока групп не найдены.")
+        print("Error: Group markers not found")
         return []
 
     group_block = content[start_index:end_index]
 
     # Ищем все строки в формате "   4 ГРУППА D   ", "    КОМАНДЫ     ", GR_INIT(GroupD, 0),
-    matches = GROUP_PATTERN.findall(group_block)
+    matches = re.findall(
+        r'\"\s*(\d+)\s*ГРУППА\s*(\w+)\s*\"\s*,\s*\"\s*([^\"]*?)\s*\"\s*,\s*GR_INIT\(([^,]+),\s*(\d+)\)\s*(?:,)?\s*//\s*{([^}]+)}',
+        group_block
+    )
 
     groups = []
     for match in matches:
-        group_data = extract_group_data(match)
-        if group_data:
-            groups.append(group_data)
+        group_number = match[0].strip()  # Номер группы (например, "1")
+        group_index = match[1].strip()   # Индекс группы (например, "A")
+        group_description = match[2].strip()  # Описание группы (например, "ИНДИКАЦИЯ")
+        gr_init_arg1 = match[3].strip()  # Первый аргумент GR_INIT (например, "GroupA")
+        gr_init_arg2 = match[4].strip()  # Второй аргумент GR_INIT (например, "0")
+        group_type = match[5].strip()    # Тип группы (например, "Show")
+
+        group_dict = {
+            "group_number": group_number,
+            "group_index": group_index,
+            "group_description": group_description,
+            "gr_init_arg1": gr_init_arg1,
+            "gr_init_arg2": gr_init_arg2,
+            "group_type": group_type
+        }
+        groups.append(group_dict)
 
     return groups
 
@@ -847,10 +844,12 @@ def create_xml(file_path, version_info, output_folder, device_id):
 
         # Добавляем группы в XML
         for group in groups:
+            group_number = group["group_index"]
             group_element = ET.SubElement(root, "Group")
-            group_element.set("Name", f"ГРУППА {group['group_number']} {group['group_index']}")
+            group_element.set("Name", f"ГРУППА {group['group_index']}")
             group_element.set("Type", group['group_type'])
             group_element.set("Description", group["group_description"])
+            param_counter = 0  # Инициализируем счетчик
 
             # Добавляем параметры, если они есть для этой группы
             group_description = group["group_description"]
@@ -863,7 +862,10 @@ def create_xml(file_path, version_info, output_folder, device_id):
                 for param in group_params:
                     # Создаем элемент Parameter
                     parameter = ET.SubElement(group_element, "Parameter")
-                    parameter.set("Index", f"{param['group_index']}{param['param_number']}")
+                    parameter.set("Index", f"{group_number}{param_counter}")
+
+                    param_counter += 1  # Увеличиваем счетчик
+
                     parameter.set("Name", param["param_name"])
 
                     # Добавляем Address
@@ -871,7 +873,10 @@ def create_xml(file_path, version_info, output_folder, device_id):
                     address.text = str(param.get("address", "None"))  # Используем значение по умолчанию, если адрес не указан
 
                     # Добавляем Configuration
+
                     config = ET.SubElement(parameter, "Configuration")
+                    
+
                     ET.SubElement(config, "Type").text = param.get("config_type", "None")
                     ET.SubElement(config, "Appointment").text = param.get("appointment", "Status")
                     
@@ -880,19 +885,21 @@ def create_xml(file_path, version_info, output_folder, device_id):
                         ET.SubElement(config, "Chosen").text = param.get("chosen", "")
                     
                     # Определяем record
-                    encoding = param["encoding"]
-                    if "M_RONLY" in encoding or "M_NVM" in encoding:           
-                        ET.SubElement(config, "CanEdit").text = param.get("canEdit", "True")
+                    encoding = param.get("encoding", "")  # Используем .get() для безопасного доступа к ключу
+
+                    if "M_RONLY" in encoding or "M_RUNS" in encoding:
+                        # Если encoding содержит "M_RONLY" или "M_RUNS", ничего не делаем 
+                        pass
+                    else:
+                        # Создаем элемент "CanEdit" только если encoding не содержит "M_RONLY" или "M_RUNS"
+                        can_edit = param.get("canEdit", "True")  # Используем .get() для безопасного доступа к ключу
+                        ET.SubElement(config, "CanEdit").text = can_edit
 
                     # Добавляем ValueDescription
                     value_desc = ET.SubElement(parameter, "ValueDescription")
                     ET.SubElement(value_desc, "Minimum").text = str(param.get("min_value", "None"))
                     ET.SubElement(value_desc, "Maximum").text = str(param.get("max_value", "None"))
                     ET.SubElement(value_desc, "Default").text = str(param.get("default_value", "None"))
-
-                    unit = param["unit"]
-                    if unit != "":
-                        ET.SubElement(value_desc, "Unit").text = unit
 
                     encoding = param["encoding"]
                     if "MT_RUN" in encoding or "M_RUNS" in encoding:
@@ -910,6 +917,16 @@ def create_xml(file_path, version_info, output_folder, device_id):
                         ET.SubElement(value_desc, "Type").text = "Date"
                     elif "MT_TIME" in encoding or "M_TIME" in encoding:
                         ET.SubElement(value_desc, "Type").text = "Time"
+                    
+                    unit = param["unit"]
+                    if unit != "":
+                        ET.SubElement(value_desc, "Unit").text = unit
+                    
+                    # Определяем coefficient
+                    prec_match = re.search(r'M_PREC\((\d+)\)', encoding)
+                    if prec_match:
+                        #param.coefficient = str(param.group(1)) str(int(param_obj.max_value)/(10**int(param_obj.coefficient)))
+                        ET.SubElement(value_desc, "Coefficient").text =  str(int(1)/(10**int(str(prec_match.group(1))))) 
 
                     # Обработка M_SADR (если требуется)
                     if "encoding" in param:

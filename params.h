@@ -32,24 +32,25 @@
 #define GR_INIT(GR, D)		GetAdr(GR) + D, sizeof(T##GR) - D
 
 const struct MENU_GROUP groups[] = {
-    //! цПСООШ
+	//! цПСООШ
 	"   1 цпсоою A   ", "    хмдхйюжхъ   ", GR_INIT(GroupA, 0),	//{Show}	
 	"   2 цпсоою B   ", "онкэг мюярпнийх ", GR_INIT(GroupB, 0),	//{User}
 	"   3 цпсоою C   ", "гюбнд мюярпнийх ", GR_INIT(GroupC, 0),	//{Factory}
 	"   4 цпсоою D   ", "    йнлюмдш     ", GR_INIT(GroupD, 0),	//{Command}
-	//  "   5 цпсоою H   ", "  яйпшрше       ", GR_INIT(GroupE, 0),
-	"   6 цпсоою E   ", "     фспмюк     ", GR_INIT(GroupE, 2)	//{None}
-	//  "   7 цпсоою R   ", "  наыхе         ", GR_INIT(GroupE, 0),
-    //! цПСООШ ЙНМЕЖ
+	//  "   5 цпсоою G   ", "  реярхпнбюмхе  ", GR_INIT(GroupE, 0),	//{None}
+	"   6 цпсоою E   ", "     фспмюк     ", GR_INIT(GroupE, 2)	//{Hide}
+	//  "   7 цпсоою T   ", "  наыхе         ", GR_INIT(GroupE, 0), //{None}
+	//  "   8 цпсоою H   ", "  яйпшрше       ", GR_INIT(GroupE, 0), //{Hide}
+	//! цПСООШ ЙНМЕЖ
 };
 
 const struct MENU_PARAM params[] = { 	
 //! оЮПЮЛЕРПШ
-//! цпсоою р наыхе {None}    	
+//! цпсоою р наыхе    	
 "R0.реумнкнц. пец", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {0, Regular,  }
 "R1.пецхярп детей", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {1, Regular,  }
 "R2.онкнфемхе б %", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {2, Regular,  }
-"R3.пецхяп йнлюмд", "    ", 	0,  65535,  	0, MT_DEC|M_RMAX(4),					// {3, Regular,  }
+"R3.пецхяп йнлюмд", "    ", 	0,  65535,  	0, MT_DEC|M_RMAX(4),			// {3, Regular,  }
 "R4.явервхй жхйкб", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {4, Regular,  }
 "R5.пегепб       ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {5, Regular,  }
 "R6.рнй тюгш U   ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {6, Regular,  }
@@ -67,7 +68,7 @@ const struct MENU_PARAM params[] = {
 "R18.яйнпнярэ    ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {18, Regular,  }
 "R19.пегепб      ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {19, Regular,  }
 "R20.лнлемр      ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {20, Regular,  }
-"R21.пецхярп рсря", "    ", 	0,  65535,  	0, MT_DEC|M_NVM|M_RMAX(4),				// {21, Regular,  }
+"R21.пецхярп рсря", "    ", 	0,  65535,  	0, MT_DEC|M_NVM|M_RMAX(4),		// {21, Regular,  }
 "R22.пегепб      ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {22, Regular,  }
 "R23.пегепб      ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {23, Regular,  }
 "R24.пегепб      ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {24, Regular,  }
@@ -86,7 +87,7 @@ const struct MENU_PARAM params[] = {
 "R37.пегепб      ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {37, Regular,  }
 "R38.пегепб      ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {38, Regular,  }
 "R39.пегепб      ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {39, Regular,  }
-//! цпсоою B онкэг мюярпнийх {User}
+//! цпсоою B онкэг мюярпнийх
 "B0.лнлемр гюйп  ", "м*л ",		1,	   10,		2, MT_DEC|M_PWP1|M_NVM|M_KMM|M_RMAX(4),		// {40, Regular,  }
 "B1.лнлемр нрйп  ", "м*л ",		1,	   10,		2, MT_DEC|M_PWP1|M_NVM|M_KMM|M_RMAX(4),		// {41, Regular,  }
 "B2.лнл сок гюйп ", "м*л ",		1,	   10,		2, MT_DEC|M_PWP1|M_NVM|M_KMM|M_RMAX(4),		// {42, Regular,  }
@@ -119,6 +120,7 @@ const struct MENU_PARAM params[] = {
 "B29.сопюбк.я одс", "    ", 	0,      2,  	2, MT_STR|M_PWP1|M_NVM|M_SADR(179),			// {69, Regular,  }
 "B30.пеюй мю ярно", "    ", 	0,      2,  	0, MT_STR|M_PWP1|M_NVM|M_SADR(176),			// {70, Regular,  }	рПЕАНБЮМХЕ нАПХЕБЮ ОН ПЮГЛШЙЮМХЧ йбн йбг 04.12.19
 "B31.лнл оеп сонп", "м*л ",  2000,  20000,   5000, MT_DEC|M_PWP1|M_NVM|M_RMAX(4), 			// {71, Regular,  }
+"B32.бпел.нцп.лнл", "я   ", 	3,     30,     30, MT_DEC|M_PWP1|M_NVM|M_RMAX(2)|M_PREC(1),	// {72, Regular,  }
 "B33.осрэ сокнрм ", "на  ", 	1,   1000,    100, MT_DEC|M_PWP1|M_NVM|M_RMAX(3)|M_PREC(1),	// {73, Regular,  }
 "B34.рхо опхбндю ", "    ",     0,      5,      0, MT_STR|M_PWP1|M_NVM|M_SADR(192),			// {74, Regular,  }
 "B35.дефспм пефхл", "C   ",     0,   6000,      0, MT_DEC|M_PWP1|M_NVM|M_RMAX(3),			// {75, Regular,  }
@@ -136,7 +138,7 @@ const struct MENU_PARAM params[] = {
 "   B47.пегепб   ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),				// {87, Regular,  }
 "   B48.пегепб   ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),				// {88, Regular,  }
 "   B49.пегепб   ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),				// {89, Regular,  }
-//! цпсоою C гюбнд мюярпнийх {Factory}
+//! цпсоою C гюбнд мюярпнийх
 "я0.йнд днярсою  ", "    ",     0,  65530,      0, M_CODE,									// {90, Regular,  }
 "   C1.пегепб    ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),				// {91, Regular,  }
 "я2.цнд хгцнрнбк.", "    ",     0,     99,     15, MT_DEC|M_PWP2|M_NVM|M_RMAX(1),			// {92, ProductYear,  }
@@ -252,6 +254,7 @@ const struct MENU_PARAM params[] = {
 "я107.яани дюрв о", "    ",     0,      1,      0, MT_STR|M_PWP2|M_NVM|M_SADR(234),				// {197, Regular,  }
 //--------------------мЮЯРПНИЙХ ЛНЛЕМРНБ
 "я108.яоя хгл лнл", "    ",     0,      1,      0, MT_STR|M_PWP2|M_NVM|M_SADR(238),				// {198, Regular,  }
+"я109.йнщт. 25%  ", "    ",  -10U,     10,      0, MT_DEC|M_PWP2|M_NVM|M_SIGN|M_RMAX(1),		// {199, Regular,  }
 "я110.йнщт. 35%  ", "    ",  -10U,     10,      0, MT_DEC|M_PWP2|M_NVM|M_SIGN|M_RMAX(1),		// {200, Regular,  }
 "я111.йнщт. 50%  ", "    ",  -10U,     10,      0, MT_DEC|M_PWP2|M_NVM|M_SIGN|M_RMAX(1),		// {201, Regular,  }
 "я112.йнщт. 75%  ", "    ",  -10U,     10,      0, MT_DEC|M_PWP2|M_NVM|M_SIGN|M_RMAX(1),		// {202, Regular,  }
@@ -262,7 +265,7 @@ const struct MENU_PARAM params[] = {
 "я117.лмнфхрек Mb", "    ",     1,      5,      2, MT_STR|M_PWP2|M_NVM|M_SADR(212),				// {207, Regular,  }
 "я118.аюкюм сонпю", "    ",   -3U,      3,      0, MT_DEC|M_PWP2|M_NVM|M_SIGN|M_RMAX(1),		// {208, Regular,  }
 "я119.бпел оеп со", "яей ",     1,     50,     14, MT_DEC|M_PWP2|M_NVM|M_RMAX(4)|M_PREC(1),		// {209, Regular,  }
-//! цпсоою D йнлюмдш {Command}
+//! цпсоою D йнлюмдш
 "D0.гюдюмхе гюйп ", "    ",      0,      2,      0, M_COMM|M_SADR(157),							// {210, Regular,  }
 "D1.гюдюмхе нрйп ", "    ",      0,      2,      0, M_COMM|M_SADR(157),							// {211, Regular,  }
 "D2.нанп мю нрйп ", "на  ",      0,   3000,      0, M_DCOM|M_RMAX(3)|M_PREC(1),					// {212, Regular,  }
@@ -283,7 +286,7 @@ const struct MENU_PARAM params[] = {
 "   D17.пегепб   ", "    ", 	 0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),					// {227, Regular,  }
 "   D18.пегепб   ", "    ", 	 0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),					// {228, Regular,  }
 "   D19.пегепб   ", "    ", 	 0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),					// {229, Regular,  }
-//! цпсоою G реярхпнбюмхе {None}
+//! цпсоою G реярхпнбюмхе
 "G0.пефхл реярю  ", "    ",      0,      1,      0, MT_DEC|M_PWP2|M_RMAX(1),					// {230, Regular,  }
 "G1.реяр ябернд  ", "    ",      0,  65530,      0, MT_BIN|M_PWP2|M_RMAX(4),					// {231, Regular,  }
 "G2.реяр дхя бшу ", "    ",      0,  65530,      0, MT_BIN|M_PWP2|M_RMAX(4),					// {232, Regular,  }
@@ -313,6 +316,8 @@ const struct MENU_PARAM params[] = {
 "   G26.пегепб   ", "    ",      0,  65535,      0, MT_DEC|M_RONLY|M_RMAX(4),					// {256, Regular,  }
 "   G27.пегепб   ", "    ",      0,  65535,      0, MT_DEC|M_RONLY|M_RMAX(4),					// {257, Regular,  }
 "   G28.пегепб   ", "    ",      0,  65535,      0, MT_DEC|M_RONLY|M_RMAX(4),					// {258, Regular,  }
+"   G29.пегепб   ", "    ",      0,  65535,      0, MT_DEC|M_RONLY|M_RMAX(4), 					// {259, Regular,  }
+//! цпсоою H яйпшрше
 "0.янярнъм. йюкха", "    ",      0,      3,      0, MT_DEC|M_NVM,								// {260, Regular,  }
 "1.онкнф гюйпшрн1", "    ",      0,  65535,      0, MT_DEC|M_NVM|M_RMAX(4),						// {261, Regular,  }
 "2.онкнф гюйпшрн2", "    ",      0,  65535,      0, MT_DEC|M_NVM|M_RMAX(4),						// {262, Regular,  }
@@ -453,7 +458,7 @@ const struct MENU_PARAM params[] = {
 "137.  пегепб    ", "    ",      0,  65530,      0, MT_DEC|M_RMAX(4),			// {397, Regular,  }
 "138.  пегепб    ", "    ",      0,  65530,      0, MT_DEC|M_RMAX(4),			// {398, Regular,  }
 "139.пбх йнмжебхй", "    ",      0,  65530,      0, MT_DEC|M_RMAX(4),			// {399, Regular,  }
-//! цпсоою ю хмдхйюжхъ {Show}
+//! цпсоою ю хмдхйюжхъ
 "ю0.ярюрся пюанрш", "    ",		0,	65530,		0, M_RUNS|M_SADR(1),			// {400, Status,  }
 "ю1.дхюц опнжеяяю", "    ",		0,	65530,		0, M_RUNS|M_SADR(18),			// {401, Fault,  }
 "ю2.дхюцмняр яерх", "    ",		0,	65530,		0, M_RUNS|M_SADR(35),			// {402, Fault,  }
@@ -481,7 +486,7 @@ const struct MENU_PARAM params[] = {
 "ю24.онкнф.щмйнд.", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {424, Regular,  }
 "ю25.релоп дбхцюр", "    ",     0,      1,  	0, M_STAT|M_SADR(253),		// {252, Regular,  } 260 425 SDV 8.07.14 рЕЛОЕПЮРСПЮ ДБХЦЮРЕКЪ. оПХ МЕНАУНДХЛНЯРХ САПЮРЭ
 "ю26.веп тюг яерх", "    ", 	0,      2,  	0, M_STAT|M_SADR(182),			// {426, Regular,  }
-"ю27.йнмрп. ясллю", "    ", 	0,  65535,  	0, M_HSHOW|M_RMAX(3),			// {427, Regular,  }
+"ю27.йнмрп. ясллю", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(3),			// {427, Regular,  }
 "ю28.пег.дхюцм.до", "    ", 	0,      1,  	0, M_STAT|M_SADR(258),			// {428, Regular,  }
 "ю29.пегепб      ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {429, Regular,  }
 "ю30.пегепб      ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {430, Regular,  }
@@ -494,7 +499,7 @@ const struct MENU_PARAM params[] = {
 "ю37.пегепб      ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {437, Regular,  }
 "ю38.пегепб      ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {438, Regular,  }
 "ю39.пегепб      ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {439, Position,  }
-//! цпсоою E фспмюк {None}
+//! цпсоою E фспмюк
 "     бпелъ      ", "    ",      0,  65535,      0, M_TIME|M_RONLY,						//
 "      дюрю      ", "    ",      0,  65535,     33, M_DATE|M_RONLY,						//
 "E0.ярюрся пюанрш", "    ",      0,  65535,      0, M_RUNS|M_SADR(1),					//
