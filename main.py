@@ -269,7 +269,6 @@ def create_excel_file(excel_file, param_objects, groups):
     # Сохраняем файл
     wb.save(excel_file)
     print(f"Файл {excel_file} успешно создан.")
-          
 
 # ready
 def find_version_file():
@@ -342,8 +341,6 @@ def find_device_id(file_path):
     except Exception as e:
         print(f"Ошибка при чтении файла: {e}")
         return None
-
-
 
 def find_param_file():
     """
@@ -473,7 +470,6 @@ def parse_groups(file_path):
 
     return groups
 
-
 def extract_group_data(match: tuple) -> Optional[Dict[str, Optional[str]]]:
     """
     Извлекает данные группы из совпадения регулярного выражения.
@@ -501,7 +497,7 @@ def extract_group_data(match: tuple) -> Optional[Dict[str, Optional[str]]]:
             "group_type": group_type
         }
     except Exception as e:
-        logging.error(f"Ошибка при извлечении данных группы: {e}")
+       
         return None
 
 def parse_parameters(file_path):
@@ -627,91 +623,102 @@ def create_param_objects(file_path):
         list: Список объектов Param.
     """
     # Получаем данные из парсеров
-    groups = parse_groups(file_path)
-    parameters = parse_parameters(file_path)
-
-    
+    groups = parse_groups(file_path)  # Получаем список групп из файла
+    parameters = parse_parameters(file_path)  # Получаем список параметров из файла
 
     # Создаем массив объектов Param
     param_objects = []
 
+    # Проходим по каждой группе
     for group in groups:
-        group_number = group["group_number"]
-        group_index = group["group_index"]
-        group_description = group["group_description"]
+        group_number = group["group_number"]  # Номер группы
+        group_index = group["group_index"]  # Индекс группы
+        group_description = group["group_description"]  # Описание группы
 
-        param_counter = 0  # Инициализируем счетчик 
+        param_counter = 0  # Инициализируем счетчик для генерации уникальных кодов параметров
 
+        # Если описание группы есть в списке параметров
         if group_description in parameters:
+            # Проходим по каждому параметру в группе
             for param in parameters[group_description]:
-                param_obj = Param()
+                param_obj = Param()  # Создаем новый объект Param
 
-                # Заполняем поля                                
-                
+                # Заполняем поля объекта Param
+
+                # Генерируем уникальный код параметра в формате "группа.номер"
                 param_obj.code = f"{group_number}.{param_counter}"
-                param_counter += 1  # Увеличиваем счетчик
+                param_counter += 1  # Увеличиваем счетчик для следующего параметра
 
+                # Формируем имя параметра
                 if param["param_number"] is None:
-                    param_obj.name = f"{param['param_name']}"
+                    param_obj.name = f"{param['param_name']}"  # Если номер параметра отсутствует
                 else:
-                    param_obj.name = f"{param['group_index']}{param['param_number']}.{param['param_name']}"
-                                  
+                    param_obj.name = f"{param['group_index']}{param['param_number']}.{param['param_name']}"  # Иначе добавляем номер
+
+                # Заполняем единицы измерения
                 param_obj.units = param["unit"]
+
+                # Заполняем адрес (если есть)
                 param_obj.address = str(param["address"]) if param["address"] else ""
-                param_obj.view = "DEC"  
-                
-                # Очищаем и преобразуем числовые значения
+
+                # Устанавливаем вид параметра как "DEC" (десятичный)
+                param_obj.view = "DEC"
+
+                # Очищаем и преобразуем числовые значения (мин., макс., заводское значение)
                 param_obj.min_value = clean_number(param["min_value"])
                 param_obj.max_value = clean_number(param["max_value"])
                 param_obj.factory_setting = clean_number(param["default_value"])
+
+                # Устанавливаем размер параметра (по умолчанию "2")
                 param_obj.size = "2"
 
-                # Определяем тип
+                # Определяем тип параметра на основе кодировки
                 encoding = param["encoding"]
                 if "MT_RUN" in encoding or "M_RUNS" in encoding:
-                    param_obj.type = "UNION"
+                    param_obj.type = "UNION"  # Тип UNION
                 elif "MT_DEC" in encoding or "MT_BIN" in encoding or "M_RMAX" in encoding:
                     if "M_SIGN" in encoding:
-                        param_obj.type = "INT16"
+                        param_obj.type = "INT16"  # Тип INT16 (знаковое 16-битное число)
                     else:
-                        param_obj.type = "UINT16"
+                        param_obj.type = "UINT16"  # Тип UINT16 (беззнаковое 16-битное число)
                 elif "MT_STR" in encoding or "M_STAT" in encoding or "M_CODE" in encoding or "M_COMM" in encoding:
-                    param_obj.type = "STR"
+                    param_obj.type = "STR"  # Тип STR (строка)
                 elif "MT_DATE" in encoding or "M_DATE" in encoding:
-                    param_obj.units = "ЧЧ:ММ:ГГГГ"  # Применяем формат
-                    param_obj.type = "DATE"
+                    param_obj.units = "ЧЧ:ММ:ГГГГ"  # Формат даты
+                    param_obj.type = "DATE"  # Тип DATE
                 elif "MT_TIME" in encoding or "M_TIME" in encoding:
-                    param_obj.units = "ЧЧ:ММ"  # Применяем формат
-                    param_obj.type = "TIME"
+                    param_obj.units = "ЧЧ:ММ"  # Формат времени
+                    param_obj.type = "TIME"  # Тип TIME
 
-                # Определяем record
+                # Определяем, доступен ли параметр для записи
                 if "M_RONLY" in encoding or "M_NVM" not in encoding:
-                    param_obj.record = ""
+                    param_obj.record = ""  # Только для чтения
                 else:
-                    param_obj.record = "1"
+                    param_obj.record = "1"  # Доступен для записи
 
-                # Определяем coefficient
+                # Определяем коэффициент (если есть)
                 prec_match = re.search(r'M_PREC\((\d+)\)', encoding)
                 if prec_match:
-                    param_obj.coefficient = str(prec_match.group(1))
-                    param_obj.max_value =str(int(param_obj.max_value)/(10**int(param_obj.coefficient)))
-                    param_obj.min_value =str(int(param_obj.min_value)/(10**int(param_obj.coefficient)))
+                    param_obj.coefficient = str(prec_match.group(1))  # Извлекаем коэффициент
+                    # Корректируем мин. и макс. значения с учетом коэффициента
+                    param_obj.max_value = str(int(param_obj.max_value) / (10 ** int(param_obj.coefficient)))
+                    param_obj.min_value = str(int(param_obj.min_value) / (10 ** int(param_obj.coefficient)))
                 else:
-                    param_obj.coefficient = ""
+                    param_obj.coefficient = ""  # Если коэффициент отсутствует
 
-                # Определяем rows и description
+                # Определяем строки и описание (если есть)
                 sadr_match = re.search(r'M_SADR\((\d+)\)', encoding)
                 if sadr_match:
-                    line_number = int(sadr_match.group(1))
-                    strings = parse_strings(file_path, line_number)
-                    param_obj.rows = "; ".join(strings)
-                    param_obj.description = "; ".join(strings)
+                    line_number = int(sadr_match.group(1))  # Извлекаем номер строки
+                    strings = parse_strings(file_path, line_number)  # Получаем строки из файла
+                    param_obj.rows = "; ".join(strings)  # Заполняем строки
+                    param_obj.description = "; ".join(strings)  # Заполняем описание
 
-                # Определяем hidden
+                # Определяем, скрыт ли параметр
                 if "M_HIDE" in encoding:
-                    param_obj.hidden = "1"
+                    param_obj.hidden = "1"  # Параметр скрыт
                 else:
-                    param_obj.hidden = ""
+                    param_obj.hidden = ""  # Параметр не скрыт
 
                 # Добавляем объект в массив
                 param_objects.append(param_obj)
@@ -819,24 +826,25 @@ def create_xml(file_path, version_info, output_folder, device_id):
         file_path (str): Путь к файлу с данными.
         version_info (dict): Словарь с информацией о версии (например, DEVICE_NAME).
         output_folder (str или Path): Путь к папке, в которую будет сохранен XML-файл.
+        device_id (str): Идентификатор устройства.
 
     Returns:
         xml.etree.ElementTree.Element: Корневой элемент XML-документа.
     """
     try:
-        # Парсим группы
+        # Парсим группы из файла
         groups = parse_groups(file_path)
         if groups is None:
             print("Ошибка: parse_groups вернул None")
             return None
 
-        # Создаем корневой элемент
+        # Создаем корневой элемент XML
         root = ET.Element("Table")
-        root.set("DeviceId", device_id)
+        root.set("DeviceId", device_id)  # Устанавливаем атрибуты корневого элемента
         root.set("DeviceName", version_info['DEVICE_NAME'])
         root.set("FirmwareVersion", version_info['VERSION'] + version_info['SUBVERSION'])
 
-        # Парсим параметры
+        # Парсим параметры из файла
         parameters = parse_parameters(file_path)
         if parameters is None:
             print("Ошибка: parse_parameters вернул None")
@@ -844,12 +852,12 @@ def create_xml(file_path, version_info, output_folder, device_id):
 
         # Добавляем группы в XML
         for group in groups:
-            group_number = group["group_index"]
-            group_element = ET.SubElement(root, "Group")
-            group_element.set("Name", f"ГРУППА {group['group_index']}")
+            group_number = group["group_index"]  # Индекс группы
+            group_element = ET.SubElement(root, "Group")  # Создаем элемент группы
+            group_element.set("Name", f"ГРУППА {group['group_index']}")  # Устанавливаем атрибуты группы
             group_element.set("Type", group['group_type'])
             group_element.set("Description", group["group_description"])
-            param_counter = 0  # Инициализируем счетчик
+            param_counter = 0  # Инициализируем счетчик параметров
 
             # Добавляем параметры, если они есть для этой группы
             group_description = group["group_description"]
@@ -859,74 +867,70 @@ def create_xml(file_path, version_info, output_folder, device_id):
                     print(f"Ошибка: параметры для группы {group_description} отсутствуют")
                     continue
 
+                # Проходим по каждому параметру в группе
                 for param in group_params:
                     # Создаем элемент Parameter
                     parameter = ET.SubElement(group_element, "Parameter")
-                    parameter.set("Index", f"{group_number}{param_counter}")
-
+                    parameter.set("Index", f"{group_number}{param_counter}")  # Устанавливаем индекс параметра
                     param_counter += 1  # Увеличиваем счетчик
 
-                    parameter.set("Name", param["param_name"])
+                    parameter.set("Name", param["param_name"])  # Устанавливаем имя параметра
 
-                    # Добавляем Address
+                    # Добавляем элемент Address
                     address = ET.SubElement(parameter, "Address")
                     address.text = str(param.get("address", "None"))  # Используем значение по умолчанию, если адрес не указан
 
-                    # Добавляем Configuration
-
+                    # Добавляем элемент Configuration
                     config = ET.SubElement(parameter, "Configuration")
-                    
+                    ET.SubElement(config, "Type").text = param.get("config_type", "None")  # Тип конфигурации
+                    ET.SubElement(config, "Appointment").text = param.get("appointment", "Status")  # Назначение
 
-                    ET.SubElement(config, "Type").text = param.get("config_type", "None")
-                    ET.SubElement(config, "Appointment").text = param.get("appointment", "Status")
-                    
+                    # Добавляем элемент Chosen, если он есть
                     chosen = param.get("chosen")
                     if chosen != "":
-                        ET.SubElement(config, "Chosen").text = param.get("chosen", "")
-                    
-                    # Определяем record
-                    encoding = param.get("encoding", "")  # Используем .get() для безопасного доступа к ключу
+                        ET.SubElement(config, "Chosen").text = chosen
 
+                    # Определяем, можно ли редактировать параметр
+                    encoding = param.get("encoding", "")
                     if "M_RONLY" in encoding or "M_RUNS" in encoding:
-                        # Если encoding содержит "M_RONLY" или "M_RUNS", ничего не делаем 
-                        pass
+                        pass  # Параметр только для чтения
                     else:
-                        # Создаем элемент "CanEdit" только если encoding не содержит "M_RONLY" или "M_RUNS"
-                        can_edit = param.get("canEdit", "True")  # Используем .get() для безопасного доступа к ключу
-                        ET.SubElement(config, "CanEdit").text = can_edit
+                        can_edit = param.get("canEdit", "True")
+                        ET.SubElement(config, "CanEdit").text = can_edit  # Параметр доступен для редактирования
 
-                    # Добавляем ValueDescription
+                    # Добавляем элемент ValueDescription
                     value_desc = ET.SubElement(parameter, "ValueDescription")
-                    ET.SubElement(value_desc, "Minimum").text = str(param.get("min_value", "None"))
-                    ET.SubElement(value_desc, "Maximum").text = str(param.get("max_value", "None"))
-                    ET.SubElement(value_desc, "Default").text = str(param.get("default_value", "None"))
+                    ET.SubElement(value_desc, "Minimum").text = str(param.get("min_value", "None"))  # Минимальное значение
+                    ET.SubElement(value_desc, "Maximum").text = str(param.get("max_value", "None"))  # Максимальное значение
+                    ET.SubElement(value_desc, "Default").text = str(param.get("default_value", "None"))  # Значение по умолчанию
 
+                    # Определяем тип значения на основе кодировки
                     encoding = param["encoding"]
                     if "MT_RUN" in encoding or "M_RUNS" in encoding:
-                        ET.SubElement(value_desc, "Type").text = param.get("value_type", "Union")
+                        ET.SubElement(value_desc, "Type").text = param.get("value_type", "Union")  # Тип Union
                     elif "MT_DEC" in encoding or "M_RMAX" in encoding:
                         if "M_SIGN" in encoding:
-                            ET.SubElement(value_desc, "Type").text = param.get("value_type", "Int")
+                            ET.SubElement(value_desc, "Type").text = param.get("value_type", "Int")  # Тип Int
                         else:
-                            ET.SubElement(value_desc, "Type").text = param.get("value_type", "Uns")
+                            ET.SubElement(value_desc, "Type").text = param.get("value_type", "Uns")  # Тип Uns
                     elif "MT_BIN" in encoding or "M_BIN" in encoding:
-                        ET.SubElement(value_desc, "Type").text = param.get("value_type", "Bin")
+                        ET.SubElement(value_desc, "Type").text = param.get("value_type", "Bin")  # Тип Bin
                     elif "MT_STR" in encoding or "M_STAT" in encoding or "M_CODE" in encoding or "M_COMM" in encoding:
-                        ET.SubElement(value_desc, "Type").text = "Enum"
+                        ET.SubElement(value_desc, "Type").text = "Enum"  # Тип Enum
                     elif "MT_DATE" in encoding or "M_DATE" in encoding:
-                        ET.SubElement(value_desc, "Type").text = "Date"
+                        ET.SubElement(value_desc, "Type").text = "Date"  # Тип Date
                     elif "MT_TIME" in encoding or "M_TIME" in encoding:
-                        ET.SubElement(value_desc, "Type").text = "Time"
-                    
+                        ET.SubElement(value_desc, "Type").text = "Time"  # Тип Time
+
+                    # Добавляем единицы измерения, если они есть
                     unit = param["unit"]
                     if unit != "":
                         ET.SubElement(value_desc, "Unit").text = unit
-                    
-                    # Определяем coefficient
+
+                    # Определяем коэффициент (если есть)
                     prec_match = re.search(r'M_PREC\((\d+)\)', encoding)
                     if prec_match:
-                        #param.coefficient = str(param.group(1)) str(int(param_obj.max_value)/(10**int(param_obj.coefficient)))
-                        ET.SubElement(value_desc, "Coefficient").text =  str(int(1)/(10**int(str(prec_match.group(1))))) 
+                        ET.SubElement(value_desc, "Coefficient").text = str(int(1) / (10 ** int(str(prec_match.group(1)))))  # Вычисляем коэффициент
 
                     # Обработка M_SADR (если требуется)
                     if "encoding" in param:
@@ -950,12 +954,12 @@ def create_xml(file_path, version_info, output_folder, device_id):
                                 if "-" in string:
                                     bit_value, description = string.split("-", 1)
                                     field_elem = ET.SubElement(fields_elem, "Field")
-                                    field_elem.set("BitValue", bit_value.strip())
-                                    field_elem.set("Description", description.strip())
+                                    field_elem.set("BitValue", bit_value.strip())  # Устанавливаем битовое значение
+                                    field_elem.set("Description", description.strip())  # Устанавливаем описание
 
-                    # Добавляем Info
+                    # Добавляем элемент Info
                     info = ET.SubElement(parameter, "Info")
-                    ET.SubElement(info, "Description")
+                    ET.SubElement(info, "Description")  # Описание параметра
 
         # Преобразуем ElementTree в строку
         xml_str = ET.tostring(root, encoding="utf-8")
@@ -963,9 +967,9 @@ def create_xml(file_path, version_info, output_folder, device_id):
             print("Ошибка: ET.tostring вернул None")
             return None
 
-        # Используем minidom для форматирования
+        # Используем minidom для форматирования XML
         parsed = minidom.parseString(xml_str)
-        pretty_xml = parsed.toprettyxml(indent="\t")
+        pretty_xml = parsed.toprettyxml(indent="\t")  # Форматируем XML с отступами
 
         # Создаем папку, если она не существует
         output_folder = Path(output_folder)
@@ -976,7 +980,7 @@ def create_xml(file_path, version_info, output_folder, device_id):
         with open(xml_file_path, "w", encoding="utf-8") as file:
             file.write(pretty_xml)
 
-        print(f"Файл  {xml_file_path} успешно создан.")
+        print(f"Файл {xml_file_path} успешно создан.")
         return root
 
     except Exception as e:
@@ -984,34 +988,75 @@ def create_xml(file_path, version_info, output_folder, device_id):
         return None
 
 class TpeCryptor:
-    def __init__(self, key, iv):
-        self.key = key
-        self.iv = iv
+    """
+    Класс для шифрования и дешифрования данных с использованием алгоритма Triple DES (3DES).
+    """
 
+    def __init__(self, key, iv):
+        """
+        Инициализация объекта TpeCryptor.
+
+        Args:
+            key (bytes): Ключ для шифрования/дешифрования (должен быть 16 или 24 байта).
+            iv (bytes): Вектор инициализации (должен быть 8 байт).
+        """
+        self.key = key  # Ключ для шифрования/дешифрования
+        self.iv = iv    # Вектор инициализации
 
     def decrypt_tpe_from_tpe_file(self, file_path):
+        """
+        Дешифрует данные из файла и возвращает XML-документ.
+
+        Args:
+            file_path (str): Путь к файлу с зашифрованными данными.
+
+        Returns:
+            xml.etree.ElementTree.Element: Дешифрованный XML-документ или None в случае ошибки.
+        """
         try:
+            # Чтение зашифрованных данных из файла
             with open(file_path, 'rb') as file:
                 encrypted_data = file.read()
 
+            # Создание объекта для дешифрования с использованием 3DES в режиме CBC
             cipher = DES3.new(self.key, DES3.MODE_CBC, self.iv)
+
+            # Дешифрование данных и удаление padding (дополнения)
             decrypted_data = unpad(cipher.decrypt(encrypted_data), DES3.block_size)
 
+            # Преобразование дешифрованных данных в XML-документ
             xml_doc = ET.fromstring(decrypted_data.decode('utf-8'))
             return xml_doc
+
         except Exception as ex:
+            # Обработка ошибок при дешифровании
             print(f"Ошибка при дешифровании: {ex}")
             return None
 
     def encrypt_xml_document_to_stream(self, xml_doc, output_path):
+        """
+        Шифрует XML-документ и сохраняет результат в файл.
+
+        Args:
+            xml_doc (xml.etree.ElementTree.Element): XML-документ для шифрования.
+            output_path (str): Путь для сохранения зашифрованных данных.
+        """
         try:
+            # Преобразование XML-документа в строку
             xml_str = ET.tostring(xml_doc, encoding='utf-8')
+
+            # Создание объекта для шифрования с использованием 3DES в режиме CBC
             cipher = DES3.new(self.key, DES3.MODE_CBC, self.iv)
+
+            # Добавление padding (дополнения) и шифрование данных
             encrypted_data = cipher.encrypt(pad(xml_str, DES3.block_size))
 
+            # Запись зашифрованных данных в файл
             with open(output_path, 'wb') as file:
                 file.write(encrypted_data)
+
         except Exception as ex:
+            # Обработка ошибок при шифровании
             print(f"Ошибка при шифровании: {ex}")
 
 
@@ -1032,8 +1077,8 @@ def main():
     """
 
     # Пример использования
-    file_modefication_path = find_modefication_file()  # Укажите путь к вашему файлу
-    device_id = find_device_id(file_modefication_path)
+    file_modefication_path = find_modefication_file()  # Поиск файла с информацией о модификации
+    device_id = find_device_id(file_modefication_path)  # Извлечение DEVICE_ID из файла
     if device_id is not None:
         print(f"Значение DEVICE_ID: {device_id}")
 
@@ -1043,22 +1088,23 @@ def main():
     # Парсинг информации о версии
     version_info = parse_version(file_param_path)
 
-    print(version_info)
+    print(version_info)  # Вывод информации о версии
     
     # Поиск файла с параметрами
     file_param_path = find_param_file()
 
     # Получаем данные
-    groups = parse_groups(file_param_path)
-    param_objects = create_param_objects(file_param_path)
-    name_file = f"{version_info['DEVICE_NAME']}_v{version_info['DEVICE_GROUP']}.{version_info['VERSION']}.{version_info['MODULE_VERSION']}.{version_info['SUBVERSION']}"
+    groups = parse_groups(file_param_path)  # Парсинг групп параметров
+    param_objects = create_param_objects(file_param_path)  # Создание объектов параметров
+    name_file = f"{version_info['DEVICE_NAME']}_v{version_info['DEVICE_GROUP']}.{version_info['VERSION']}.{version_info['MODULE_VERSION']}.{version_info['SUBVERSION']}"  # Формирование имени файла
 
-    # Создаем файлов
-    excel_file = folder_path(name_file) / f"Viewer_{name_file}.xls"
-    Description_file = folder_path(name_file) / f"Viewer_{name_file}.dfi"
-    xml_file = folder_path(name_file)
-    tpe_file = folder_path(name_file) / f"{name_file}.tpe"
+    # Создаем пути для файлов
+    excel_file = folder_path(name_file) / f"Viewer_{name_file}.xls"  # Путь для Excel-файла
+    Description_file = folder_path(name_file) / f"Viewer_{name_file}.dfi"  # Путь для файла описания
+    xml_file = folder_path(name_file)  # Путь для XML-файла
+    tpe_file = folder_path(name_file) / f"{name_file}.tpe"  # Путь для TPE-файла
 
+    # Создаем файл описания
     create_param_Description(Description_file, version_info)
 
     # Ключ и вектор инициализации для шифрования для создания TPE
@@ -1070,25 +1116,25 @@ def main():
 
     # Шифруем XML-документ и сохраняем в файл
     try:
-       xml_doc = create_xml(file_param_path, version_info, xml_file, device_id)
+       xml_doc = create_xml(file_param_path, version_info, xml_file, device_id)  # Создание XML-документа
     except Exception as e:
-        print(f"Ошибка при шифровании XML: {e}")
+        print(f"Ошибка при создании XML: {e}")
 
     # Шифруем TPE-документ и сохраняем в файл
     try:
-        cryptor.encrypt_xml_document_to_stream(xml_doc, tpe_file)
+        cryptor.encrypt_xml_document_to_stream(xml_doc, tpe_file)  # Шифрование XML и сохранение в TPE
     except Exception as e:
         print(f"Ошибка при шифровании XML: {e}")
 
     # Создаем Excel-файл
     try:
-        create_excel_file(excel_file, param_objects, groups)
+        create_excel_file(excel_file, param_objects, groups)  # Создание Excel-файла
     except Exception as e:
         print(f"Ошибка при создании Excel-файла: {e}")
 
     # Получаем текущую версию приложения
-    version = check_app_version()
+    version = check_app_version()  # Проверка версии приложения
     print(f"Текущая версия приложения: {version}")
     
 if __name__ == "__main__":
-    main()
+    main()  # Запуск главной функции
