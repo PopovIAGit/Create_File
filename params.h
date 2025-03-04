@@ -50,7 +50,7 @@ const struct MENU_PARAM params[] = {
 "R0.реумнкнц. пец", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {0, Regular,  }
 "R1.пецхярп детей", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {1, Regular,  }
 "R2.онкнфемхе б %", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {2, Regular,  }
-"R3.пецхяп йнлюмд", "    ", 	0,  65535,  	0, MT_DEC|M_RMAX(4),			// {3, Regular,  }
+"R3.пецхяп йнлюмд", "    ", 	0,  65535,  	0, MT_DEC|M_RMAX(4),					// {3, Regular,  }
 "R4.явервхй жхйкб", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {4, Regular,  }
 "R5.пегепб       ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {5, Regular,  }
 "R6.рнй тюгш U   ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {6, Regular,  }
@@ -68,7 +68,7 @@ const struct MENU_PARAM params[] = {
 "R18.яйнпнярэ    ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {18, Regular,  }
 "R19.пегепб      ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {19, Regular,  }
 "R20.лнлемр      ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {20, Regular,  }
-"R21.пецхярп рсря", "    ", 	0,  65535,  	0, MT_DEC|M_NVM|M_RMAX(4),		// {21, Regular,  }
+"R21.пецхярп рсря", "    ", 	0,  65535,  	0, MT_DEC|M_NVM|M_RMAX(4),				// {21, Regular,  }
 "R22.пегепб      ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {22, Regular,  }
 "R23.пегепб      ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {23, Regular,  }
 "R24.пегепб      ", "    ", 	0,  65535,  	0, MT_DEC|M_RONLY|M_RMAX(4),			// {24, Regular,  }
@@ -395,8 +395,8 @@ const struct MENU_PARAM params[] = {
 "74.сцнк яхтс 3_2", "цпюд",      0,    180,      0, MT_DEC|M_NVM|M_RMAX(2),			// {334, Regular,  }
 "75.сцнк яхтс 3_3", "цпюд",      0,    180,      0, MT_DEC|M_NVM|M_RMAX(2),			// {335, Regular,  }
 "76.сцнк яхтс 3_4", "цпюд",      0,    180,      0, MT_DEC|M_NVM|M_RMAX(2),			// {336, Regular,  }
-"77.  яейсмдш    ", "    ",      0,  	60,      0, MT_DEC|M_RMAX(1),			// {337, Seconds,  }
-"78.опнжемр хяонк", "%   ",      0,    100,      0, MT_DEC|M_RMAX(2),			// {338, Regular,  }
+"77.  яейсмдш    ", "    ",      0,  	60,      0, MT_DEC|M_RMAX(1),				// {337, Seconds,  }
+"78.опнжемр хяонк", "%   ",      0,    100,      0, MT_DEC|M_RMAX(2),				// {338, Regular,  }
 "79.мв юдп фсп ян", "    ",      0,  65530,      0, MT_DEC|M_NVM|M_RMAX(4),			// {339, Regular,  }
 "80.мв юдп фсп йн", "    ",      0,  65530,      0, MT_DEC|M_NVM|M_RMAX(4),			// {340, Regular,  }
 "81.мв юдп фсп ою", "    ",      0,  65530,      0, MT_DEC|M_NVM|M_RMAX(4),			// {341, Regular,  }
@@ -404,9 +404,9 @@ const struct MENU_PARAM params[] = {
 "83.гюо фспм йнлю", "    ",      0,  65530,      0, MT_DEC|M_NVM|M_RMAX(4),			// {343, Regular,  }
 "84.гюо фспм оюпю", "    ",      0,  65530,      0, MT_DEC|M_NVM|M_RMAX(4),			// {344, Regular,  }
 "85. йнлюмдш асп ", "    ",      0,  65530,      0, MT_DEC|M_NVM|M_RMAX(4),			// {345, LogCmdControlWord,  }
-"86.яапня фспмюкю", "    ",      0,  1,          0, MT_DEC|M_RMAX(4),			// {346, Regular,  }
-"87.онкмши унд   ", "    ",      0,  65530,      0, MT_DEC|M_RMAX(4),			// {347, Regular,  }
-"88.пекеимши пеф ", "    ",      0,      1,      0, MT_DEC|M_NVM|M_SADR(188),			// {348, Regular,  }
+"86.яапня фспмюкю", "    ",      0,  1,          0, MT_DEC|M_RMAX(4),				// {346, Regular,  }
+"87.онкмши унд   ", "    ",      0,  65530,      0, MT_DEC|M_RMAX(4),				// {347, Regular,  }
+"88.пекеимши пеф ", "    ",      0,      1,      0, MT_DEC|M_NVM|M_SADR(188),		// {348, Regular,  }
 "89.окну гюд 2Йцж", "    ",      0,  65530,      0, MT_DEC|M_RMAX(4),			// {349, Regular,  }
 "90.окну гюд 200ц", "    ",      0,  65530,      0, MT_DEC|M_RMAX(4),			// {350, Regular,  }
 "91.окну гюд 50цж", "    ", 	 0,  65530,  	 0, MT_DEC|M_RMAX(4),			// {351, Regular,  }
@@ -436,9 +436,9 @@ const struct MENU_PARAM params[] = {
 "115.ялеы мюоп S ", "    ",      0,  65530,  32760, MT_DEC|M_PWP2|M_NVM|M_RMAX(4),// {375, Regular,  }
 "116.ялеы мюоп T ", "    ",      0,  65530,  32760, MT_DEC|M_PWP2|M_NVM|M_RMAX(4),// {376, Regular,  }
 "117.гнмю опхбндю", "    ",      0,  65530,      0, MT_DEC|M_RMAX(4),				// {377, Regular,  }
-"118.йнмрп.ясллю ", "    ",      0,  65535,      0, MT_DEC|M_RMAX(3),			// {378, Regular,  }
-"119.сцнк яхтс   ", "цпюд",      0,    180,      0, MT_DEC|M_RONLY|M_RMAX(2),			// {379, Regular,  } 
-"120.яберндхндш  ", "    ",      0,    255,      0, MT_DEC|M_RMAX(8),// {380, Regular,  }
+"118.йнмрп.ясллю ", "    ",      0,  65535,      0, MT_DEC|M_RMAX(3),				// {378, Regular,  }
+"119.сцнк яхтс   ", "цпюд",      0,    180,      0, MT_DEC|M_RONLY|M_RMAX(2),		// {379, Regular,  } 
+"120.яберндхндш  ", "    ",      0,    255,      0, MT_DEC|M_RMAX(8),				// {380, Regular,  }
 "121.аегрнй оюсгю", "яЕЙ ",     15,    100,     15, MT_DEC|M_PWP2|M_NVM|M_PREC(2)|M_RMAX(4),	// {381, Regular,  } 
 "122.явер ньха до", "    ",      0,  65530,      0, MT_DEC|M_NVM|M_RMAX(4),		// {382, Regular,  }
 "123.яйювнй онк 1", "    ",      0,  65530,      0, MT_DEC|M_NVM|M_RMAX(4),		// {383, Regular,  }
