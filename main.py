@@ -14,14 +14,14 @@ from pathlib import Path
 
 from Crypto.Cipher import DES3
 from Crypto.Util.Padding import pad, unpad
-from Crypto.Random import get_random_bytes
+#from Crypto.Random import get_random_bytes
 
 from domain.base import check_app_version
-from enum import Enum
+#from enum import Enum
 
-from typing import List, Dict, Optional
+#from typing import List, Dict, Optional
+from typing import Dict, Optional
 
-from pathlib import Path
 
 #todo: забрать версию проекта и на ее основе создать имя файла эксель
 #todo: 
