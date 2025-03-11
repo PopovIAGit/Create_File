@@ -4,6 +4,9 @@ import re
 #import openpyxl
 #from openpyxl.styles import Font, PatternFill, Alignment
 
+import tkinter as tk
+from tkinter import messagebox
+
 import xlwt
 
 import xml.etree.ElementTree as ET
@@ -25,6 +28,13 @@ from typing import Dict, Optional
 
 #todo: забрать версию проекта и на ее основе создать имя файла эксель
 #todo: 
+
+#Вывод для сообщений об ошибках
+def show_error(message):
+    root = tk.Tk()
+    root.withdraw()  # Скрываем основное окно
+    messagebox.showerror("Сообщение", message)
+    root.destroy()
 
 class Param:
     def __init__(self):
@@ -291,7 +301,7 @@ def find_version_file():
                 return str(file_path)  # Возвращаем путь как строку
 
     # Если ни один файл не найден
-    print("Ошибка: Ни один из файлов 'project_version.h' или 'config.h' не найден.")
+    show_error("Ошибка: Ни один из файлов 'project_version.h' или 'config.h' не найден.")
     return None
 
 def find_modefication_file():
@@ -313,7 +323,7 @@ def find_modefication_file():
             return str(file_path)  # Возвращаем путь как строку
 
     # Если файл не найден
-    print(f"Ошибка: Файл '{filename}' не найден.")
+    show_error(f"Ошибка: Файл '{filename}' не найден.")
     return None
 
 def find_device_id(file_path):
@@ -333,13 +343,13 @@ def find_device_id(file_path):
                 match = re.search(r'#define\s+DEVICE_ID\s+([\d]+)[\s\t]*//.*$', line)  # Регулярное выражение
                 if match:
                     return str(match.group(1))
-        print("Значение DEVICE_ID не найдено.")
+        show_error("Значение DEVICE_ID не найдено.")
         return None
     except FileNotFoundError:
-        print(f"Ошибка: файл {file_path} не найден.")
+        show_error(f"Ошибка: файл {file_path} не найден.")
         return None
     except Exception as e:
-        print(f"Ошибка при чтении файла: {e}")
+        show_error(f"Ошибка при чтении файла: {e}")
         return None
 
 def find_param_file():
@@ -362,7 +372,7 @@ def find_param_file():
                 return str(file_path)  # Возвращаем путь как строку
 
     # Если ни один файл не найден
-    print("Ошибка: Ни один из файлов 'params.h' или 'menu_params.h' не найден.")
+    show_error("Ошибка: Ни один из файлов 'params.h' или 'menu_params.h' не найден.")
     return None
 
 def parse_strings(file_path, start_line_number):
@@ -376,7 +386,7 @@ def parse_strings(file_path, start_line_number):
     end_index = content.find(end_marker)
 
     if start_index == -1 or end_index == -1:
-        print("Error: String markers not found")
+        show_error("Error: String markers not found")
         return []
 
     string_block = content[start_index:end_index]
@@ -1118,23 +1128,23 @@ def main():
     try:
        xml_doc = create_xml(file_param_path, version_info, xml_file, device_id)  # Создание XML-документа
     except Exception as e:
-        print(f"Ошибка при создании XML: {e}")
+        show_error(f"Ошибка при создании XML: {e}")
 
     # Шифруем TPE-документ и сохраняем в файл
     try:
         cryptor.encrypt_xml_document_to_stream(xml_doc, tpe_file)  # Шифрование XML и сохранение в TPE
     except Exception as e:
-        print(f"Ошибка при шифровании XML: {e}")
+        show_error(f"Ошибка при шифровании XML: {e}")
 
     # Создаем Excel-файл
     try:
         create_excel_file(excel_file, param_objects, groups)  # Создание Excel-файла
     except Exception as e:
-        print(f"Ошибка при создании Excel-файла: {e}")
+        show_error(f"Ошибка при создании Excel-файла: {e}")
 
     # Получаем текущую версию приложения
     version = check_app_version()  # Проверка версии приложения
-    print(f"Текущая версия приложения: {version}")
+    show_error(f"Файлы созданны успешно")
     
 if __name__ == "__main__":
     main()  # Запуск главной функции
