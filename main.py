@@ -591,7 +591,7 @@ def parse_parameters(file_path):
                 encoding = param_match.group(6).strip()  # Кодировка
                 address = param_match.group(7).strip() if param_match.group(7) else None  # Адрес параметра
                 appointment = param_match.group(8).strip() if param_match.group(8) else None  # Назначение параметра
-                chosen = param_match.group(9).strip() if param_match.group(9) else None  # Назначение параметра
+                chosen = param_match.group(9).strip() if param_match.group(9) else None  # Отображение на главной панели TimBrowser
 
                 # Разбиваем param_name на части
                 param_name_match = param_name_pattern.match(param_name)
@@ -682,7 +682,9 @@ def create_param_objects(file_path):
                 # Устанавливаем размер параметра (по умолчанию "2")
                 param_obj.size = "2"
 
+
                 # Определяем тип параметра на основе кодировки
+                appointment =  param["appointment"]
                 encoding = param["encoding"]
                 if "MT_RUN" in encoding or "M_RUNS" in encoding:
                     param_obj.type = "UNION"  # Тип UNION
@@ -693,10 +695,10 @@ def create_param_objects(file_path):
                         param_obj.type = "UINT16"  # Тип UINT16 (беззнаковое 16-битное число)
                 elif "MT_STR" in encoding or "M_STAT" in encoding or "M_CODE" in encoding or "M_COMM" in encoding:
                     param_obj.type = "STR"  # Тип STR (строка)
-                elif "MT_DATE" in encoding or "M_DATE" in encoding:
+                elif "MT_DATE" in encoding or "M_DATE":
                     param_obj.units = "ЧЧ:ММ:ГГГГ"  # Формат даты
                     param_obj.type = "DATE"  # Тип DATE
-                elif "MT_TIME" in encoding or "M_TIME" in encoding:
+                elif "MT_TIME" in encoding or "M_TIME":
                     param_obj.units = "ЧЧ:ММ"  # Формат времени
                     param_obj.type = "TIME"  # Тип TIME
 
@@ -705,6 +707,16 @@ def create_param_objects(file_path):
                     param_obj.record = ""  # Только для чтения
                 else:
                     param_obj.record = "1"  # Доступен для записи
+               
+                # Определяем это дата
+                if appointment is not None and "Date" in appointment:
+                    param_obj.units = "ЧЧ:ММ:ГГГГ"  # Формат даты
+                    param_obj.type = "DATE"         # Тип DATE
+
+                # Определяем это время
+                if appointment is not None and "Time" in appointment:
+                    param_obj.units = "ЧЧ:ММ"   # Формат времени
+                    param_obj.type = "TIME"     # Тип TIME 
 
                 # Определяем коэффициент (если есть)
                 prec_match = re.search(r'M_PREC\((\d+)\)', encoding)
@@ -1106,11 +1118,11 @@ def main():
     # Получаем данные
     groups = parse_groups(file_param_path)  # Парсинг групп параметров
     param_objects = create_param_objects(file_param_path)  # Создание объектов параметров
-    name_file = f"{version_info['DEVICE_NAME']}_v{version_info['DEVICE_GROUP']}.{version_info['VERSION']}.{version_info['MODULE_VERSION']}.{version_info['SUBVERSION']}"  # Формирование имени файла
+    name_file = f"Viewer_{version_info['DEVICE_NAME']}_v{version_info['DEVICE_GROUP']}.{version_info['VERSION']}.{version_info['MODULE_VERSION']}.{version_info['SUBVERSION']}"  # Формирование имени файла
 
     # Создаем пути для файлов
-    excel_file = folder_path(name_file) / f"Viewer_{name_file}.xls"  # Путь для Excel-файла
-    Description_file = folder_path(name_file) / f"Viewer_{name_file}.dfi"  # Путь для файла описания
+    excel_file = folder_path(name_file) / f"{name_file}.xls"  # Путь для Excel-файла
+    Description_file = folder_path(name_file) / f"{name_file}.dfi"  # Путь для файла описания
     xml_file = folder_path(name_file)  # Путь для XML-файла
     tpe_file = folder_path(name_file) / f"{name_file}.tpe"  # Путь для TPE-файла
 
