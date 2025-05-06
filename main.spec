@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['E:\\Leonid\\Create_File\\main.py'],
+    ['main.py'],
     pathex=[],
     binaries=[],
     datas=[],
