@@ -326,23 +326,103 @@ def find_modefication_file():
     show_error(f"Ошибка: Файл '{filename}' не найден.")
     return None
 
-def find_device_id(file_path):
+def find_modification_defines(file_path):
     """
-    Ищет значение DEVICE_ID в файле.
+    Ищет в файле блоки между //! Модефикация и //! Модефикация конец,
+    а затем находит все #define, где значение равно 1.
 
     Args:
         file_path (str): Путь к файлу.
 
     Returns:
-        int: Значение DEVICE_ID или None, если значение не найдено.
+        list: Список найденных #define с значением 1 в формате (имя, значение)
+              или None, если произошла ошибка.
+    """
+    try:
+        with open(file_path, 'r', encoding='Windows-1251') as file:
+            content = file.read()
+
+            # Ищем все блоки между маркерами
+            mod_blocks = re.findall(
+                r'//!\s*Модефикация(.*?)//!\s*Модефикация\s*конец',
+                content,
+                re.DOTALL
+            )
+
+            result = []
+            
+            for block in mod_blocks:
+                # Ищем все #define в текущем блоке
+                defines = re.finditer(
+                    r'#define\s+(\w+)\s+1\b',
+                    block.strip()
+                )
+                
+                for define in defines:
+                    result.append((define.group(1), define.group(0)))
+
+            return result if result else None
+
+    except FileNotFoundError:
+        print(f"Ошибка: файл {file_path} не найден.")
+        return None
+    except Exception as e:
+        print(f"Ошибка при чтении файла: {e}")
+        return None
+
+def find_device_id(file_path, modification):
+    """
+    Ищет значение DEVICE_ID в файле между ключами "Идентификатор" и "Идентификатор конец".
+    Обрабатывает условные директивы #if.
+
+    Args:
+        file_path (str): Путь к файлу.
+
+    Returns:
+        str: Значение DEVICE_ID или None, если значение не найдено.
     """
     try:
         with open(file_path, "r", encoding='Windows-1251') as file:
-            lines = file.readlines()  # Читаем все строки сразу
+            lines = file.readlines()
+            
+            in_identifier_block = False
+            bur_m_active = None  # None - не в блоке #if, True - BUR_M активен, False - не активен
+            
             for line in lines:
-                match = re.search(r'#define\s+DEVICE_ID\s+([\d]+)[\s\t]*//.*$', line)  # Регулярное выражение
-                if match:
-                    return str(match.group(1))
+                # Проверяем начало блока идентификатора
+                if "//! Идентификатор" in line:
+                    in_identifier_block = True
+                    continue
+                
+                # Проверяем конец блока идентификатора
+                if "//! Идентификатор конец" in line:
+                    in_identifier_block = False
+                    continue
+                
+                # Если мы внутри блока идентификатора
+                if in_identifier_block:
+                    # Обрабатываем директиву #if
+                    if line.strip().startswith("#if"):
+                        # Проверяем условие #if BUR_M
+                        bur_m_active = modification in line
+                        continue
+                    
+                    # Обрабатываем директиву #else
+                    if line.strip().startswith("#else"):
+                        bur_m_active = not bur_m_active
+                        continue
+                    
+                    # Обрабатываем директиву #endif
+                    if line.strip().startswith("#endif"):
+                        bur_m_active = None
+                        continue
+                    
+                    # Если это строка с DEVICE_ID и мы либо не в условном блоке, либо в активной ветке
+                    if "#define DEVICE_ID" in line and (bur_m_active is None or bur_m_active is True):
+                        match = re.search(r'#define\s+DEVICE_ID\s+([\d]+)', line)
+                        if match:
+                            return str(match.group(1))
+            
         show_error("Значение DEVICE_ID не найдено.")
         return None
     except FileNotFoundError:
@@ -1100,7 +1180,9 @@ def main():
 
     # Пример использования
     file_modefication_path = find_modefication_file()  # Поиск файла с информацией о модификации
-    device_id = find_device_id(file_modefication_path)  # Извлечение DEVICE_ID из файла
+    find_modification = find_modification_defines(file_modefication_path)  # Определение модефикайции
+    modification_defines = find_modification_defines(file_modefication_path)
+    device_id = find_device_id(file_modefication_path, )  # Извлечение DEVICE_ID из файла
     if device_id is not None:
         print(f"Значение DEVICE_ID: {device_id}")
 
