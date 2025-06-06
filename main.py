@@ -370,63 +370,48 @@ def find_modification_defines(file_path):
         print(f"Ошибка при чтении файла: {e}")
         return None
 
-def find_device_id(file_path, modification):
+def find_device_id(file_path, modification="BUR_M"):
     """
-    Ищет значение DEVICE_ID в файле между ключами "Идентификатор" и "Идентификатор конец".
-    Обрабатывает условные директивы #if.
+    Ищет значение DEVICE_ID в файле, учитывая директивы препроцессора (#if / #else).
 
     Args:
         file_path (str): Путь к файлу.
+        modification (str, optional): Условие для #if (например, "MODIFICATION_A"). 
+                                    Если None, ищет DEVICE_ID вне условий.
 
     Returns:
-        str: Значение DEVICE_ID или None, если значение не найдено.
+        str: Найденное значение DEVICE_ID или None, если не найдено.
     """
     try:
         with open(file_path, "r", encoding='Windows-1251') as file:
             lines = file.readlines()
-            
-            in_identifier_block = False
-            bur_m_active = None  # None - не в блоке #if, True - BUR_M активен, False - не активен
-            
+            inside_correct_block = (modification is None)  # Если modification=None, ищем везде
             for line in lines:
-                # Проверяем начало блока идентификатора
-                if "//! Идентификатор" in line:
-                    in_identifier_block = True
-                    continue
+                line = line.strip()
                 
-                # Проверяем конец блока идентификатора
-                if "//! Идентификатор конец" in line:
-                    in_identifier_block = False
-                    continue
+                # Обработка директив препроцессора
+                if line.startswith('#if'):
+                    # Проверяем, соответствует ли условие #if заданной модификации
+                    inside_correct_block = (modification is not None and modification in line)
+                elif line.startswith('#else'):
+                    # Инвертируем флаг, если встретили #else
+                    inside_correct_block = not inside_correct_block
+                elif line.startswith('#endif'):
+                    # Выходим из блока условия
+                    inside_correct_block = (modification is None)
                 
-                # Если мы внутри блока идентификатора
-                if in_identifier_block:
-                    # Обрабатываем директиву #if
-                    if line.strip().startswith("#if"):
-                        # Проверяем условие #if BUR_M
-                        bur_m_active = modification in line
-                        continue
-                    
-                    # Обрабатываем директиву #else
-                    if line.strip().startswith("#else"):
-                        bur_m_active = not bur_m_active
-                        continue
-                    
-                    # Обрабатываем директиву #endif
-                    if line.strip().startswith("#endif"):
-                        bur_m_active = None
-                        continue
-                    
-                    # Если это строка с DEVICE_ID и мы либо не в условном блоке, либо в активной ветке
-                    if "#define DEVICE_ID" in line and (bur_m_active is None or bur_m_active is True):
-                        match = re.search(r'#define\s+DEVICE_ID\s+([\d]+)', line)
-                        if match:
-                            return str(match.group(1))
+                # Если мы внутри нужного блока (или условие не задано), ищем DEVICE_ID
+                if inside_correct_block:
+                    match = re.search(r'#define\s+DEVICE_ID\s+(\d+)', line)
+                    if match:
+                        return match.group(1)
             
-        show_error("Значение DEVICE_ID не найдено.")
-        return None
+            # Если ничего не найдено
+            show_error("DEVICE_ID не найден (проверьте условия #if/#else).")
+            return None
+            
     except FileNotFoundError:
-        show_error(f"Ошибка: файл {file_path} не найден.")
+        show_error(f"Файл не найден: {file_path}")
         return None
     except Exception as e:
         show_error(f"Ошибка при чтении файла: {e}")
