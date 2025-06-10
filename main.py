@@ -1,3 +1,4 @@
+from ast import mod
 import os
 import re
 #from tkinter import NO, SE
@@ -5,7 +6,7 @@ import re
 #from openpyxl.styles import Font, PatternFill, Alignment
 
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import N, messagebox
 
 import xlwt
 
@@ -329,20 +330,19 @@ def find_modefication_file():
 def find_modification_defines(file_path):
     """
     Ищет в файле блоки между //! Модефикация и //! Модефикация конец,
-    а затем находит все #define, где значение равно 1.
+    а затем находит все #define. Если значение = 1, сохраняет (имя, 1),
+    если значение = 0, сохраняет (!имя, 0).
 
     Args:
         file_path (str): Путь к файлу.
 
     Returns:
-        list: Список найденных #define с значением 1 в формате (имя, значение)
-              или None, если произошла ошибка.
+        list: Список кортежей в формате (имя, значение) или None при ошибке.
     """
     try:
         with open(file_path, 'r', encoding='Windows-1251') as file:
             content = file.read()
 
-            # Ищем все блоки между маркерами
             mod_blocks = re.findall(
                 r'//!\s*Модефикация(.*?)//!\s*Модефикация\s*конец',
                 content,
@@ -352,14 +352,16 @@ def find_modification_defines(file_path):
             result = []
             
             for block in mod_blocks:
-                # Ищем все #define в текущем блоке
                 defines = re.finditer(
-                    r'#define\s+(\w+)\s+1\b',
+                    r'#define\s+(\w+)\s+([01])\b',
                     block.strip()
                 )
                 
                 for define in defines:
-                    result.append((define.group(1), define.group(0)))
+                    name, value = define.groups()
+                    if value == '0':
+                        name = f'!{name}'  # Добавляем ! перед именем, если значение 0
+                    result.append((name, value))
 
             return result if result else None
 
@@ -370,14 +372,15 @@ def find_modification_defines(file_path):
         print(f"Ошибка при чтении файла: {e}")
         return None
 
-def find_device_id(file_path, modification="BUR_M"):
+def find_device_id(file_path, modification=None):
     """
     Ищет значение DEVICE_ID в файле, учитывая директивы препроцессора (#if / #else).
 
     Args:
         file_path (str): Путь к файлу.
-        modification (str, optional): Условие для #if (например, "MODIFICATION_A"). 
-                                    Если None, ищет DEVICE_ID вне условий.
+        modification (list or str, optional): Условие для #if (например, "MODIFICATION_A").
+                                            Может быть списком кортежей (из find_modification_defines)
+                                            или строкой. Если None, ищет DEVICE_ID вне условий.
 
     Returns:
         str: Найденное значение DEVICE_ID или None, если не найдено.
@@ -392,7 +395,11 @@ def find_device_id(file_path, modification="BUR_M"):
                 # Обработка директив препроцессора
                 if line.startswith('#if'):
                     # Проверяем, соответствует ли условие #if заданной модификации
-                    inside_correct_block = (modification is not None and modification in line)
+                    if modification is not None:
+                        if isinstance(modification, list):  # Если переданы кортежи из find_modification_defines
+                            inside_correct_block = any(name in line for name, value in modification)
+                        else:  # Если modification - строка
+                            inside_correct_block = modification in line
                 elif line.startswith('#else'):
                     # Инвертируем флаг, если встретили #else
                     inside_correct_block = not inside_correct_block
@@ -575,7 +582,7 @@ def extract_group_data(match: tuple) -> Optional[Dict[str, Optional[str]]]:
        
         return None
 
-def parse_parameters(file_path):
+def parse_parameters(file_path, modification=None):
     """
     Парсит параметры между //! Параметры и //! Параметры конец.
     Группирует параметры по группам и извлекает:
@@ -589,6 +596,7 @@ def parse_parameters(file_path):
 
     Args:
         file_path (str): Путь к файлу.
+        modification (str, optional): Модификация для обработки директив #if. Defaults to None.
 
     Returns:
         dict: Словарь, где ключ — название группы, а значение — список параметров.
@@ -603,6 +611,7 @@ def parse_parameters(file_path):
               - encoding: кодировка (сырая строка, для дальнейшей обработки)
               - address: адрес параметра
               - appointment: назначение параметра
+              - chosen: отображение на главной панели TimBrowser
     """
     with open(file_path, 'r', encoding='Windows-1251') as file:
         content = file.read()
@@ -622,23 +631,24 @@ def parse_parameters(file_path):
     # Регулярное выражение для поиска групп и параметров
     group_pattern = re.compile(r'//! ГРУППА (\w+) ([^{]+)')
     param_pattern = re.compile(
-        r'\"([^\"]+)\"\s*,\s*\"([^\"]*)\"\s*,\s*([^,]+)\s*,\s*([^,]+)\s*,\s*([^,]+)\s*,\s*([^,]+)\s*(?:,\s*//\s*{\s*(\d+)\s*,\s*([^,}]+)\s*,\s*([^,}]+)\s*}\s*)?'
+        r'\"([^\"]+)\"\s*,\s*\"([^\"]*)\"\s*,\s*([^,]+)\s*,\s*([^,]+)\s*,\s*([^,]+)\s*,\s*([^,]+)\s*(?:,\s*//\s*{\s*(\d+)\s*,\s*([^,}]+)\s*,\s*([^,}]+)\s*(?:,\s*([^}]+))?\s*}\s*)?'
     )
 
     # Регулярное выражение для разбиения param_name на части
-    # Поддерживает русские и латинские буквы для индекса группы
     param_name_pattern = re.compile(r'([А-Яа-яA-Za-z]+)(\d+)\.(.+)')
 
     # Словарь для хранения параметров по группам
     parameters = {}
     current_group = None
 
+
     # Разделяем блок на строки
     lines = parameter_block.splitlines()
-
+    inside_correct_block = True
+    block_stack = []  # Стек для отслеживания вложенных блоков
     for line in lines:
         line = line.strip()
-
+       
         # Проверяем, является ли строка началом новой группы
         group_match = group_pattern.match(line.strip())
         if group_match:
@@ -646,8 +656,44 @@ def parse_parameters(file_path):
             parameters[current_group] = []
             continue
 
+       
+        if line.startswith('#if'):
+            # Проверяем условие #if только если все вышестоящие блоки активны
+            current_active = all(block_stack) if block_stack else True
+            if current_active:
+                if modification is not None:
+                    # Для кортежа (name, value) проверяем совпадение и значение
+                    condition_met = any(
+                        mod_name in line and mod_value 
+                        for mod_name, mod_value in modification
+                    ) if isinstance(modification, (list, tuple)) else (
+                        modification[0] in line and modification[1] 
+                        if isinstance(modification, tuple) 
+                        else (modification in line)
+                    )
+                    block_stack.append(condition_met)
+                else:
+                    block_stack.append(True)
+            else:
+                block_stack.append(False)
+
+        elif line.startswith('#else'):
+            if block_stack:
+                # Инвертируем только если вышестоящий блок активен
+                parent_active = all(block_stack[:-1]) if len(block_stack) > 1 else True
+                if parent_active:
+                    block_stack[-1] = not block_stack[-1]
+
+        elif line.startswith('#endif'):
+            if block_stack:
+                block_stack.pop()
+
+
+        # Определяем, активен ли текущий блок
+        inside_correct_block = all(block_stack) if block_stack else True
+
         # Если текущая группа определена, ищем параметры
-        if current_group:
+        if current_group and inside_correct_block:
             param_match = param_pattern.search(line)
             if param_match:
                 param_name = param_match.group(1).strip()  # Имя параметра
@@ -672,6 +718,12 @@ def parse_parameters(file_path):
                     param_number = None
                     param_name_cleaned = param_name
 
+                # Обрабатываем адрес и назначение
+                if address:
+                    address = address.strip()
+                if appointment:
+                    appointment = appointment.strip()
+
                 # Добавляем параметр в текущую группу
                 parameters[current_group].append({
                     "group_index": group_index,
@@ -689,7 +741,7 @@ def parse_parameters(file_path):
 
     return parameters
 
-def create_param_objects(file_path):
+def create_param_objects(file_path, modefication=None):
     """
     Создает массив объектов Param на основе данных из файла.
 
@@ -701,7 +753,7 @@ def create_param_objects(file_path):
     """
     # Получаем данные из парсеров
     groups = parse_groups(file_path)  # Получаем список групп из файла
-    parameters = parse_parameters(file_path)  # Получаем список параметров из файла
+    parameters = parse_parameters(file_path, modefication)  # Получаем список параметров из файла
 
     # Создаем массив объектов Param
     param_objects = []
@@ -907,7 +959,7 @@ def create_param_Description(Description_file,version_info):
         file.write("Photo=0\n")
         file.write("Manual=0\n")
 
-def create_xml(file_path, version_info, output_folder, device_id):
+def create_xml(file_path, version_info, output_folder, device_id, modefication=None):
     """
     Создает XML-файл на основе данных о группах и параметрах.
 
@@ -934,7 +986,7 @@ def create_xml(file_path, version_info, output_folder, device_id):
         root.set("FirmwareVersion", version_info['VERSION'] + version_info['SUBVERSION'])
 
         # Парсим параметры из файла
-        parameters = parse_parameters(file_path)
+        parameters = parse_parameters(file_path, modefication)
         if parameters is None:
             print("Ошибка: parse_parameters вернул None")
             return None
@@ -1169,7 +1221,7 @@ def main():
     file_modefication_path = find_modefication_file()  # Поиск файла с информацией о модификации
     find_modification = find_modification_defines(file_modefication_path)  # Определение модефикайции
     modification_defines = find_modification_defines(file_modefication_path)
-    device_id = find_device_id(file_modefication_path, )  # Извлечение DEVICE_ID из файла
+    device_id = find_device_id(file_modefication_path, modification_defines)  # Извлечение DEVICE_ID из файла
     if device_id is not None:
         print(f"Значение DEVICE_ID: {device_id}")
 
@@ -1186,7 +1238,7 @@ def main():
 
     # Получаем данные
     groups = parse_groups(file_param_path)  # Парсинг групп параметров
-    param_objects = create_param_objects(file_param_path)  # Создание объектов параметров
+    param_objects = create_param_objects(file_param_path, modification_defines)  # Создание объектов параметров
     name_file = f"Viewer_{version_info['DEVICE_NAME']}_v{version_info['DEVICE_GROUP']}.{version_info['VERSION']}.{version_info['MODULE_VERSION']}.{version_info['SUBVERSION']}"  # Формирование имени файла
 
     # Создаем пути для файлов
@@ -1207,7 +1259,7 @@ def main():
 
     # Шифруем XML-документ и сохраняем в файл
     try:
-       xml_doc = create_xml(file_param_path, version_info, xml_file, device_id)  # Создание XML-документа
+       xml_doc = create_xml(file_param_path, version_info, xml_file, device_id, modification_defines)  # Создание XML-документа
     except Exception as e:
         show_error(f"Ошибка при создании XML: {e}")
 

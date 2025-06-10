@@ -193,79 +193,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A6" Name="СОСТ ВХОДОВ">
-			<Address>405</Address>
-			<Configuration>
-				<Type>None</Type>
-				<Appointment>Regular</Appointment>
-				<Chosen>True</Chosen>
-			</Configuration>
-			<ValueDescription>
-				<Minimum>0</Minimum>
-				<Maximum>65530</Maximum>
-				<Default>0</Default>
-				<Type>Union</Type>
-				<Fields>
-					<Field BitValue="0" Description="НЕТ СИГНАЛОВ"/>
-					<Field BitValue="1" Description="ВХОД ОТКРЫТЬ"/>
-					<Field BitValue="2" Description="ВХОД ЗАКРЫТЬ"/>
-					<Field BitValue="3" Description="ВХОД СТОП"/>
-					<Field BitValue="4" Description="ВХОД МУ"/>
-					<Field BitValue="5" Description="ВХОД ДУ"/>
-					<Field BitValue="6" Description="ВХОД ДЕБЛОКИРОВК"/>
-					<Field BitValue="7" Description="РЕЗЕРВ"/>
-					<Field BitValue="8" Description="РЕЗЕРВ"/>
-					<Field BitValue="9" Description="РЕЗЕРВ"/>
-					<Field BitValue="10" Description="РЕЗЕРВ"/>
-					<Field BitValue="11" Description="РЕЗЕРВ"/>
-					<Field BitValue="12" Description="РЕЗЕРВ"/>
-					<Field BitValue="13" Description="РЕЗЕРВ"/>
-					<Field BitValue="14" Description="РЕЗЕРВ"/>
-					<Field BitValue="15" Description="РЕЗЕРВ"/>
-					<Field BitValue="16" Description="РЕЗЕРВ"/>
-				</Fields>
-			</ValueDescription>
-			<Info>
-				<Description/>
-			</Info>
-		</Parameter>
-		<Parameter Index="A7" Name="СОСТ ВХОДОВ">
-			<Address>405</Address>
-			<Configuration>
-				<Type>None</Type>
-				<Appointment>Regular</Appointment>
-				<Chosen>True</Chosen>
-			</Configuration>
-			<ValueDescription>
-				<Minimum>0</Minimum>
-				<Maximum>65530</Maximum>
-				<Default>0</Default>
-				<Type>Union</Type>
-				<Fields>
-					<Field BitValue="0" Description="НЕТ СИГНАЛОВ"/>
-					<Field BitValue="1" Description="ВХОД ОТКРЫТЬ"/>
-					<Field BitValue="2" Description="ВХОД ЗАКРЫТЬ"/>
-					<Field BitValue="3" Description="ВХОД СТОП"/>
-					<Field BitValue="4" Description="ВХОД МУ"/>
-					<Field BitValue="5" Description="ВХОД ДУ"/>
-					<Field BitValue="6" Description="ВХОД ДЕБЛОКИРОВК"/>
-					<Field BitValue="7" Description="РЕЗЕРВ"/>
-					<Field BitValue="8" Description="РЕЗЕРВ"/>
-					<Field BitValue="9" Description="РЕЗЕРВ"/>
-					<Field BitValue="10" Description="РЕЗЕРВ"/>
-					<Field BitValue="11" Description="РЕЗЕРВ"/>
-					<Field BitValue="12" Description="РЕЗЕРВ"/>
-					<Field BitValue="13" Description="РЕЗЕРВ"/>
-					<Field BitValue="14" Description="РЕЗЕРВ"/>
-					<Field BitValue="15" Description="РЕЗЕРВ"/>
-					<Field BitValue="16" Description="РЕЗЕРВ"/>
-				</Fields>
-			</ValueDescription>
-			<Info>
-				<Description/>
-			</Info>
-		</Parameter>
-		<Parameter Index="A8" Name="СОСТ ВЫХОДОВ">
+		<Parameter Index="A6" Name="СОСТ ВЫХОДОВ">
 			<Address>406</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -300,7 +228,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A9" Name="ПОЛОЖЕНИЕ">
+		<Parameter Index="A7" Name="ПОЛОЖЕНИЕ">
 			<Address>407</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -316,7 +244,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A10" Name="МОМЕНТ">
+		<Parameter Index="A8" Name="МОМЕНТ">
 			<Address>408</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -334,7 +262,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A11" Name="СКОРОСТЬ">
+		<Parameter Index="A9" Name="СКОРОСТЬ">
 			<Address>409</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -351,7 +279,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A12" Name="НАПР ФАЗЫ R">
+		<Parameter Index="A10" Name="НАПР ФАЗЫ R">
 			<Address>410</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -369,7 +297,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A13" Name="НАПР ФАЗЫ S">
+		<Parameter Index="A11" Name="НАПР ФАЗЫ S">
 			<Address>411</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -387,7 +315,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A14" Name="НАПР ФАЗЫ T">
+		<Parameter Index="A12" Name="НАПР ФАЗЫ T">
 			<Address>412</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -405,7 +333,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A15" Name="ТОК ФАЗЫ U">
+		<Parameter Index="A13" Name="ТОК ФАЗЫ U">
 			<Address>413</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -423,7 +351,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A16" Name="ТОК ФАЗЫ V">
+		<Parameter Index="A14" Name="ТОК ФАЗЫ V">
 			<Address>414</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -441,7 +369,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A17" Name="ТОК ФАЗЫ W">
+		<Parameter Index="A15" Name="ТОК ФАЗЫ W">
 			<Address>415</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -459,7 +387,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A18" Name="УГОЛ НАГРУЗ">
+		<Parameter Index="A16" Name="УГОЛ НАГРУЗ">
 			<Address>416</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -476,7 +404,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A19" Name="СТАТУС КАЛИБ">
+		<Parameter Index="A17" Name="СТАТУС КАЛИБ">
 			<Address>417</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -498,7 +426,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A20" Name="ПОЛОЖЕНИЕ %">
+		<Parameter Index="A18" Name="ПОЛОЖЕНИЕ %">
 			<Address>418</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -517,7 +445,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A21" Name="ПОЛНЫЙ ХОД">
+		<Parameter Index="A19" Name="ПОЛНЫЙ ХОД">
 			<Address>419</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -535,7 +463,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A22" Name="ТЕКУЩИЙ ХОД">
+		<Parameter Index="A20" Name="ТЕКУЩИЙ ХОД">
 			<Address>420</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -553,7 +481,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A23" Name="СЧЕТ ЦИКЛОВ">
+		<Parameter Index="A21" Name="СЧЕТ ЦИКЛОВ">
 			<Address>421</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -569,7 +497,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A24" Name="ТЕМПЕРАТУРА">
+		<Parameter Index="A22" Name="ТЕМПЕРАТУРА">
 			<Address>422</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -586,7 +514,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A25" Name="ВЕРСИЯ ПО">
+		<Parameter Index="A23" Name="ВЕРСИЯ ПО">
 			<Address>423</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -603,7 +531,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A26" Name="КОНТР. СУММА">
+		<Parameter Index="A24" Name="КОНТР. СУММА">
 			<Address>424</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -619,7 +547,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A27" Name="РЕЗЕРВ">
+		<Parameter Index="A25" Name="РЕЗЕРВ">
 			<Address>425</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -635,7 +563,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A28" Name="РЕЗЕРВ">
+		<Parameter Index="A26" Name="РЕЗЕРВ">
 			<Address>426</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -651,7 +579,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A29" Name="РЕЗЕРВ">
+		<Parameter Index="A27" Name="РЕЗЕРВ">
 			<Address>427</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -667,7 +595,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A30" Name="РЕЗ.ДИАГН.ДП">
+		<Parameter Index="A28" Name="РЕЗ.ДИАГН.ДП">
 			<Address>428</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -687,7 +615,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A31" Name="РЕЗЕРВ">
+		<Parameter Index="A29" Name="РЕЗЕРВ">
 			<Address>429</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -703,7 +631,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A32" Name="РЕЗЕРВ">
+		<Parameter Index="A30" Name="РЕЗЕРВ">
 			<Address>430</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -719,7 +647,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A33" Name="РЕЗЕРВ">
+		<Parameter Index="A31" Name="РЕЗЕРВ">
 			<Address>431</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -735,7 +663,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A34" Name="РЕЗЕРВ">
+		<Parameter Index="A32" Name="РЕЗЕРВ">
 			<Address>432</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -751,7 +679,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A35" Name="РЕЗЕРВ">
+		<Parameter Index="A33" Name="РЕЗЕРВ">
 			<Address>433</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -767,7 +695,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A36" Name="РЕЗЕРВ">
+		<Parameter Index="A34" Name="РЕЗЕРВ">
 			<Address>434</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -783,7 +711,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A37" Name="РЕЗЕРВ">
+		<Parameter Index="A35" Name="РЕЗЕРВ">
 			<Address>435</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -799,7 +727,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A38" Name="РЕЗЕРВ">
+		<Parameter Index="A36" Name="РЕЗЕРВ">
 			<Address>436</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -815,7 +743,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A39" Name="РЕЗЕРВ">
+		<Parameter Index="A37" Name="РЕЗЕРВ">
 			<Address>437</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -831,7 +759,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A40" Name="РЕЗЕРВ">
+		<Parameter Index="A38" Name="РЕЗЕРВ">
 			<Address>438</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -847,7 +775,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="A41" Name="ПОЛОЖ.Ж.КОМ.">
+		<Parameter Index="A39" Name="ПОЛОЖ.Ж.КОМ.">
 			<Address>439</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1225,29 +1153,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B19" Name="ИСТОЧ КОМ ДУ">
-			<Address>58</Address>
-			<Configuration>
-				<Type>None</Type>
-				<Appointment>Regular</Appointment>
-				<CanEdit>True</CanEdit>
-			</Configuration>
-			<ValueDescription>
-				<Minimum>0</Minimum>
-				<Maximum>2</Maximum>
-				<Default>0</Default>
-				<Type>Enum</Type>
-				<Fields>
-					<Field BitValue="0" Description="ВСЕ ИНТЕРФЕЙСЫ"/>
-					<Field BitValue="1" Description="ТОЛЬКО ДИСКРЕТН"/>
-					<Field BitValue="2" Description="ТОЛЬКО ПОСЛЕДОВ"/>
-				</Fields>
-			</ValueDescription>
-			<Info>
-				<Description/>
-			</Info>
-		</Parameter>
-		<Parameter Index="B20" Name="БЛОК ЗАЛИП">
+		<Parameter Index="B19" Name="БЛОК ЗАЛИП">
 			<Address>59</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1268,7 +1174,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B21" Name="ВРЕМЯ КОМАНД">
+		<Parameter Index="B20" Name="ВРЕМЯ КОМАНД">
 			<Address>60</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1287,7 +1193,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B22" Name="РЕЗЕРВ">
+		<Parameter Index="B21" Name="РЕЗЕРВ">
 			<Address>61</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1303,28 +1209,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B23" Name="ТИП ВХ СИГН">
-			<Address>61</Address>
-			<Configuration>
-				<Type>None</Type>
-				<Appointment>Regular</Appointment>
-				<CanEdit>True</CanEdit>
-			</Configuration>
-			<ValueDescription>
-				<Minimum>0</Minimum>
-				<Maximum>1</Maximum>
-				<Default>0</Default>
-				<Type>Enum</Type>
-				<Fields>
-					<Field BitValue="0" Description="24В"/>
-					<Field BitValue="1" Description="220В"/>
-				</Fields>
-			</ValueDescription>
-			<Info>
-				<Description/>
-			</Info>
-		</Parameter>
-		<Parameter Index="B24" Name="МАСК ВХ СИГН">
+		<Parameter Index="B22" Name="МАСК ВХ СИГН">
 			<Address>62</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1341,7 +1226,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B25" Name="МАСК ВЫХ СИГ">
+		<Parameter Index="B23" Name="МАСК ВЫХ СИГ">
 			<Address>63</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1358,108 +1243,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B26" Name="МАСК ВХ СИГН">
-			<Address>62</Address>
-			<Configuration>
-				<Type>None</Type>
-				<Appointment>Regular</Appointment>
-				<CanEdit>True</CanEdit>
-			</Configuration>
-			<ValueDescription>
-				<Minimum>0</Minimum>
-				<Maximum>63</Maximum>
-				<Default>0</Default>
-				<Type>Uns</Type>
-			</ValueDescription>
-			<Info>
-				<Description/>
-			</Info>
-		</Parameter>
-		<Parameter Index="B27" Name="МАСК ВЫХ СИГ">
-			<Address>63</Address>
-			<Configuration>
-				<Type>None</Type>
-				<Appointment>Regular</Appointment>
-				<CanEdit>True</CanEdit>
-			</Configuration>
-			<ValueDescription>
-				<Minimum>0</Minimum>
-				<Maximum>65530</Maximum>
-				<Default>0</Default>
-				<Type>Uns</Type>
-			</ValueDescription>
-			<Info>
-				<Description/>
-			</Info>
-		</Parameter>
-		<Parameter Index="B28" Name="РЕЗЕРВ">
-			<Address>62</Address>
-			<Configuration>
-				<Type>None</Type>
-				<Appointment>Regular</Appointment>
-			</Configuration>
-			<ValueDescription>
-				<Minimum>0</Minimum>
-				<Maximum>65535</Maximum>
-				<Default>0</Default>
-				<Type>Uns</Type>
-			</ValueDescription>
-			<Info>
-				<Description/>
-			</Info>
-		</Parameter>
-		<Parameter Index="B29" Name="МАСК ВЫХ СИГ">
-			<Address>63</Address>
-			<Configuration>
-				<Type>None</Type>
-				<Appointment>Regular</Appointment>
-				<CanEdit>True</CanEdit>
-			</Configuration>
-			<ValueDescription>
-				<Minimum>0</Minimum>
-				<Maximum>65530</Maximum>
-				<Default>0</Default>
-				<Type>Uns</Type>
-			</ValueDescription>
-			<Info>
-				<Description/>
-			</Info>
-		</Parameter>
-		<Parameter Index="B30" Name="МАСК ВХ СИГН">
-			<Address>62</Address>
-			<Configuration>
-				<Type>None</Type>
-				<Appointment>Regular</Appointment>
-				<CanEdit>True</CanEdit>
-			</Configuration>
-			<ValueDescription>
-				<Minimum>0</Minimum>
-				<Maximum>31</Maximum>
-				<Default>0</Default>
-				<Type>Uns</Type>
-			</ValueDescription>
-			<Info>
-				<Description/>
-			</Info>
-		</Parameter>
-		<Parameter Index="B31" Name="МАСК ВЫХ СИГ">
-			<Address>63</Address>
-			<Configuration>
-				<Type>None</Type>
-				<Appointment>Regular</Appointment>
-				<CanEdit>True</CanEdit>
-			</Configuration>
-			<ValueDescription>
-				<Minimum>0</Minimum>
-				<Maximum>65530</Maximum>
-				<Default>0</Default>
-				<Type>Uns</Type>
-			</ValueDescription>
-			<Info>
-				<Description/>
-			</Info>
-		</Parameter>
-		<Parameter Index="B32" Name="СКОР СВЯЗИ">
+		<Parameter Index="B24" Name="СКОР СВЯЗИ">
 			<Address>64</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1485,7 +1269,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B33" Name="АДРЕС СТАНЦ">
+		<Parameter Index="B25" Name="АДРЕС СТАНЦ">
 			<Address>65</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1502,7 +1286,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B34" Name="РЕЖИМ СВЯЗИ">
+		<Parameter Index="B26" Name="РЕЖИМ СВЯЗИ">
 			<Address>66</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1524,7 +1308,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B35" Name="РЕЖИМ ПОЖАР">
+		<Parameter Index="B27" Name="РЕЖИМ ПОЖАР">
 			<Address>67</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1545,7 +1329,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B36" Name="РЕЗЕРВ">
+		<Parameter Index="B28" Name="РЕЗЕРВ">
 			<Address>68</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1561,28 +1345,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B37" Name="РЕВЕРС ХОДА">
-			<Address>68</Address>
-			<Configuration>
-				<Type>None</Type>
-				<Appointment>Regular</Appointment>
-				<CanEdit>True</CanEdit>
-			</Configuration>
-			<ValueDescription>
-				<Minimum>0</Minimum>
-				<Maximum>1</Maximum>
-				<Default>0</Default>
-				<Type>Enum</Type>
-				<Fields>
-					<Field BitValue="0" Description="ВЫКЛЮЧЕН"/>
-					<Field BitValue="1" Description="ВКЛЮЧЕН"/>
-				</Fields>
-			</ValueDescription>
-			<Info>
-				<Description/>
-			</Info>
-		</Parameter>
-		<Parameter Index="B38" Name="УПРАВЛ.С ПДУ">
+		<Parameter Index="B29" Name="УПРАВЛ.С ПДУ">
 			<Address>69</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1604,7 +1367,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B39" Name="BLUETOOTH">
+		<Parameter Index="B30" Name="BLUETOOTH">
 			<Address>70</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1625,7 +1388,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B40" Name="РЕЗЕРВ">
+		<Parameter Index="B31" Name="РЕЗЕРВ">
 			<Address>None</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1642,7 +1405,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B41" Name="ВРЕМ ОГР МОМ">
+		<Parameter Index="B32" Name="ВРЕМ ОГР МОМ">
 			<Address>72</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1661,7 +1424,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B42" Name="ПУТЬ УПЛОТН">
+		<Parameter Index="B33" Name="ПУТЬ УПЛОТН">
 			<Address>73</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1680,7 +1443,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B43" Name="ТИП ПРИВОДА">
+		<Parameter Index="B34" Name="ТИП ПРИВОДА">
 			<Address>74</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1724,7 +1487,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B44" Name="ДЕЖУРН РЕЖИМ">
+		<Parameter Index="B35" Name="ДЕЖУРН РЕЖИМ">
 			<Address>75</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1742,7 +1505,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B45" Name="РЕЗЕРВ">
+		<Parameter Index="B36" Name="РЕЗЕРВ">
 			<Address>76</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1758,29 +1521,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B46" Name="РЕАК НА СТОП">
-			<Address>76</Address>
-			<Configuration>
-				<Type>None</Type>
-				<Appointment>Regular</Appointment>
-				<CanEdit>True</CanEdit>
-			</Configuration>
-			<ValueDescription>
-				<Minimum>0</Minimum>
-				<Maximum>2</Maximum>
-				<Default>0</Default>
-				<Type>Enum</Type>
-				<Fields>
-					<Field BitValue="0" Description="БЕЗ ИЗМЕНЕНИЙ"/>
-					<Field BitValue="1" Description="РАЗМЫК КВО И КВЗ"/>
-					<Field BitValue="2" Description="РАЗМ КРАТКОВРЕМ"/>
-				</Fields>
-			</ValueDescription>
-			<Info>
-				<Description/>
-			</Info>
-		</Parameter>
-		<Parameter Index="B47" Name="90В60">
+		<Parameter Index="B37" Name="90В60">
 			<Address>77</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1801,23 +1542,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B48" Name="РЕЗЕРВ">
-			<Address>77</Address>
-			<Configuration>
-				<Type>None</Type>
-				<Appointment>Regular</Appointment>
-			</Configuration>
-			<ValueDescription>
-				<Minimum>0</Minimum>
-				<Maximum>65535</Maximum>
-				<Default>0</Default>
-				<Type>Uns</Type>
-			</ValueDescription>
-			<Info>
-				<Description/>
-			</Info>
-		</Parameter>
-		<Parameter Index="B49" Name="КВОКВЗ В ДВИ">
+		<Parameter Index="B38" Name="КВОКВЗ В ДВИ">
 			<Address>78</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1838,7 +1563,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B50" Name="РЕЖИМ 2 СТОП">
+		<Parameter Index="B39" Name="РЕЖИМ 2 СТОП">
 			<Address>79</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1859,7 +1584,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B51" Name="РЕЗЕРВ">
+		<Parameter Index="B40" Name="РЕЗЕРВ">
 			<Address>80</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1875,7 +1600,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B52" Name="РЕЗЕРВ">
+		<Parameter Index="B41" Name="РЕЗЕРВ">
 			<Address>81</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1891,7 +1616,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B53" Name="РЕЗЕРВ">
+		<Parameter Index="B42" Name="РЕЗЕРВ">
 			<Address>82</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1907,7 +1632,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B54" Name="РЕЗЕРВ">
+		<Parameter Index="B43" Name="РЕЗЕРВ">
 			<Address>83</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1923,7 +1648,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B55" Name="РЕЗЕРВ">
+		<Parameter Index="B44" Name="РЕЗЕРВ">
 			<Address>84</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1939,7 +1664,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B56" Name="РЕЗЕРВ">
+		<Parameter Index="B45" Name="РЕЗЕРВ">
 			<Address>85</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1955,7 +1680,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B57" Name="РЕЗЕРВ">
+		<Parameter Index="B46" Name="РЕЗЕРВ">
 			<Address>86</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1971,7 +1696,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B58" Name="РЕЗЕРВ">
+		<Parameter Index="B47" Name="РЕЗЕРВ">
 			<Address>87</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -1987,7 +1712,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B59" Name="РЕЗЕРВ">
+		<Parameter Index="B48" Name="РЕЗЕРВ">
 			<Address>88</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -2003,7 +1728,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="B60" Name="РЕЗЕРВ">
+		<Parameter Index="B49" Name="РЕЗЕРВ">
 			<Address>89</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -2789,28 +2514,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C43" Name="ВЕРС. ПО ПУЭ">
-			<Address>132</Address>
-			<Configuration>
-				<Type>None</Type>
-				<Appointment>Regular</Appointment>
-				<CanEdit>True</CanEdit>
-			</Configuration>
-			<ValueDescription>
-				<Minimum>0</Minimum>
-				<Maximum>1</Maximum>
-				<Default>0</Default>
-				<Type>Enum</Type>
-				<Fields>
-					<Field BitValue="0" Description="ПУЭ v 0.013"/>
-					<Field BitValue="1" Description="ПУЭ v 0.014"/>
-				</Fields>
-			</ValueDescription>
-			<Info>
-				<Description/>
-			</Info>
-		</Parameter>
-		<Parameter Index="C44" Name="ПОЛОЖ.МОДБАС">
+		<Parameter Index="C43" Name="ПОЛОЖ.МОДБАС">
 			<Address>133</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -2831,7 +2535,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C45" Name="КОНФ. МОДБАС">
+		<Parameter Index="C44" Name="КОНФ. МОДБАС">
 			<Address>134</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -2848,7 +2552,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C46" Name="СДВИГ МОДБАС">
+		<Parameter Index="C45" Name="СДВИГ МОДБАС">
 			<Address>135</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -2865,7 +2569,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C47" Name="СВЕТОДИ ТЕСТ">
+		<Parameter Index="C46" Name="СВЕТОДИ ТЕСТ">
 			<Address>136</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -2882,7 +2586,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C48" Name="КОРРЕКТ ЦАП">
+		<Parameter Index="C47" Name="КОРРЕКТ ЦАП">
 			<Address>137</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -2899,7 +2603,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C49" Name="СМЕЩ ЦАП">
+		<Parameter Index="C48" Name="СМЕЩ ЦАП">
 			<Address>138</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -2916,7 +2620,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C50" Name="ТИП ИНДИКАТР">
+		<Parameter Index="C49" Name="ТИП ИНДИКАТР">
 			<Address>139</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -2937,7 +2641,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C51" Name="ТИП ЭНКОДЕРА">
+		<Parameter Index="C50" Name="ТИП ЭНКОДЕРА">
 			<Address>140</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -2958,7 +2662,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C52" Name="КОР ТОКА U">
+		<Parameter Index="C51" Name="КОР ТОКА U">
 			<Address>141</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -2975,7 +2679,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C53" Name="КОР ТОКА V">
+		<Parameter Index="C52" Name="КОР ТОКА V">
 			<Address>142</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -2992,7 +2696,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C54" Name="КОР ТОКА W">
+		<Parameter Index="C53" Name="КОР ТОКА W">
 			<Address>143</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3009,55 +2713,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C55" Name="РЕЗЕРВ">
-			<Address>141</Address>
-			<Configuration>
-				<Type>None</Type>
-				<Appointment>Regular</Appointment>
-			</Configuration>
-			<ValueDescription>
-				<Minimum>0</Minimum>
-				<Maximum>65535</Maximum>
-				<Default>0</Default>
-				<Type>Uns</Type>
-			</ValueDescription>
-			<Info>
-				<Description/>
-			</Info>
-		</Parameter>
-		<Parameter Index="C56" Name="РЕЗЕРВ">
-			<Address>142</Address>
-			<Configuration>
-				<Type>None</Type>
-				<Appointment>Regular</Appointment>
-			</Configuration>
-			<ValueDescription>
-				<Minimum>0</Minimum>
-				<Maximum>65535</Maximum>
-				<Default>0</Default>
-				<Type>Uns</Type>
-			</ValueDescription>
-			<Info>
-				<Description/>
-			</Info>
-		</Parameter>
-		<Parameter Index="C57" Name="РЕЗЕРВ">
-			<Address>143</Address>
-			<Configuration>
-				<Type>None</Type>
-				<Appointment>Regular</Appointment>
-			</Configuration>
-			<ValueDescription>
-				<Minimum>0</Minimum>
-				<Maximum>65535</Maximum>
-				<Default>0</Default>
-				<Type>Uns</Type>
-			</ValueDescription>
-			<Info>
-				<Description/>
-			</Info>
-		</Parameter>
-		<Parameter Index="C58" Name="ЗАЩ МАКС U">
+		<Parameter Index="C54" Name="ЗАЩ МАКС U">
 			<Address>144</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3080,7 +2736,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C59" Name="У МАКС U 47%">
+		<Parameter Index="C55" Name="У МАКС U 47%">
 			<Address>145</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3098,7 +2754,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C60" Name="T МАКС U 47%">
+		<Parameter Index="C56" Name="T МАКС U 47%">
 			<Address>146</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3117,7 +2773,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C61" Name="УРОВ МАКС U">
+		<Parameter Index="C57" Name="УРОВ МАКС U">
 			<Address>147</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3135,7 +2791,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C62" Name="ВР МАКС U Н">
+		<Parameter Index="C58" Name="ВР МАКС U Н">
 			<Address>148</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3154,7 +2810,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C63" Name="ВРЕМ МАКС U">
+		<Parameter Index="C59" Name="ВРЕМ МАКС U">
 			<Address>149</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3173,7 +2829,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C64" Name="ЗАЩ МИН U">
+		<Parameter Index="C60" Name="ЗАЩ МИН U">
 			<Address>150</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3196,7 +2852,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C65" Name="УРОВ МИН U">
+		<Parameter Index="C61" Name="УРОВ МИН U">
 			<Address>151</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3214,7 +2870,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C66" Name="ВР МИН U Н">
+		<Parameter Index="C62" Name="ВР МИН U Н">
 			<Address>152</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3233,7 +2889,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C67" Name="ВРЕМ МИН U">
+		<Parameter Index="C63" Name="ВРЕМ МИН U">
 			<Address>153</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3252,7 +2908,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C68" Name="ЗАЩ НЕБАЛ U">
+		<Parameter Index="C64" Name="ЗАЩ НЕБАЛ U">
 			<Address>154</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3275,7 +2931,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C69" Name="УРОВ НЕБ U">
+		<Parameter Index="C65" Name="УРОВ НЕБ U">
 			<Address>155</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3293,7 +2949,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C70" Name="ВРЕМ НЕБ U">
+		<Parameter Index="C66" Name="ВРЕМ НЕБ U">
 			<Address>156</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3312,7 +2968,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C71" Name="ЗАЩ УМЕН U">
+		<Parameter Index="C67" Name="ЗАЩ УМЕН U">
 			<Address>157</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3335,7 +2991,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C72" Name="УРОВ УМЕН U">
+		<Parameter Index="C68" Name="УРОВ УМЕН U">
 			<Address>158</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3353,7 +3009,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C73" Name="РЕЗЕРВ">
+		<Parameter Index="C69" Name="РЕЗЕРВ">
 			<Address>159</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3369,7 +3025,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C74" Name="ВРЕМ УМЕН U">
+		<Parameter Index="C70" Name="ВРЕМ УМЕН U">
 			<Address>160</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3388,7 +3044,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C75" Name="ЧЕР ФАЗ СЕТИ">
+		<Parameter Index="C71" Name="ЧЕР ФАЗ СЕТИ">
 			<Address>161</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3411,23 +3067,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C76" Name="РЕЗЕРВ">
-			<Address>161</Address>
-			<Configuration>
-				<Type>None</Type>
-				<Appointment>Regular</Appointment>
-			</Configuration>
-			<ValueDescription>
-				<Minimum>0</Minimum>
-				<Maximum>65535</Maximum>
-				<Default>0</Default>
-				<Type>Uns</Type>
-			</ValueDescription>
-			<Info>
-				<Description/>
-			</Info>
-		</Parameter>
-		<Parameter Index="C77" Name="ЗАЩ УМЕН I">
+		<Parameter Index="C72" Name="ЗАЩ УМЕН I">
 			<Address>162</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3450,7 +3090,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C78" Name="УРОВ УМЕН I">
+		<Parameter Index="C73" Name="УРОВ УМЕН I">
 			<Address>163</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3469,7 +3109,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C79" Name="ВРЕМ УМЕН I">
+		<Parameter Index="C74" Name="ВРЕМ УМЕН I">
 			<Address>164</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3488,7 +3128,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C80" Name="ВР-ТОК ЗАЩ">
+		<Parameter Index="C75" Name="ВР-ТОК ЗАЩ">
 			<Address>165</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3511,7 +3151,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C81" Name="КЗ ПАУЗ ТИК">
+		<Parameter Index="C76" Name="КЗ ПАУЗ ТИК">
 			<Address>166</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3528,7 +3168,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C82" Name="КОЭФ 25% ЗАК">
+		<Parameter Index="C77" Name="КОЭФ 25% ЗАК">
 			<Address>199</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3545,7 +3185,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C83" Name="КОЭФ 35% ЗАК">
+		<Parameter Index="C78" Name="КОЭФ 35% ЗАК">
 			<Address>200</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3562,7 +3202,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C84" Name="КОЭФ 50% ЗАК">
+		<Parameter Index="C79" Name="КОЭФ 50% ЗАК">
 			<Address>201</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3579,7 +3219,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C85" Name="КОЭФ 75% ЗАК">
+		<Parameter Index="C80" Name="КОЭФ 75% ЗАК">
 			<Address>202</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3596,7 +3236,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C86" Name="КОЭФ 100% ЗА">
+		<Parameter Index="C81" Name="КОЭФ 100% ЗА">
 			<Address>203</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3613,7 +3253,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C87" Name="КОР 25% ЗАК">
+		<Parameter Index="C82" Name="КОР 25% ЗАК">
 			<Address>204</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3630,7 +3270,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C88" Name="КОР 40% ЗАК">
+		<Parameter Index="C83" Name="КОР 40% ЗАК">
 			<Address>205</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3647,7 +3287,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C89" Name="КОР 60% ЗАК">
+		<Parameter Index="C84" Name="КОР 60% ЗАК">
 			<Address>206</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3664,7 +3304,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C90" Name="КОР 80% ЗАК">
+		<Parameter Index="C85" Name="КОР 80% ЗАК">
 			<Address>207</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3681,7 +3321,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C91" Name="КОР 110% ЗАК">
+		<Parameter Index="C86" Name="КОР 110% ЗАК">
 			<Address>208</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3698,7 +3338,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C92" Name="ВРЕМ РАЗМ МП">
+		<Parameter Index="C87" Name="ВРЕМ РАЗМ МП">
 			<Address>177</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3717,7 +3357,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C93" Name="ЗАЩИТА ОТ КЗ">
+		<Parameter Index="C88" Name="ЗАЩИТА ОТ КЗ">
 			<Address>178</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3740,7 +3380,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C94" Name="УРОВЕНЬ КЗ">
+		<Parameter Index="C89" Name="УРОВЕНЬ КЗ">
 			<Address>179</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3757,7 +3397,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C95" Name="МЕТ ЗАЩ ЭНКР">
+		<Parameter Index="C90" Name="МЕТ ЗАЩ ЭНКР">
 			<Address>180</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3778,7 +3418,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C96" Name="ИНДИК КАЛИБР">
+		<Parameter Index="C91" Name="ИНДИК КАЛИБР">
 			<Address>181</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3801,7 +3441,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C97" Name="ИНД АВА УСТР">
+		<Parameter Index="C92" Name="ИНД АВА УСТР">
 			<Address>182</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3824,7 +3464,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C98" Name="ПЕРЕГ/ПЕРЕОХ">
+		<Parameter Index="C93" Name="ПЕРЕГ/ПЕРЕОХ">
 			<Address>183</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3847,7 +3487,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C99" Name="РЕЗЕРВ">
+		<Parameter Index="C94" Name="РЕЗЕРВ">
 			<Address>184</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3863,7 +3503,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C100" Name="УР ПЕРЕГР">
+		<Parameter Index="C95" Name="УР ПЕРЕГР">
 			<Address>185</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3881,7 +3521,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C101" Name="УР ПЕРЕОХЛ">
+		<Parameter Index="C96" Name="УР ПЕРЕОХЛ">
 			<Address>186</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3899,7 +3539,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C102" Name="УР ВКЛ ТЕНА">
+		<Parameter Index="C97" Name="УР ВКЛ ТЕНА">
 			<Address>187</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3917,7 +3557,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C103" Name="УР ВЫКЛ ТЕН">
+		<Parameter Index="C98" Name="УР ВЫКЛ ТЕН">
 			<Address>188</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3935,7 +3575,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C104" Name="ПЕРЕГР ДВИГ">
+		<Parameter Index="C99" Name="ПЕРЕГР ДВИГ">
 			<Address>189</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3958,7 +3598,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C105" Name="УР ПЕРЕГ ДВ">
+		<Parameter Index="C100" Name="УР ПЕРЕГ ДВ">
 			<Address>190</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3975,7 +3615,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C106" Name="ВХ ПЕРЕГ ДВ">
+		<Parameter Index="C101" Name="ВХ ПЕРЕГ ДВ">
 			<Address>191</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -3991,7 +3631,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C107" Name="КАЛИБР. ПИ">
+		<Parameter Index="C102" Name="КАЛИБР. ПИ">
 			<Address>192</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4014,7 +3654,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C108" Name="ЧЕР ФАЗ ДВ">
+		<Parameter Index="C103" Name="ЧЕР ФАЗ ДВ">
 			<Address>193</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4037,7 +3677,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C109" Name="ВР ЧЕР ФАЗ">
+		<Parameter Index="C104" Name="ВР ЧЕР ФАЗ">
 			<Address>194</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4056,7 +3696,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C110" Name="НЕИСП МУ/ДУ">
+		<Parameter Index="C105" Name="НЕИСП МУ/ДУ">
 			<Address>195</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4079,7 +3719,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C111" Name="ОТКЛ RTC">
+		<Parameter Index="C106" Name="ОТКЛ RTC">
 			<Address>196</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4096,7 +3736,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C112" Name="СБОЙ ДАТЧ П">
+		<Parameter Index="C107" Name="СБОЙ ДАТЧ П">
 			<Address>197</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4119,7 +3759,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C113" Name="РЕЗЕРВ">
+		<Parameter Index="C108" Name="РЕЗЕРВ">
 			<Address>None</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4136,7 +3776,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C114" Name="КОЭФ 25% ОТ">
+		<Parameter Index="C109" Name="КОЭФ 25% ОТ">
 			<Address>199</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4153,7 +3793,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C115" Name="КОЭФ 35% ОТ">
+		<Parameter Index="C110" Name="КОЭФ 35% ОТ">
 			<Address>200</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4170,7 +3810,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C116" Name="КОЭФ 50% ОТ">
+		<Parameter Index="C111" Name="КОЭФ 50% ОТ">
 			<Address>201</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4187,7 +3827,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C117" Name="КОЭФ 75% ОТ">
+		<Parameter Index="C112" Name="КОЭФ 75% ОТ">
 			<Address>202</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4204,7 +3844,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C118" Name="КОЭФ 100% О">
+		<Parameter Index="C113" Name="КОЭФ 100% О">
 			<Address>203</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4221,7 +3861,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C119" Name="КОР 25% ОТК">
+		<Parameter Index="C114" Name="КОР 25% ОТК">
 			<Address>204</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4238,7 +3878,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C120" Name="КОР 40% ОТК">
+		<Parameter Index="C115" Name="КОР 40% ОТК">
 			<Address>205</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4255,7 +3895,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C121" Name="КОР 60% ОТК">
+		<Parameter Index="C116" Name="КОР 60% ОТК">
 			<Address>206</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4272,7 +3912,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C122" Name="КОР 80% ОТК">
+		<Parameter Index="C117" Name="КОР 80% ОТК">
 			<Address>207</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4289,7 +3929,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C123" Name="КОР 110% ОТ">
+		<Parameter Index="C118" Name="КОР 110% ОТ">
 			<Address>208</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4306,7 +3946,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="C124" Name="РЕЗЕРВ">
+		<Parameter Index="C119" Name="РЕЗЕРВ">
 			<Address>209</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4528,29 +4168,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="D10" Name="ТЕСТ ЭНКОДЕРА">
-			<Address>219</Address>
-			<Configuration>
-				<Type>None</Type>
-				<Appointment>Regular</Appointment>
-				<CanEdit>True</CanEdit>
-			</Configuration>
-			<ValueDescription>
-				<Minimum>0</Minimum>
-				<Maximum>2</Maximum>
-				<Default>0</Default>
-				<Type>Enum</Type>
-				<Fields>
-					<Field BitValue="0" Description="Нет команды"/>
-					<Field BitValue="1" Description="ВКЛЮЧИТЬ"/>
-					<Field BitValue="2" Description="ВЫКЛЮЧИТЬ"/>
-				</Fields>
-			</ValueDescription>
-			<Info>
-				<Description/>
-			</Info>
-		</Parameter>
-		<Parameter Index="D11" Name="СБРОС ЦИКЛОВ">
+		<Parameter Index="D10" Name="СБРОС ЦИКЛОВ">
 			<Address>220</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4571,7 +4189,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="D12" Name="СБРОС СВЯЗИ">
+		<Parameter Index="D11" Name="СБРОС СВЯЗИ">
 			<Address>221</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4592,7 +4210,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="D13" Name="РЕЗЕРВ">
+		<Parameter Index="D12" Name="РЕЗЕРВ">
 			<Address>222</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4608,7 +4226,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="D14" Name="РЕЗЕРВ">
+		<Parameter Index="D13" Name="РЕЗЕРВ">
 			<Address>223</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4624,7 +4242,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="D15" Name="РЕЗЕРВ">
+		<Parameter Index="D14" Name="РЕЗЕРВ">
 			<Address>224</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4640,7 +4258,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="D16" Name="РЕЗЕРВ">
+		<Parameter Index="D15" Name="РЕЗЕРВ">
 			<Address>225</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4656,7 +4274,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="D17" Name="РЕЗЕРВ">
+		<Parameter Index="D16" Name="РЕЗЕРВ">
 			<Address>226</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4672,7 +4290,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="D18" Name="РЕЗЕРВ">
+		<Parameter Index="D17" Name="РЕЗЕРВ">
 			<Address>227</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4688,7 +4306,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="D19" Name="РЕЗЕРВ">
+		<Parameter Index="D18" Name="РЕЗЕРВ">
 			<Address>228</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -4704,7 +4322,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="D20" Name="РЕЗЕРВ">
+		<Parameter Index="D19" Name="РЕЗЕРВ">
 			<Address>229</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -6581,61 +6199,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H101" Name="КОР ТОКА U">
-			<Address>None</Address>
-			<Configuration>
-				<Type>None</Type>
-				<Appointment/>
-				<Chosen/>
-				<CanEdit>True</CanEdit>
-			</Configuration>
-			<ValueDescription>
-				<Minimum>0</Minimum>
-				<Maximum>65530</Maximum>
-				<Default>3800</Default>
-				<Type>Uns</Type>
-			</ValueDescription>
-			<Info>
-				<Description/>
-			</Info>
-		</Parameter>
-		<Parameter Index="H102" Name="КОР ТОКА V">
-			<Address>None</Address>
-			<Configuration>
-				<Type>None</Type>
-				<Appointment/>
-				<Chosen/>
-				<CanEdit>True</CanEdit>
-			</Configuration>
-			<ValueDescription>
-				<Minimum>0</Minimum>
-				<Maximum>65530</Maximum>
-				<Default>3800</Default>
-				<Type>Uns</Type>
-			</ValueDescription>
-			<Info>
-				<Description/>
-			</Info>
-		</Parameter>
-		<Parameter Index="H103" Name="КОР ТОКА W">
-			<Address>None</Address>
-			<Configuration>
-				<Type>None</Type>
-				<Appointment/>
-				<Chosen/>
-				<CanEdit>True</CanEdit>
-			</Configuration>
-			<ValueDescription>
-				<Minimum>0</Minimum>
-				<Maximum>65530</Maximum>
-				<Default>3800</Default>
-				<Type>Uns</Type>
-			</ValueDescription>
-			<Info>
-				<Description/>
-			</Info>
-		</Parameter>
-		<Parameter Index="H104" Name="СМЕЩ ТОКА U">
+		<Parameter Index="H101" Name="СМЕЩ ТОКА U">
 			<Address>361</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -6652,7 +6216,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H105" Name="СМЕЩ ТОКА V">
+		<Parameter Index="H102" Name="СМЕЩ ТОКА V">
 			<Address>362</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -6669,7 +6233,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H106" Name="СМЕЩ ТОКА W">
+		<Parameter Index="H103" Name="СМЕЩ ТОКА W">
 			<Address>363</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -6686,7 +6250,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H107" Name="КОР НАПР R">
+		<Parameter Index="H104" Name="КОР НАПР R">
 			<Address>364</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -6703,7 +6267,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H108" Name="КОР НАПР S">
+		<Parameter Index="H105" Name="КОР НАПР S">
 			<Address>365</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -6720,7 +6284,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H109" Name="КОР НАПР T">
+		<Parameter Index="H106" Name="КОР НАПР T">
 			<Address>366</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -6737,7 +6301,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H110" Name="СМЕЩ НАПР R">
+		<Parameter Index="H107" Name="СМЕЩ НАПР R">
 			<Address>367</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -6754,7 +6318,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H111" Name="СМЕЩ НАПР S">
+		<Parameter Index="H108" Name="СМЕЩ НАПР S">
 			<Address>368</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -6771,7 +6335,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H112" Name="СМЕЩ НАПР T">
+		<Parameter Index="H109" Name="СМЕЩ НАПР T">
 			<Address>369</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -6788,7 +6352,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H113" Name="SKIP FROM">
+		<Parameter Index="H110" Name="SKIP FROM">
 			<Address>370</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -6805,7 +6369,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H114" Name="SKIP TO">
+		<Parameter Index="H111" Name="SKIP TO">
 			<Address>371</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -6822,7 +6386,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H115" Name="КОНТР.СУММА">
+		<Parameter Index="H112" Name="КОНТР.СУММА">
 			<Address>372</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -6839,7 +6403,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H116" Name="ДИАГН УСТР">
+		<Parameter Index="H113" Name="ДИАГН УСТР">
 			<Address>373</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -6875,7 +6439,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H117" Name="ИНДИК СТАР">
+		<Parameter Index="H114" Name="ИНДИК СТАР">
 			<Address>374</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -6911,7 +6475,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H118" Name="ДЕЖУРН РЕЖ">
+		<Parameter Index="H115" Name="ДЕЖУРН РЕЖ">
 			<Address>375</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -6929,7 +6493,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H119" Name="ПРОЦ ИСПОЛН">
+		<Parameter Index="H116" Name="ПРОЦ ИСПОЛН">
 			<Address>376</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -6947,7 +6511,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H120" Name="НАЧ АДР СОБ">
+		<Parameter Index="H117" Name="НАЧ АДР СОБ">
 			<Address>377</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -6964,7 +6528,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H121" Name="НАЧ АДР КОМ">
+		<Parameter Index="H118" Name="НАЧ АДР КОМ">
 			<Address>378</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -6981,7 +6545,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H122" Name="НАЧ АДР ПАР">
+		<Parameter Index="H119" Name="НАЧ АДР ПАР">
 			<Address>379</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -6998,7 +6562,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H123" Name="ЗАПИСИ СОБ">
+		<Parameter Index="H120" Name="ЗАПИСИ СОБ">
 			<Address>380</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -7015,7 +6579,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H124" Name="ЗАПИСИ КОМ">
+		<Parameter Index="H121" Name="ЗАПИСИ КОМ">
 			<Address>381</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -7032,7 +6596,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H125" Name="ЗАПИСИ ПАР">
+		<Parameter Index="H122" Name="ЗАПИСИ ПАР">
 			<Address>382</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -7049,7 +6613,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H126" Name="МОМЕНТ">
+		<Parameter Index="H123" Name="МОМЕНТ">
 			<Address>383</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -7067,7 +6631,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H127" Name="СКОРОСТЬ">
+		<Parameter Index="H124" Name="СКОРОСТЬ">
 			<Address>384</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -7085,7 +6649,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H128" Name="СЕКУНДЫ">
+		<Parameter Index="H125" Name="СЕКУНДЫ">
 			<Address>385</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -7102,7 +6666,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H129" Name="УПР КОНТ">
+		<Parameter Index="H126" Name="УПР КОНТ">
 			<Address>386</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -7119,7 +6683,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H130" Name="КОМАНДЫ БУР">
+		<Parameter Index="H127" Name="КОМАНДЫ БУР">
 			<Address>387</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -7136,7 +6700,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H131" Name="СБРОС ЖУРН">
+		<Parameter Index="H128" Name="СБРОС ЖУРН">
 			<Address>388</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -7153,7 +6717,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H132" Name="НЕИСПР СЕТИ">
+		<Parameter Index="H129" Name="НЕИСПР СЕТИ">
 			<Address>389</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -7189,7 +6753,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H133" Name="РЕЗЕРВ">
+		<Parameter Index="H130" Name="РЕЗЕРВ">
 			<Address>390</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -7206,7 +6770,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H134" Name="ДИАГН НАГР">
+		<Parameter Index="H131" Name="ДИАГН НАГР">
 			<Address>391</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -7242,7 +6806,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H135" Name="ADC_IU">
+		<Parameter Index="H132" Name="ADC_IU">
 			<Address>392</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -7259,7 +6823,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H136" Name="ADC_IV">
+		<Parameter Index="H133" Name="ADC_IV">
 			<Address>393</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -7276,7 +6840,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H137" Name="ADC_IW">
+		<Parameter Index="H134" Name="ADC_IW">
 			<Address>394</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -7293,7 +6857,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H138" Name="СРЕДНИЙ ТОК">
+		<Parameter Index="H135" Name="СРЕДНИЙ ТОК">
 			<Address>395</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -7312,7 +6876,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H139" Name="НЕБ ТОК НАГ">
+		<Parameter Index="H136" Name="НЕБ ТОК НАГ">
 			<Address>396</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -7330,7 +6894,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H140" Name="ПОЛОЖЕНИЕ">
+		<Parameter Index="H137" Name="ПОЛОЖЕНИЕ">
 			<Address>397</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -7347,7 +6911,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H141" Name="СКОР ЗАКР">
+		<Parameter Index="H138" Name="СКОР ЗАКР">
 			<Address>398</Address>
 			<Configuration>
 				<Type>None</Type>
@@ -7364,7 +6928,7 @@
 				<Description/>
 			</Info>
 		</Parameter>
-		<Parameter Index="H142" Name="РВИ КОНЦЕВ">
+		<Parameter Index="H139" Name="РВИ КОНЦЕВ">
 			<Address>399</Address>
 			<Configuration>
 				<Type>None</Type>
