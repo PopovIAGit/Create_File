@@ -637,6 +637,8 @@ def parse_parameters(file_path):
     lines = parameter_block.splitlines()
 
     for line in lines:
+        line = line.strip()
+
         # Проверяем, является ли строка началом новой группы
         group_match = group_pattern.match(line.strip())
         if group_match:
@@ -654,8 +656,8 @@ def parse_parameters(file_path):
                 max_value = param_match.group(4).strip()  # Максимальное значение
                 default_value = param_match.group(5).strip()  # Значение по умолчанию
                 encoding = param_match.group(6).strip()  # Кодировка
-                address = param_match.group(7).strip() if param_match.group(7) else None  # Адрес параметра
-                appointment = param_match.group(8).strip() if param_match.group(8) else None  # Назначение параметра
+                address = param_match.group(7)  # Адрес параметра
+                appointment = param_match.group(8) if param_match.group(8) else None  # Назначение параметра
                 chosen = param_match.group(9).strip() if param_match.group(9) else None  # Отображение на главной панели TimBrowser
 
                 # Разбиваем param_name на части
