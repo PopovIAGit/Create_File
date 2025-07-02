@@ -1,4 +1,5 @@
 from ast import mod
+from asyncio.windows_events import NULL
 import os
 import re
 #from tkinter import NO, SE
@@ -477,20 +478,24 @@ def parse_strings(file_path, start_line_number):
     for section in sections:
 
         # Ищем все строки в формате "   НЕТ АВАРИЙ   ", // 35
-        matches = re.findall(r'"(.*?)",\s*//\s*(\d+)', section)
+        matches = re.findall(r'"(.*?)"\s*,\s*//\s*(\d+)(?:\s*"(.*?)")?', section)
         print(matches)
         current_index = 0  # Нумерация с 0 для каждого раздела
 
         for match in matches:
-            text, line_number = match
+            text, line_number, bits = match
             line_number = int(line_number)  # Преобразуем номер строки в число
-
+            
             # Если нашли строку с номером start_line_number или больше, начинаем добавлять
             if line_number >= start_line_number:
                 found_start = True
+            
 
             if found_start:
-                result.append(f"{current_index}-{text.strip()}")  # Добавляем точку с запятой
+                if bits == ' ':
+                    result.append(f"{current_index}-{text.strip()}")  # Добавляем точку с запятой
+                else:
+                    result.append(f"{bits}-{text.strip()}")  # Добавляем точку с запятой
                 current_index += 1
 
         # Если нашли строки, добавляем разделитель и завершаем обработку
@@ -663,18 +668,23 @@ def parse_parameters(file_path, modification=None):
             if current_active:
                 if modification is not None:
                     # Для кортежа (name, value) проверяем совпадение и значение
+                    # Если modification — список кортежей, ищем совпадение имени и значения
                     condition_met = any(
                         mod_name in line and mod_value 
                         for mod_name, mod_value in modification
                     ) if isinstance(modification, (list, tuple)) else (
+                        # Если modification — кортеж, проверяем оба значения
                         modification[0] in line and modification[1] 
                         if isinstance(modification, tuple) 
+                        # Если modification — строка, просто ищем вхождение
                         else (modification in line)
                     )
                     block_stack.append(condition_met)
                 else:
+                    # Если modification не задан, блок активен
                     block_stack.append(True)
             else:
+                # Если родительский блок неактивен, этот тоже неактивен
                 block_stack.append(False)
 
         elif line.startswith('#else'):
@@ -682,10 +692,12 @@ def parse_parameters(file_path, modification=None):
                 # Инвертируем только если вышестоящий блок активен
                 parent_active = all(block_stack[:-1]) if len(block_stack) > 1 else True
                 if parent_active:
+                    # Инвертируем активность текущего блока
                     block_stack[-1] = not block_stack[-1]
 
         elif line.startswith('#endif'):
             if block_stack:
+                # Завершаем текущий препроцессорный блок
                 block_stack.pop()
 
 
@@ -696,13 +708,13 @@ def parse_parameters(file_path, modification=None):
         if current_group and inside_correct_block:
             param_match = param_pattern.search(line)
             if param_match:
-                param_name = param_match.group(1).strip()  # Имя параметра
-                param_unit = param_match.group(2).strip()  # Размерность (может быть пустой)
-                min_value = param_match.group(3).strip()  # Минимальное значение
-                max_value = param_match.group(4).strip()  # Максимальное значение
+                param_name = param_match.group(1).strip()   # Имя параметра
+                param_unit = param_match.group(2).strip()   # Размерность (может быть пустой)
+                min_value = param_match.group(3).strip()    # Минимальное значение
+                max_value = param_match.group(4).strip()    # Максимальное значение
                 default_value = param_match.group(5).strip()  # Значение по умолчанию
-                encoding = param_match.group(6).strip()  # Кодировка
-                address = param_match.group(7)  # Адрес параметра
+                encoding = param_match.group(6).strip()     # Кодировка
+                address = param_match.group(7)              # Адрес параметра
                 appointment = param_match.group(8) if param_match.group(8) else None  # Назначение параметра
                 chosen = param_match.group(9).strip() if param_match.group(9) else None  # Отображение на главной панели TimBrowser
 
@@ -711,7 +723,13 @@ def parse_parameters(file_path, modification=None):
                 if param_name_match:
                     group_index = param_name_match.group(1)  # Индекс группы (например, "Т")
                     param_number = param_name_match.group(2)  # Номер параметра (например, "0")
+                    if group_index == "B" and 0 <= float(param_number) <= 5:
+                        min_value = "0"    # Минимальное значение
+                        max_value = "60000"    # Максимальное значение
+                        default_value = "15000"    # Значение по умолчанию
+                    
                     param_name_cleaned = param_name_match.group(3).strip()  # Имя параметра (например, "ТЕХНОЛ. РЕГ.")
+
                 else:
                     # Если формат не совпадает, оставляем исходное имя
                     group_index = None
@@ -1049,19 +1067,22 @@ def create_xml(file_path, version_info, output_folder, device_id, modefication=N
                     encoding = param["encoding"]
                     if "MT_RUN" in encoding or "M_RUNS" in encoding:
                         ET.SubElement(value_desc, "Type").text = param.get("value_type", "Union")  # Тип Union
-                    elif "MT_DEC" in encoding or "M_RMAX" in encoding:
-                        if "M_SIGN" in encoding:
-                            ET.SubElement(value_desc, "Type").text = param.get("value_type", "Int")  # Тип Int
-                        else:
-                            ET.SubElement(value_desc, "Type").text = param.get("value_type", "Uns")  # Тип Uns
                     elif "MT_BIN" in encoding or "M_BIN" in encoding:
                         ET.SubElement(value_desc, "Type").text = param.get("value_type", "Bin")  # Тип Bin
                     elif "MT_STR" in encoding or "M_STAT" in encoding or "M_CODE" in encoding or "M_COMM" in encoding:
                         ET.SubElement(value_desc, "Type").text = "Enum"  # Тип Enum
                     elif "MT_DATE" in encoding or "M_DATE" in encoding:
                         ET.SubElement(value_desc, "Type").text = "Date"  # Тип Date
+                        ET.SubElement(value_desc, "Unit").text = "дд:мм:гг"
                     elif "MT_TIME" in encoding or "M_TIME" in encoding:
                         ET.SubElement(value_desc, "Type").text = "Time"  # Тип Time
+                        ET.SubElement(value_desc, "Unit").text = "чч:мм"
+                    elif "MT_DEC" in encoding or "M_RMAX" in encoding:
+                        if "M_SIGN" in encoding:
+                            ET.SubElement(value_desc, "Type").text = param.get("value_type", "Int")  # Тип Int
+                        else:
+                            ET.SubElement(value_desc, "Type").text = param.get("value_type", "Uns")  # Тип Uns
+
 
                     # Добавляем единицы измерения, если они есть
                     unit = param["unit"]
@@ -1095,6 +1116,7 @@ def create_xml(file_path, version_info, output_folder, device_id, modefication=N
                                 if "-" in string:
                                     bit_value, description = string.split("-", 1)
                                     field_elem = ET.SubElement(fields_elem, "Field")
+
                                     field_elem.set("BitValue", bit_value.strip())  # Устанавливаем битовое значение
                                     field_elem.set("Description", description.strip())  # Устанавливаем описание
 
