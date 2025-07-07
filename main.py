@@ -590,38 +590,20 @@ def extract_group_data(match: tuple) -> Optional[Dict[str, Optional[str]]]:
 def parse_parameters(file_path, modification=None):
     """
     Парсит параметры между //! Параметры и //! Параметры конец.
-    Группирует параметры по группам и извлекает:
-    - имя
-    - размерность
-    - минимальное значение
-    - максимальное значение
-    - значение по умолчанию
-    - кодировку (обрабатывается отдельно)
-    - адрес параметра
+    Группирует параметры по группам и извлекает их атрибуты.
 
     Args:
         file_path (str): Путь к файлу.
-        modification (str, optional): Модификация для обработки директив #if. Defaults to None.
+        modification (list of tuples): Список кортежей (define_name, define_value). 
+                                      Например, [('BUR_M', '1'), ('BUR_90', '1')]
 
     Returns:
-        dict: Словарь, где ключ — название группы, а значение — список параметров.
-              Каждый параметр представлен словарем с полями:
-              - group_index: индекс группы (например, "Т")
-              - param_number: номер параметра (например, "0")
-              - param_name: имя параметра (например, "ТЕХНОЛ. РЕГ.")
-              - unit: размерность
-              - min_value: минимальное значение
-              - max_value: максимальное значение
-              - default_value: значение по умолчанию
-              - encoding: кодировка (сырая строка, для дальнейшей обработки)
-              - address: адрес параметра
-              - appointment: назначение параметра
-              - chosen: отображение на главной панели TimBrowser
+        dict: Словарь параметров, сгруппированных по названиям групп.
     """
     with open(file_path, 'r', encoding='Windows-1251') as file:
         content = file.read()
 
-    # Находим блок между //! Параметры и //! Параметры конец
+    # Находим блок параметров
     start_marker = "//! Параметры"
     end_marker = "//! Параметры конец"
     start_index = content.find(start_marker)
@@ -633,116 +615,91 @@ def parse_parameters(file_path, modification=None):
 
     parameter_block = content[start_index:end_index]
 
-    # Регулярное выражение для поиска групп и параметров
+    # Регулярные выражения
     group_pattern = re.compile(r'//! ГРУППА (\w+) ([^{]+)')
     param_pattern = re.compile(
         r'\"([^\"]+)\"\s*,\s*\"([^\"]*)\"\s*,\s*([^,]+)\s*,\s*([^,]+)\s*,\s*([^,]+)\s*,\s*([^,]+)\s*(?:,\s*//\s*{\s*(\d+)\s*,\s*([^,}]+)\s*,\s*([^,}]+)\s*(?:,\s*([^}]+))?\s*}\s*)?'
     )
-
-    # Регулярное выражение для разбиения param_name на части
     param_name_pattern = re.compile(r'([А-Яа-яA-Za-z]+)(\d+)\.(.+)')
 
-    # Словарь для хранения параметров по группам
     parameters = {}
     current_group = None
+    block_stack = []  # Стек для условий #if
 
+    # Преобразуем modification в словарь для удобства
+    defines = {}
+    if modification:
+        for name, value in modification:
+            defines[name] = value.strip() == '1'  # Преобразуем '1' в True, остальное в False
 
-    # Разделяем блок на строки
-    lines = parameter_block.splitlines()
-    inside_correct_block = True
-    block_stack = []  # Стек для отслеживания вложенных блоков
-    for line in lines:
+    for line in parameter_block.splitlines():
         line = line.strip()
-       
-        # Проверяем, является ли строка началом новой группы
-        group_match = group_pattern.match(line.strip())
+
+        # Обработка групп
+        group_match = group_pattern.match(line)
         if group_match:
-            current_group = group_match.group(2).strip()  # Название группы
+            current_group = group_match.group(2).strip()
             parameters[current_group] = []
             continue
 
-       
+        # Обработка директив препроцессора
         if line.startswith('#if'):
-            # Проверяем условие #if только если все вышестоящие блоки активны
-            current_active = all(block_stack) if block_stack else True
-            if current_active:
-                if modification is not None:
-                    # Для кортежа (name, value) проверяем совпадение и значение
-                    # Если modification — список кортежей, ищем совпадение имени и значения
-                    condition_met = any(
-                        mod_name in line and mod_value 
-                        for mod_name, mod_value in modification
-                    ) if isinstance(modification, (list, tuple)) else (
-                        # Если modification — кортеж, проверяем оба значения
-                        modification[0] in line and modification[1] 
-                        if isinstance(modification, tuple) 
-                        # Если modification — строка, просто ищем вхождение
-                        else (modification in line)
-                    )
-                    block_stack.append(condition_met)
-                else:
-                    # Если modification не задан, блок активен
-                    block_stack.append(True)
+            condition = line[3:].strip()
+            # Проверяем условие с учетом инверсии (!)
+            if condition.startswith('!'):
+                condition_name = condition[1:]
+                condition_active = not defines.get(condition_name, False)
             else:
-                # Если родительский блок неактивен, этот тоже неактивен
-                block_stack.append(False)
+                condition_active = defines.get(condition, False)
+            
+            # Учитываем родительские условия
+            if block_stack and not block_stack[-1]['active']:
+                # Если родительский блок неактивен, текущий тоже неактивен
+                block_stack.append({'active': False, 'condition': condition})
+            else:
+                block_stack.append({'active': condition_active, 'condition': condition})
 
         elif line.startswith('#else'):
             if block_stack:
-                # Инвертируем только если вышестоящий блок активен
-                parent_active = all(block_stack[:-1]) if len(block_stack) > 1 else True
+                # Инвертируем последнее условие, если родительский блок активен
+                parent_active = all(item['active'] for item in block_stack[:-1]) if len(block_stack) > 1 else True
                 if parent_active:
-                    # Инвертируем активность текущего блока
-                    block_stack[-1] = not block_stack[-1]
+                    block_stack[-1]['active'] = not block_stack[-1]['active']
 
         elif line.startswith('#endif'):
             if block_stack:
-                # Завершаем текущий препроцессорный блок
                 block_stack.pop()
 
-
-        # Определяем, активен ли текущий блок
-        inside_correct_block = all(block_stack) if block_stack else True
-
-        # Если текущая группа определена, ищем параметры
-        if current_group and inside_correct_block:
+        # Обработка параметров (только если все условия в стеке активны)
+        elif current_group and (not block_stack or all(item['active'] for item in block_stack)):
             param_match = param_pattern.search(line)
             if param_match:
-                param_name = param_match.group(1).strip()   # Имя параметра
-                param_unit = param_match.group(2).strip()   # Размерность (может быть пустой)
-                min_value = param_match.group(3).strip()    # Минимальное значение
-                max_value = param_match.group(4).strip()    # Максимальное значение
-                default_value = param_match.group(5).strip()  # Значение по умолчанию
-                encoding = param_match.group(6).strip()     # Кодировка
-                address = param_match.group(7)              # Адрес параметра
-                appointment = param_match.group(8) if param_match.group(8) else None  # Назначение параметра
-                chosen = param_match.group(9).strip() if param_match.group(9) else None  # Отображение на главной панели TimBrowser
+                # Извлечение данных параметра
+                param_name = param_match.group(1).strip()
+                param_unit = param_match.group(2).strip()
+                min_value = param_match.group(3).strip()
+                max_value = param_match.group(4).strip()
+                default_value = param_match.group(5).strip()
+                encoding = param_match.group(6).strip()
+                address = param_match.group(7)
+                appointment = param_match.group(8).strip() if param_match.group(8) else None
+                chosen = param_match.group(9).strip() if param_match.group(9) else None
 
-                # Разбиваем param_name на части
+                # Парсинг имени параметра
                 param_name_match = param_name_pattern.match(param_name)
                 if param_name_match:
-                    group_index = param_name_match.group(1)  # Индекс группы (например, "Т")
-                    param_number = param_name_match.group(2)  # Номер параметра (например, "0")
-                    if group_index == "B" and 0 <= float(param_number) <= 5:
-                        min_value = "0"    # Минимальное значение
-                        max_value = "60000"    # Максимальное значение
-                        default_value = "15000"    # Значение по умолчанию
-                    
-                    param_name_cleaned = param_name_match.group(3).strip()  # Имя параметра (например, "ТЕХНОЛ. РЕГ.")
-
+                    group_index = param_name_match.group(1)
+                    param_number = param_name_match.group(2)
+                    param_name_cleaned = param_name_match.group(3).strip()
                 else:
-                    # Если формат не совпадает, оставляем исходное имя
                     group_index = None
                     param_number = None
                     param_name_cleaned = param_name
 
-                # Обрабатываем адрес и назначение
-                if address:
-                    address = address.strip()
-                if appointment:
-                    appointment = appointment.strip()
-
-                # Добавляем параметр в текущую группу
+                # Добавление параметра в группу
+                if current_group not in parameters:
+                    parameters[current_group] = []
+                
                 parameters[current_group].append({
                     "group_index": group_index,
                     "param_number": param_number,
@@ -838,6 +795,7 @@ def create_param_objects(file_path, modefication=None):
                 elif "MT_TIME" in encoding or "M_TIME":
                     param_obj.units = "ЧЧ:ММ"  # Формат времени
                     param_obj.type = "TIME"  # Тип TIME
+                
 
                 # Определяем, доступен ли параметр для записи
                 if "M_RONLY" in encoding or "M_NVM" not in encoding:
@@ -865,6 +823,12 @@ def create_param_objects(file_path, modefication=None):
                 else:
                     param_obj.coefficient = ""  # Если коэффициент отсутствует
 
+                if "M_KMM" in encoding:                 
+                    param_obj.min_value = "0"
+                    param_obj.max_value = "60000"
+                    param_obj.default_value = "15000"
+                    param_obj.factory_setting = "15000"
+
                 # Определяем строки и описание (если есть)
                 sadr_match = re.search(r'M_SADR\((\d+)\)', encoding)
                 if sadr_match:
@@ -878,6 +842,8 @@ def create_param_objects(file_path, modefication=None):
                     param_obj.hidden = "1"  # Параметр скрыт
                 else:
                     param_obj.hidden = ""  # Параметр не скрыт
+                
+
 
                 # Добавляем объект в массив
                 param_objects.append(param_obj)
