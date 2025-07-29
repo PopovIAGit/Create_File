@@ -1,4 +1,5 @@
-from ast import mod
+#from ast import mod
+#from asyncio.windows_events import NULL
 from asyncio.windows_events import NULL
 import os
 import re
@@ -7,7 +8,7 @@ import re
 #from openpyxl.styles import Font, PatternFill, Alignment
 
 import tkinter as tk
-from tkinter import N, messagebox
+from tkinter import messagebox #N, messagebox
 
 import xlwt
 
@@ -490,12 +491,11 @@ def parse_strings(file_path, start_line_number):
             if line_number >= start_line_number:
                 found_start = True
             
-
             if found_start:
                 if bits == ' ':
-                    result.append(f"{current_index}-{text.strip()}")  # Добавляем точку с запятой
+                    result.append(f"{current_index}-{text.strip()}")  # Добавляем параметер
                 else:
-                    result.append(f"{bits}-{text.strip()}")  # Добавляем точку с запятой
+                    result.append(f"{bits}-{text.strip()}")  # Добавляем параметер
                 current_index += 1
 
         # Если нашли строки, добавляем разделитель и завершаем обработку
@@ -798,7 +798,7 @@ def create_param_objects(file_path, modefication=None):
                 
 
                 # Определяем, доступен ли параметр для записи
-                if "M_RONLY" in encoding or "M_NVM" not in encoding:
+                if "M_RONLY" in encoding and "M_NVM" not in encoding:
                     param_obj.record = ""  # Только для чтения
                 else:
                     param_obj.record = "1"  # Доступен для записи
@@ -834,8 +834,8 @@ def create_param_objects(file_path, modefication=None):
                 if sadr_match:
                     line_number = int(sadr_match.group(1))  # Извлекаем номер строки
                     strings = parse_strings(file_path, line_number)  # Получаем строки из файла
-                    param_obj.rows = "; ".join(strings)  # Заполняем строки
-                    param_obj.description = "; ".join(strings)  # Заполняем описание
+                    param_obj.rows = "; ".join(strings) + ";"   # Заполняем строки
+                    param_obj.description = "; ".join(strings) + ";"  # Заполняем описание
 
                 # Определяем, скрыт ли параметр
                 if "M_HIDE" in encoding:
@@ -1105,7 +1105,7 @@ def create_xml(file_path, version_info, output_folder, device_id, modefication=N
         output_folder.mkdir(parents=True, exist_ok=True)
 
         # Записываем XML в файл
-        xml_file_path = output_folder / f"{version_info['DEVICE_NAME']}_v{version_info['DEVICE_GROUP']}.{version_info['VERSION']}.{version_info['MODULE_VERSION']}.{version_info['SUBVERSION']}.xml"
+        xml_file_path = output_folder / f"{device_id}.xml"
         with open(xml_file_path, "w", encoding="utf-8") as file:
             file.write(pretty_xml)
 
@@ -1188,6 +1188,42 @@ class TpeCryptor:
             # Обработка ошибок при шифровании
             print(f"Ошибка при шифровании: {ex}")
 
+def add_missing_chars(str1, str2):
+    """
+    Добавляет к str1 символы из str2 (строки, списка строк или списка кортежей),
+    сохраняя порядок их первого появления.
+    
+    Args:
+        str1 (str): Исходная строка
+        str2 (str|list): Может быть:
+            - строкой
+            - списком строк
+            - списком кортежей (берется первый элемент каждого кортежа)
+    
+    Returns:
+        str: Объединенная строка с уникальными символами
+    """
+    result = list(str1)
+    existing_chars = set(str1)
+    
+    # Обрабатываем разные типы str2
+    if isinstance(str2, list):
+        # Если это список кортежей - берем первые элементы
+        if len(str2) > 0 and isinstance(str2[0], tuple):
+            items = ''.join([t[0] for t in str2])
+        # Если это список строк
+        else:
+            items = ''.join(str2)
+    else:
+        items = str(str2)
+    
+    # Добавляем недостающие символы
+    for char in items:
+        if char not in existing_chars:
+            result.append(char)
+            existing_chars.add(char)
+    
+    return ''.join(result)
 
 def main():
     """
@@ -1224,6 +1260,9 @@ def main():
     # Поиск файла с параметрами
     file_param_path = find_param_file()
 
+    version_info['DEVICE_NAME'] = add_missing_chars(version_info['DEVICE_NAME'], find_modification)
+       
+
     # Получаем данные
     groups = parse_groups(file_param_path)  # Парсинг групп параметров
     param_objects = create_param_objects(file_param_path, modification_defines)  # Создание объектов параметров
@@ -1233,7 +1272,7 @@ def main():
     excel_file = folder_path(name_file) / f"{name_file}.xls"  # Путь для Excel-файла
     Description_file = folder_path(name_file) / f"{name_file}.dfi"  # Путь для файла описания
     xml_file = folder_path(name_file)  # Путь для XML-файла
-    tpe_file = folder_path(name_file) / f"{name_file}.tpe"  # Путь для TPE-файла
+    tpe_file = folder_path(name_file) / f"{device_id}.tpe"  # Путь для TPE-файла
 
     # Создаем файл описания
     create_param_Description(Description_file, version_info)
