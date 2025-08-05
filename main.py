@@ -334,6 +334,7 @@ def find_modification_defines(file_path):
     Ищет в файле блоки между //! Модефикация и //! Модефикация конец,
     а затем находит все #define. Если значение = 1, сохраняет (имя, 1),
     если значение = 0, сохраняет (!имя, 0).
+    Если имя начинается с !, сохраняет имя без ! (оригинальное).
 
     Args:
         file_path (str): Путь к файлу.
@@ -355,15 +356,19 @@ def find_modification_defines(file_path):
             
             for block in mod_blocks:
                 defines = re.finditer(
-                    r'#define\s+(\w+)\s+([01])\b',
+                    r'#define\s+(!?\w+)\s+([01])\b',
                     block.strip()
                 )
                 
                 for define in defines:
                     name, value = define.groups()
+                    # Удаляем ! в начале имени, если он есть
+                    original_name = name[1:] if name.startswith('!') else name
                     if value == '0':
-                        name = f'!{name}'  # Добавляем ! перед именем, если значение 0
-                    result.append((name, value))
+                        name_to_store = f'!{original_name}'  # Добавляем ! перед именем, если значение 0
+                    else:
+                        name_to_store = original_name
+                    result.append((name_to_store, value))
 
             return result if result else None
 
@@ -782,6 +787,7 @@ def create_param_objects(file_path, modefication=None):
                 encoding = param["encoding"]
                 if "MT_RUN" in encoding or "M_RUNS" in encoding:
                     param_obj.type = "UNION"  # Тип UNION
+                    param_obj.view = "HEX"  # Вид HEX
                 elif "MT_DEC" in encoding or "MT_BIN" in encoding or "M_RMAX" in encoding:
                     if "M_SIGN" in encoding:
                         param_obj.type = "INT16"  # Тип INT16 (знаковое 16-битное число)
@@ -1058,7 +1064,8 @@ def create_xml(file_path, version_info, output_folder, device_id, modefication=N
                     # Определяем коэффициент (если есть)
                     prec_match = re.search(r'M_PREC\((\d+)\)', encoding)
                     if prec_match:
-                        ET.SubElement(value_desc, "Coefficient").text = str(int(1) / (10 ** int(str(prec_match.group(1)))))  # Вычисляем коэффициент
+                            coefficient = 1 / (10 ** int(prec_match.group(1)))
+                            ET.SubElement(value_desc, "Coefficient").text = "{0:.3f}".format(coefficient).replace('.', ',')
 
                     # Обработка M_SADR (если требуется)
                     if "encoding" in param:
@@ -1208,14 +1215,14 @@ def add_missing_chars(str1, str2):
     
     # Обрабатываем разные типы str2
     if isinstance(str2, list):
-        # Если это список кортежей - берем первые элементы
+        # Если это список кортежей - берем первые элементы (игнорируя None)
         if len(str2) > 0 and isinstance(str2[0], tuple):
-            items = ''.join([t[0] for t in str2])
-        # Если это список строк
+            items = ''.join([str(t[0]) for t in str2 if t and t[0] is not None])
+        # Если это список строк (игнорируя None)
         else:
-            items = ''.join(str2)
+            items = ''.join([str(s) for s in str2 if s is not None])
     else:
-        items = str(str2)
+        items = str(str2) if str2 is not None else ''
     
     # Добавляем недостающие символы
     for char in items:
