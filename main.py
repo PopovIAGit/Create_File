@@ -439,7 +439,7 @@ def find_param_file():
         str: Путь к найденному файлу или None, если файл не найден.
     """
     # Имена файлов, которые мы ищем
-    filenames = ["params.h", "menu_params.h"]
+    filenames = ["params.h", "core_MenuParams.h"]
 
     # Используем Path для работы с путями
     current_directory = Path(".")
@@ -1198,7 +1198,7 @@ class TpeCryptor:
 def add_missing_chars(str1, str2):
     """
     Добавляет к str1 символы из str2 (строки, списка строк или списка кортежей),
-    сохраняя порядок их первого появления.
+    сохраняя порядок их первого появления. Игнорирует строки, начинающиеся с "!".
     
     Args:
         str1 (str): Исходная строка
@@ -1215,14 +1215,14 @@ def add_missing_chars(str1, str2):
     
     # Обрабатываем разные типы str2
     if isinstance(str2, list):
-        # Если это список кортежей - берем первые элементы (игнорируя None)
+        # Если это список кортежей - берем первые элементы (игнорируя None и строки, начинающиеся с "!")
         if len(str2) > 0 and isinstance(str2[0], tuple):
-            items = ''.join([str(t[0]) for t in str2 if t and t[0] is not None])
-        # Если это список строк (игнорируя None)
+            items = ''.join([str(t[0]) for t in str2 if t and t[0] is not None and not (isinstance(t[0], str) and t[0].startswith('!'))])
+        # Если это список строк (игнорируя None и строки, начинающиеся с "!")
         else:
-            items = ''.join([str(s) for s in str2 if s is not None])
+            items = ''.join([str(s) for s in str2 if s is not None and not (isinstance(s, str) and s.startswith('!'))])
     else:
-        items = str(str2) if str2 is not None else ''
+        items = str(str2) if str2 is not None and not (isinstance(str2, str) and str2.startswith('!')) else ''
     
     # Добавляем недостающие символы
     for char in items:
