@@ -66,6 +66,7 @@ class Param:
         self.author = ""  # Автор текстовый
         self.appointment = "" #
         self.chosen = "" #
+        self.modification_defines = "" #
 '''
 def create_excel_file(excel_file, param_objects, groups):
     """
@@ -454,9 +455,15 @@ def find_param_file():
     show_error("Ошибка: Ни один из файлов 'params.h' или 'menu_params.h' не найден.")
     return None
 
-def parse_strings(file_path, start_line_number):
-    with open(file_path, 'r', encoding='Windows-1251') as file:
-        content = file.read()
+import re
+
+def parse_strings(file_path, start_line_number, modification=None):
+    try:
+        with open(file_path, 'r', encoding='Windows-1251') as file:
+            content = file.read()
+    except Exception as e:
+        print(f"Error reading file: {e}")
+        return []
 
     # Находим блок между //! Строки и //! Строки конец
     start_marker = "//! Строки"
@@ -465,46 +472,109 @@ def parse_strings(file_path, start_line_number):
     end_index = content.find(end_marker)
 
     if start_index == -1 or end_index == -1:
-        show_error("Error: String markers not found")
+        print("Error: String markers not found")
         return []
 
     string_block = content[start_index:end_index]
 
-    # Удаляем блоки между #if BUR_M и #else
-    string_block = re.sub(r'#if BUR_M.*?#else', '', string_block, flags=re.DOTALL)
-    # Удаляем оставшиеся #if BUR_M, #else, #endif
-    string_block = re.sub(r'#if BUR_M|#else|#endif', '', string_block)
+    # Преобразуем modification в словарь для удобства
+    defines = {}
+    if modification:
+        # Поддержка разных форматов modification
+        if isinstance(modification, dict):
+            defines = modification
+        elif isinstance(modification, (list, tuple)):
+            for item in modification:
+                if isinstance(item, (list, tuple)) and len(item) >= 2:
+                    name, value = item[0], item[1]
+                    defines[name] = str(value).strip() == '1'
+                elif isinstance(item, str) and '=' in item:
+                    name, value = item.split('=', 1)
+                    defines[name.strip()] = value.strip() == '1'
 
     # Разделяем на участки по //!----------------
     sections = re.split(r'//!----------------', string_block)
 
     result = []
-    found_start = False  # Флаг, чтобы начать добавление строк после нахождения start_line_number
+    found_start = False
+    block_stack = []  # Стек для условий #if
+    current_index = 0
 
     for section in sections:
+        lines = section.split('\n')
+        skip_block = False  # Флаг для пропуска неактивных блоков
 
-        # Ищем все строки в формате "   НЕТ АВАРИЙ   ", // 35
-        matches = re.findall(r'"(.*?)"\s*,\s*//\s*(\d+)(?:\s*"(.*?)")?', section)
-        print(matches)
-        current_index = 0  # Нумерация с 0 для каждого раздела
+        for line in lines:
+            line = line.strip()
 
-        for match in matches:
-            text, line_number, bits = match
-            line_number = int(line_number)  # Преобразуем номер строки в число
-            
-            # Если нашли строку с номером start_line_number или больше, начинаем добавлять
-            if line_number >= start_line_number:
-                found_start = True
-            
-            if found_start:
-                if bits == ' ':
-                    result.append(f"{current_index}-{text.strip()}")  # Добавляем параметер
+            # Обработка директив препроцессора
+            if line.startswith('#if'):
+                condition = line[3:].strip()
+                # Удаляем комментарии если есть
+                condition = re.sub(r'//.*', '', condition).strip()
+                
+                # Проверяем условие с учетом инверсии (!)
+                if condition.startswith('!'):
+                    condition_name = condition[1:]
+                    condition_active = not defines.get(condition_name, False)
                 else:
-                    result.append(f"{bits}-{text.strip()}")  # Добавляем параметер
-                current_index += 1
+                    condition_active = defines.get(condition, False)
+                
+                # Учитываем родительские условия
+                if block_stack and not block_stack[-1]['active']:
+                    # Если родительский блок неактивен, текущий тоже неактивен
+                    block_stack.append({'active': False, 'condition': condition})
+                    skip_block = True
+                else:
+                    block_stack.append({'active': condition_active, 'condition': condition})
+                    skip_block = not condition_active
 
-        # Если нашли строки, добавляем разделитель и завершаем обработку
-        if found_start:
+            elif line.startswith('#else'):
+                if block_stack:
+                    # Инвертируем последнее условие, если родительский блок активен
+                    parent_active = all(item['active'] for item in block_stack[:-1]) if len(block_stack) > 1 else True
+                    if parent_active:
+                        block_stack[-1]['active'] = not block_stack[-1]['active']
+                        skip_block = not block_stack[-1]['active']
+
+            elif line.startswith('#endif'):
+                if block_stack:
+                    block_stack.pop()
+                    # Проверяем, активен ли текущий блок после удаления
+                    skip_block = any(not item['active'] for item in block_stack) if block_stack else False
+
+            # Пропускаем обработку если блок неактивен
+            if skip_block:
+                continue
+
+            # Ищем строки в формате "   НЕТ АВАРИЙ   ", // 35
+            # Улучшенный regex для поиска строк
+            matches = re.findall(r'"\s*([^"]*?)\s*"\s*,\s*//\s*(\d+)(?:\s*"\s*([^"]*?)\s*")?', line)
+            
+            for match in matches:
+                text, line_number_str, bits = match
+                try:
+                    line_number = int(line_number_str)
+                except ValueError:
+                    continue
+                
+                # Если нашли строку с номером start_line_number или больше, начинаем добавлять
+                if line_number >= start_line_number:
+                    found_start = True
+                
+                if found_start:
+                    # Очищаем текст от лишних пробелов
+                    clean_text = text.strip()
+                    clean_bits = bits.strip() if bits else ""
+                    
+                    if not clean_bits:
+                        result.append(f"{current_index}-{clean_text}")
+                    else:
+                        result.append(f"{clean_bits}-{clean_text}")
+                    current_index += 1
+
+        # Если нашли строки, завершаем обработку
+        if found_start and result:
             break
 
     return result
@@ -608,6 +678,8 @@ def parse_parameters(file_path, modification=None):
     with open(file_path, 'r', encoding='Windows-1251') as file:
         content = file.read()
 
+    content = content.replace('/*', '').replace('*/', '')
+
     # Находим блок параметров
     start_marker = "//! Параметры"
     end_marker = "//! Параметры конец"
@@ -621,7 +693,10 @@ def parse_parameters(file_path, modification=None):
     parameter_block = content[start_index:end_index]
 
     # Регулярные выражения
+     
     group_pattern = re.compile(r'//! ГРУППА (\w+) ([^{]+)')
+
+
     param_pattern = re.compile(
         r'\"([^\"]+)\"\s*,\s*\"([^\"]*)\"\s*,\s*([^,]+)\s*,\s*([^,]+)\s*,\s*([^,]+)\s*,\s*([^,]+)\s*(?:,\s*//\s*{\s*(\d+)\s*,\s*([^,}]+)\s*,\s*([^,}]+)\s*(?:,\s*([^}]+))?\s*}\s*)?'
     )
@@ -795,12 +870,16 @@ def create_param_objects(file_path, modefication=None):
                         param_obj.type = "UINT16"  # Тип UINT16 (беззнаковое 16-битное число)
                 elif "MT_STR" in encoding or "M_STAT" in encoding or "M_CODE" in encoding or "M_COMM" in encoding:
                     param_obj.type = "STR"  # Тип STR (строка)
-                elif "MT_DATE" in encoding or "M_DATE":
+                elif "MT_DATE" in encoding or "M_DATE" in encoding:
                     param_obj.units = "ЧЧ:ММ:ГГГГ"  # Формат даты
                     param_obj.type = "DATE"  # Тип DATE
-                elif "MT_TIME" in encoding or "M_TIME":
+                elif "MT_TIME" in encoding or "M_TIME" in encoding:
                     param_obj.units = "ЧЧ:ММ"  # Формат времени
                     param_obj.type = "TIME"  # Тип TIME
+
+                if "MT_HEX" in encoding:
+                    param_obj.type = "HEX"  # Тип HEX
+                    param_obj.view = "HEX"  # Вид HEX
                 
 
                 # Определяем, доступен ли параметр для записи
@@ -839,7 +918,7 @@ def create_param_objects(file_path, modefication=None):
                 sadr_match = re.search(r'M_SADR\((\d+)\)', encoding)
                 if sadr_match:
                     line_number = int(sadr_match.group(1))  # Извлекаем номер строки
-                    strings = parse_strings(file_path, line_number)  # Получаем строки из файла
+                    strings = parse_strings(file_path, line_number, modefication)  # Получаем строки из файла
                     param_obj.rows = "; ".join(strings) + ";"   # Заполняем строки
                     param_obj.description = "; ".join(strings) + ";"  # Заполняем описание
 
@@ -1073,7 +1152,7 @@ def create_xml(file_path, version_info, output_folder, device_id, modefication=N
                         sadr_match = re.search(r'M_SADR\((\d+)\)', encoding)
                         if sadr_match:
                             line_number = int(sadr_match.group(1))
-                            strings = parse_strings(file_path, line_number)
+                            strings = parse_strings(file_path, line_number, modefication)
                             if strings is None:
                                 print(f"Ошибка: parse_strings вернул None для строки {line_number}")
                                 continue
